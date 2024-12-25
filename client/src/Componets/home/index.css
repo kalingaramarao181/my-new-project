@@ -1,0 +1,283 @@
+/* General Styles */
+
+  
+  .image-slider {
+    width: 100%;
+    height: calc(100vh - 80px); 
+    position: relative;
+  }
+  
+  /* Images with Zoom Animation */
+  .slider-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    animation: zoomAnimation 9s infinite ease-in-out;
+    opacity: 0;
+  }
+  
+  .image-1 {
+    background-image: url('https://www.visualsstock.com/details_watermark.php?filename=61307');
+    animation-delay: 0s;
+}
+
+.image-2 {
+    background-image: url('https://cassette.sphdigital.com.sg/image/straitstimes/751a025a309b6d03c3e8b171fed44fa5d2faf4118ab62c753ea1ccc8d9e41da6?w=860');
+    animation-delay: 3s;
+}
+
+.image-3 {
+    background-image: url('https://schoolyears.org/wp-content/uploads/2023/02/indian-school-kids.jpg');
+    animation-delay: 6s;    
+}
+
+  /* Keyframes for Zoom In and Fade In/Out */
+  @keyframes zoomAnimation {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    10% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    40% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+/* Main container */
+.home-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Card Styles */
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* Left side of the card for image */
+.card-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image {
+  width: 600px;
+  height: 400px;
+  border-radius: 8px;
+  max-width: 500px; /* Set max width for images */
+}
+
+/* Right side of the card for heading and content */
+.card-right {
+  flex: 2;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Card Heading */
+.card-heading {
+  font-size: 38px;
+  font-weight: bold;
+  color: #1F2A3B;
+  margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Card Content */
+.card-content {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+  text-align: justify;
+}
+/* Styling for the icon in the content */
+/* Styling for the round icon */
+/* Styling for the round dot icon */
+.card-dot {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px; /* Small size of the dot */
+  height: 20px; /* Small size of the dot */
+  border-radius: 50%; /* Makes the dot circular */
+  background-color: #1F2A3B; /* Background color for the dot */
+  margin-right: 10px; /* Space between the dot and text */
+}
+
+/* Optional: Adjust the icon size inside the circle */
+.card-dot svg {
+  font-size: 10px; /* Adjust the size of the dot */
+}
+
+.home-text-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.card-heading-why{
+  font-size: 38px;
+  font-weight: bold;
+  color: #1F2A3B;
+  margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+.home-why-paragraph{
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+
+}
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .card-left {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .card-right {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .card-image {
+    max-width: 100%;
+  }
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 480px) {
+  .card-heading {
+    font-size: 20px;
+  }
+
+  .card-content {
+    font-size: 14px;
+  }
+}
+
+/* Container for the cards */
+.home-last-container{
+  background-color: #f1f1f1;
+  width: 100%;
+  height: 80%;
+  padding: 50px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.custom-card-container {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+
+  padding: 20px;
+  justify-items: center;
+}
+
+/* Styling for each individual card */
+.custom-card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 100%;
+  max-width: 300px; /* Maximum width for each card */
+  transition: transform 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Image at the top of the card */
+.custom-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Card content */
+.custom-card-content {
+  padding: 15px;
+  text-align: center;
+}
+
+/* Heading style */
+.custom-card-content h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1F2A3B;
+  margin-bottom: 10px;
+}
+
+/* Enroll button style */
+.custom-enroll-button {
+  padding: 10px 20px;
+  background-color: #1F2A3B; /* Matching color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-enroll-button:hover {
+  background-color: #3b4d63; /* Darker shade for hover effect */
+}
+
+@media (max-width: 768px) {
+  /* Responsive styling for mobile view */
+  .custom-card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .custom-card {
+    max-width: 100%;
+  }
+}

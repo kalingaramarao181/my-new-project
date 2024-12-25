@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.header-container {
+  width: 100%;
+  background-color: #f8f9fa;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;  
+  align-items: center;
+  padding: 10px 20px;
+  height: 100px;
+  background-color: #ffeed8;
+  color: #0f0f0f;
+}
+
+.logo-image-container {
+  height: 200px; 
+  width: 200px;   
+  background-color: white;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 10px;
+}
+
+.logo {
+  height: 100%;    
+  width: 100%;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-info-sub {
+  display: flex;
+  gap: 10px;
+}
+
+.contact-info span {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info span:hover {
+  color: #9e7908;
+}
+
+.social-icons a {
+  color: #1E293B;
+  font-size: 30px;
+  margin-left: 30px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #b9951c;
+}
+
+.navbar {
+  background-color: #1E293B;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  font-size: 20px;
+  color: white;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu li {
+  position: relative;
+  margin: 0 15px;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar-menu a:hover {
+  color: #ffc107;
+}
+
+.navbar-menu .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  width: 200px;
+  display: none;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.mail-span {
+  color: #ffc107;
+}
+
+.navbar-menu .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.navbar-menu .dropdown-menu li {
+  padding: 5px 20px;
+}
+
+.navbar-menu .dropdown-menu li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.navbar-menu .dropdown-menu li a:hover {
+  color: #c79407;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

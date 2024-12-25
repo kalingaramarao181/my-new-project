@@ -1,0 +1,67 @@
+import React from 'react';
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import './index.css';
+
+function Header() {
+  return (
+    <header className="header-container">
+      <div className="header-top">
+        <div className="contact-info">
+          <div className='contact-info-sub'>
+          <span>+1 (312) 402 2442</span>
+          <span>admin@sosaal.org</span>
+          </div>
+          
+          <div className="social-icons">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebook />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <FaTwitter />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <nav className="navbar">
+        <div className="navbar-left">
+          {/* <span>Please write your suggestions to <a className='mail-span'>admin@sosaal.org</a></span> */}
+        <div className='logo-image-container'>
+        <img src="\Images\sasaal_logo.png" alt="Logo" className="logo" />
+        </div>
+        </div>
+        <ul className="navbar-menu">
+          <li><a href="#">Home</a></li>
+          <li className="dropdown">
+            <a href="#">AboutUs</a>
+            <ul className="dropdown-menu">
+              <li><a href="#">Who we are</a></li>
+              <li><a href="#">What we do</a></li>
+              <li><a href="#">Why we do</a></li>
+              <li><a href="#">Test mails</a></li>
+            </ul>
+          </li>
+          <li className="dropdown">
+            <a href="#">Services</a>
+            <ul className="dropdown-menu">
+              <li><a href="#">Will & Trust</a></li>
+              <li><a href="#">Life Insurance</a></li>
+              <li><a href="#">Health Plans</a></li>
+              <li><a href="#">Home Service</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Research</a></li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
+
+export default Header;
