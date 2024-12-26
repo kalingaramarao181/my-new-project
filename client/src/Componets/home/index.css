@@ -1,74 +1,76 @@
 /* General Styles */
+.homepage-container{
+  width: 100%;
+}
 
-  
-  .image-slider {
-    width: 100%;
-    height: calc(100vh - 80px); 
-    position: relative;
-  }
-  
-  /* Images with Zoom Animation */
-  .slider-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    animation: zoomAnimation 9s infinite ease-in-out;
-    opacity: 0;
-  }
-  
-  .image-1 {
-    background-image: url('https://www.visualsstock.com/details_watermark.php?filename=61307');
-    animation-delay: 0s;
+.image-slider {
+  width: 100%; /* Ensure it spans the full width */
+  height: calc(100vh - 40px); /* Adjust the height as needed */
+  position: relative;
+  overflow: hidden; /* Hide anything outside the slider */
+}
+
+/* Images with Zoom Animation */
+.slider-image {
+  width: 100%;
+  height: 80%; /* Ensure it fills the parent container */
+  position: absolute;
+  background-size: cover; /* Scale the image to cover the entire container */
+  background-position: center;
+  background-repeat: no-repeat; /* Prevent repeated images */
+  animation: zoomAnimation 9s infinite ease-in-out;
+  opacity: 0; /* Images are initially hidden */
+}
+
+.image-1 {
+  background-image: url('https://www.visualsstock.com/details_watermark.php?filename=61307');
+  animation-delay: 0s;
 }
 
 .image-2 {
-    background-image: url('https://cassette.sphdigital.com.sg/image/straitstimes/751a025a309b6d03c3e8b171fed44fa5d2faf4118ab62c753ea1ccc8d9e41da6?w=860');
-    animation-delay: 3s;
+  background-image: url('https://cassette.sphdigital.com.sg/image/straitstimes/751a025a309b6d03c3e8b171fed44fa5d2faf4118ab62c753ea1ccc8d9e41da6?w=860');
+  animation-delay: 3s;
 }
 
 .image-3 {
-    background-image: url('https://schoolyears.org/wp-content/uploads/2023/02/indian-school-kids.jpg');
-    animation-delay: 6s;    
+  background-image: url('https://schoolyears.org/wp-content/uploads/2023/02/indian-school-kids.jpg');
+  animation-delay: 6s;    
 }
 
-  /* Keyframes for Zoom In and Fade In/Out */
-  @keyframes zoomAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(1);
-    }
-    10% {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-    30% {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-    40% {
-      opacity: 0;
-      transform: scale(1.2);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1);
-    }
+/* Keyframes for Zoom In and Fade In/Out */
+@keyframes zoomAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(1);
   }
+  10% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  40% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
 
-/* Main container */
+
 .home-container {
   width: 100%;
-  padding: 20px;
+  padding: 30px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 40px;
   align-items: center;
 }
 
-/* Card Styles */
 .card {
   display: flex;
   justify-content: space-between;
@@ -77,14 +79,12 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
   overflow: hidden;
-  width: 90%;
-  max-width: 1200px;
+  width: 98%;
   padding: 20px;
   margin: 20px 0;
   flex-wrap: wrap;
 }
 
-/* Left side of the card for image */
 .card-left {
   flex: 1;
   display: flex;
@@ -96,19 +96,19 @@
   width: 600px;
   height: 400px;
   border-radius: 8px;
-  max-width: 500px; /* Set max width for images */
+  max-width: 500px; 
+  margin-right: 50px;
 }
 
-/* Right side of the card for heading and content */
 .card-right {
   flex: 2;
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 50px;
 }
 
-/* Card Heading */
 .card-heading {
   font-size: 38px;
   font-weight: bold;
@@ -117,7 +117,6 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* Card Content */
 .card-content {
   font-size: 16px;
   color: #333;
@@ -125,21 +124,18 @@
   font-family: 'Roboto', sans-serif;
   text-align: justify;
 }
-/* Styling for the icon in the content */
-/* Styling for the round icon */
-/* Styling for the round dot icon */
+
 .card-dot {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px; /* Small size of the dot */
-  height: 20px; /* Small size of the dot */
-  border-radius: 50%; /* Makes the dot circular */
+  width: 20px; 
+  height: 20px; 
+  border-radius: 50%; 
   background-color: #1F2A3B; /* Background color for the dot */
   margin-right: 10px; /* Space between the dot and text */
 }
 
-/* Optional: Adjust the icon size inside the circle */
 .card-dot svg {
   font-size: 10px; /* Adjust the size of the dot */
 }
@@ -212,8 +208,8 @@
 .custom-card-container {
   display: flex;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
-
+  gap: 20px;
+  width: 100%;
   padding: 20px;
   justify-items: center;
 }
@@ -281,3 +277,82 @@
     max-width: 100%;
   }
 }
+
+.youtube-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px; /* Adjust gap between videos */
+  padding: 20px;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  height: 90vh;
+}
+
+.video-container {
+  flex: 1 1 calc(33.33% - 20px); /* 3 videos per row */
+  max-width: 300px; /* Adjust video width */
+  aspect-ratio: 16 / 9; /* Maintain video aspect ratio */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.parallax-section {
+  position: relative;
+  height: 50vh; /* Full viewport height */
+  width: 100%;
+  background-image: url('https://media.istockphoto.com/id/1757344400/photo/smiling-college-student-writing-during-a-class-at-the-university.jpg?s=612x612&w=0&k=20&c=_o2ZaJedvI0VfuH2rjGjMpYqXlBm_0BUv9Qxy2tHqK0='); /* Replace with your image URL */
+  background-attachment: fixed; /* Fixed image */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 128, 0.5); /* Blue mask with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content {
+  color: white;
+  padding: 20px;
+}
+
+.content h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.content p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.call-now-btn {
+  background-color: #ff00aa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.call-now-btn:hover {
+  background-color: #e60099;
+}
+

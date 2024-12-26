@@ -1,4 +1,6 @@
 import Header from "../header"
+import { FaCircle } from 'react-icons/fa';
+import { SlArrowRightCircle } from "react-icons/sl";
 import "./index.css"
 
 const Home = () => {
@@ -117,10 +119,56 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div>
-        <h2 className="card-heading-why">Why do we do it?</h2>
-        <p className="home-why-paragraph">We delve into the science and technology found in our ancient literature to guide our society toward becoming a knowledge-based community.</p>
+      <div className="parallax-section">
+      <div className="overlay">
+        <div className="content">
+          <h2>Why do we do it?</h2>
+          <p>
+            We delve into the science and technology found in our ancient
+            literature to guide our society toward becoming a knowledge-based
+            community.
+          </p>
+        </div>
       </div>
+    </div>
+    <h2 className="card-heading">Our Testimonials</h2>
+   
+      <div className="youtube-grid">
+      {/* Video 1 */}
+      <div className="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/4vSNSPBbCqk"
+          title="YouTube Video 1"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+
+      {/* Video 2 */}
+      <div className="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/5eImFLgh6WE"
+          title="YouTube Video 2"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+
+      {/* Video 3 */}
+      <div className="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/XxV4EOd1JZ4"
+          title="YouTube Video 3"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+      </div>
+
+
       <div>
         <h2 className="card-heading-why">Our Testimonials</h2>
 

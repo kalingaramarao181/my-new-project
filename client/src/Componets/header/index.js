@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import './index.css';
 
 function Header() {
+  const [showLogo, setShowLogo] = useState(true)
+  const [showNavbar, setShowNavbar] = useState(true)
+
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY <= 0) {
+        setShowLogo(true);
+      } else if (window.scrollY > lastScrollY) {
+        setShowLogo(false);
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <header className="header-container">
       <div className="header-top">
+      <h1 className='top-section-mark'>Please click here for SOSAAL program announcements and latest news.</h1>
         <div className="contact-info">
           <div className='contact-info-sub'>
           <span>+1 (312) 402 2442</span>
@@ -25,6 +49,12 @@ function Header() {
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
               <FaInstagram />
             </a>
+            <select className='language-select-options'>
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Telugu</option>
+              <option>Telugu</option>
+            </select>
           </div>
         </div>
       </div>
@@ -32,7 +62,7 @@ function Header() {
       <nav className="navbar">
         <div className="navbar-left">
           {/* <span>Please write your suggestions to <a className='mail-span'>admin@sosaal.org</a></span> */}
-        <div className='logo-image-container'>
+        <div className={`logo-image-container ${showLogo ? '' : 'hidden-logo'}`}>
         <img src="\Images\sasaal_logo.png" alt="Logo" className="logo" />
         </div>
         </div>
@@ -44,7 +74,7 @@ function Header() {
               <li><a href="#">Who we are</a></li>
               <li><a href="#">What we do</a></li>
               <li><a href="#">Why we do</a></li>
-              <li><a href="#">Test mails</a></li>
+              <li><a href="#">Testimonials</a></li>
             </ul>
           </li>
           <li className="dropdown">
