@@ -120,100 +120,53 @@ const Home = () => {
         </div>
       </div>
       <div className="parallax-section">
-      <div className="overlay">
-        <div className="content">
-          <h2>Why do we do it?</h2>
-          <p>
-            We delve into the science and technology found in our ancient
-            literature to guide our society toward becoming a knowledge-based
-            community.
-          </p>
+        <div className="overlay">
+          <div className="content">
+            <h2>Why do we do it?</h2>
+            <p>
+              We delve into the science and technology found in our ancient
+              literature to guide our society toward becoming a knowledge-based
+              community.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <h2 className="card-heading">Our Testimonials</h2>
-   
+      <h2 className="card-heading">Our Testimonials</h2>
+
       <div className="youtube-grid">
-      {/* Video 1 */}
-      <div className="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/4vSNSPBbCqk"
-          title="YouTube Video 1"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+        {/* Video 1 */}
+        <div className="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/4vSNSPBbCqk"
+            title="YouTube Video 1"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
 
-      {/* Video 2 */}
-      <div className="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/5eImFLgh6WE"
-          title="YouTube Video 2"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+        {/* Video 2 */}
+        <div className="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/5eImFLgh6WE"
+            title="YouTube Video 2"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
 
-      {/* Video 3 */}
-      <div className="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/XxV4EOd1JZ4"
-          title="YouTube Video 3"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
-      </div>
-
-
-      <div>
-        <h2 className="card-heading-why">Our Testimonials</h2>
-
-      </div>
-      <div className='home-last-container'>
-
-        <div className="custom-card-container">
-          {/* First Card */}
-          <div className="custom-card">
-            <img src="images/indian-school-students-1-1-1536x868.webp" alt="Card Image" className="custom-card-image" />
-            <div className="custom-card-content">
-              <h3>SOSAAL Life Time Membership Enrollment</h3>
-              <button className="custom-enroll-button">Enroll Now</button>
-            </div>
-          </div>
-
-          {/* Second Card */}
-          <div className="custom-card">
-            <img src="images/Preschool.webp" alt="Card Image" className="custom-card-image" />
-            <div className="custom-card-content">
-              <h3>SOSAAL Tamil School Enrollment For 2024-2025</h3>
-              <button className="custom-enroll-button">Enroll Now</button>
-            </div>
-          </div>
-
-          {/* Third Card */}
-          <div className="custom-card">
-            <img src="images/pexels-julia-m-cameron-4144100-scaled-qrgtakzwjuue8vcnl2ywgz34q1gqz7jecsbrd7v4j0.jpg" alt="Card Image" className="custom-card-image" />
-            <div className="custom-card-content">
-              <h3>SOSAAL Literature Classes Enrollment</h3>
-              <button className="custom-enroll-button">Enroll Now</button>
-            </div>
-          </div>
-
-          {/* Fourth Card */}
-          <div className="custom-card">
-            <img src="images/unnamed.png" alt="Card Image" className="custom-card-image" />
-            <div className="custom-card-content">
-              <h3>SOCIAL IXL Enrollment</h3>
-              <button className="custom-enroll-button">Enroll Now</button>
-            </div>
-          </div>
+        {/* Video 3 */}
+        <div className="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/XxV4EOd1JZ4"
+            title="YouTube Video 3"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
-
     </div>
   </div>
 }

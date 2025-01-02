@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import {Link} from "react-router-dom"
 import './index.css';
 
 function Header() {
@@ -32,8 +33,8 @@ function Header() {
       <h1 className='top-section-mark'>Please click here for SOSAAL program announcements and latest news.</h1>
         <div className="contact-info">
           <div className='contact-info-sub'>
-          <span>+1 (312) 402 2442</span>
           <span>admin@sosaal.org</span>
+          <span>+1 (312) 402 2442</span>
           </div>
           
           <div className="social-icons">
@@ -89,6 +90,10 @@ function Header() {
           <li><a href="#">Courses</a></li>
           <li><a href="#">Research</a></li>
         </ul>
+        <Link to="auth">
+          <button className='signin-button'>SignIn / SignUp</button>
+        </Link>
+        
       </nav>
     </header>
   );
