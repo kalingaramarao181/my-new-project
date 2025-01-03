@@ -1,88 +1,175 @@
-.auth-main-conteiner{
+/* General Styles */
+body.login-page {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background: url('/public/images/360_F_868510427_vsvN67LV1zSmLMyXMOFG05tRCmTAj1xL.jpg') no-repeat center center fixed; */
+    background-color: white;
+    background-size: cover;
+    color: #333;
+    overflow-x: hidden;
+}
+
+body.login-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    width: 100%;
+    background: rgba(253, 254, 255, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: -1;
+}
+
+/* Login Container */
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 30px;
-   
+    justify-content: center;
+    min-height: 60vh;
 }
 
-.auth-items-container{
+/* Header Styling */
+.login-header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1ABC9C;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Card Container */
+.login-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 20px;
+    max-width: 1500px;
 }
 
-.auth-user-items{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    list-style-type: none;
-    align-self: center;
-}
-
-.auth-user-icon{
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Card Style */
+.login-role-card {
+    background: white;
+    color: #333;
+    width: 180px;
+    height: 200px;
     text-align: center;
-    font-size: 34px;
-    color: rgb(5, 197, 133);
-    border: 1px solid  rgb(5, 197, 133);
-    align-self: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  cursor: pointer;
-}
-.auth-user-icon:hover{
-    background-color: rgb(211, 231, 226);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #1ABC9C;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.auth-login-card{
+.login-role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-card-icon {
+    font-size: 70px;
+    color: #1ABC9C;
+}
+
+.login-role-card h2 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.login-role-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #1ABC9C;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-role-button:hover {
+    background-color: #17A589;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup Styles */
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.login-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.login-popup-content h2 {
+    color: #1ABC9C;
+    margin-bottom: 20px;
+}
+
+.login-popup-content form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding:20px 60px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(4, 218, 128, 0.19);
-    border-radius: 10px;
-    margin-top: 30px;
-    
+    gap: 15px;
 }
 
-.auth-login-card input{
+.login-popup-content input {
     padding: 10px;
-    width: 500px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
-    border: 1px solid  rgb(5, 197, 133);
-    
 }
 
-.auth-login-card label{
-    font-size: 20px;
-    margin-bottom: 5px;
-    font-family: 'Courier New', Courier, monospace;
-    color: rgb(53, 52, 52);
-    font-weight: 600;
+.login-popup-login-button {
+    background-color: #1ABC9C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.auth-login-card h1{
-    align-self: center;
-    font-family: 'Courier New', Courier, monospace;
+.login-popup-login-button:hover {
+    background-color: #17A589;
 }
 
-.auth-option{
-    align-self: flex-end;
-    color: rgb(56, 55, 55);
-    font-weight: 600;
+.login-forgot-password {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #1ABC9C;
+    cursor: pointer;
 }
-.auth-link{
-    color: rgb(3, 121, 129);
+
+.login-close-popup {
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    color: #1ABC9C;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.login-label {
+    text-align: start;
 }

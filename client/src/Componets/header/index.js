@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
 import {Link} from "react-router-dom"
 import './index.css';
 
 function Header() {
+  const location = useLocation();
+  const navigate = useNavigate(); 
   const [showLogo, setShowLogo] = useState(true)
   const [showNavbar, setShowNavbar] = useState(true)
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [user, setUser] = useState({
+      fullName: "Guest",
+      email: "",
+    });
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleLogout = () => {
+      navigate("/");
+    };
 
 
   useEffect(() => {
@@ -68,9 +84,9 @@ function Header() {
         </div>
         </div>
         <ul className="navbar-menu">
-          <li><a href="#">Home</a></li>
-          <li className="dropdown">
-            <a href="#">AboutUs</a>
+          <li><Link to="/">Home</Link></li>
+          <li className="nav-dropdown">
+            <Link to="/#aboutUs">AboutUs</Link>
             <ul className="dropdown-menu">
               <li><a href="#">Who we are</a></li>
               <li><a href="#">What we do</a></li>
@@ -78,7 +94,7 @@ function Header() {
               <li><a href="#">Testimonials</a></li>
             </ul>
           </li>
-          <li className="dropdown">
+          <li className="nav-dropdown">
             <a href="#">Services</a>
             <ul className="dropdown-menu">
               <li><a href="#">Will & Trust</a></li>
@@ -87,12 +103,36 @@ function Header() {
               <li><a href="#">Home Service</a></li>
             </ul>
           </li>
-          <li><a href="#">Courses</a></li>
-          <li><a href="#">Research</a></li>
+          <li><Link to="/cources">Courses</Link></li>
+          <li><a href="#"> Research</a></li>
         </ul>
-        <Link to="auth">
-          <button className='signin-button'>SignIn / SignUp</button>
-        </Link>
+        { location.pathname.slice(1) !== "dashboard" ? <Link to="auth">
+          <button className='signin-button'>SignSignUp</button>
+        </Link> :
+
+        <div className="user-info">
+        <p className="user-welcome-text" onClick={toggleDropdown}>
+          {user.fullName}
+          <img
+            src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
+            className="profile-image"
+            alt="profile"
+          />
+        </p>
+        {dropdownVisible && (
+          <div className="dropdown">
+            <ul>
+              <li>
+                <span>Account</span>
+              </li>
+              <li>Profile</li>
+              <li>Personal Settings</li>
+              <li>Notifications</li>
+              <li onClick={handleLogout}>Logout</li> {/* Logout Action */}
+            </ul>
+          </div>
+        )}
+      </div>}
         
       </nav>
     </header>

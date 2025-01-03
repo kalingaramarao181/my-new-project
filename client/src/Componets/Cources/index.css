@@ -1,0 +1,99 @@
+/* Basic styling for the course section */
+.home-course {
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .home-course h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #1F2A3B; /* Set header color to the specified color */
+    font-family: 'Arial', sans-serif;
+    font-weight: 600;
+  }
+  
+  /* Styling for the table */
+  .home-course-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .home-course-table th, .home-course-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .home-course-table th {
+    background-color: #1F2A3B; /* Set header background color */
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .home-course-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  .home-course-table td {
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-course-table tr:hover td {
+    background-color: #f0f0f0;
+  }
+  
+  .home-course-buy-btn {
+    padding: 10px 20px;
+    background-color: #1F2A3B; /* Set button color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .home-course-buy-btn:hover {
+    background-color: #324150; /* Darker shade for hover effect */
+    transform: translateY(-2px); /* Slight lifting effect on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .home-course-table th, .home-course-table td {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .home-course h2 {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .home-course-table th, .home-course-table td {
+      padding: 10px;
+      font-size: 12px;
+    }
+  
+    .home-course h2 {
+      font-size: 20px;
+    }
+  
+    .home-course-buy-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }

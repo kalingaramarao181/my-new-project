@@ -16,7 +16,7 @@ const Home = () => {
     </div>
     <div className="home-container">
       {/* Who are we? Section */}
-      <div className="card">
+      <div id="aboutUs" className="card">
         <div className="card-left">
           <img className="card-image" src="images/pexels-kindelmedia-7688161-2048x1536.jpg" alt="Who are we?" />
         </div>

@@ -194,7 +194,7 @@ body {
   border-radius: 5px;
 }
 
-.navbar-menu .dropdown:hover .dropdown-menu {
+.navbar-menu .nav-dropdown:hover .dropdown-menu {
   display: block;
 }
 
@@ -220,5 +220,106 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.account-profile-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.user-welcome-text {
+  margin: 0;
+  margin-left: 10px;
+  font-size: 16px;
+  color: white; /* Subtle gray for user text */
+  font-family: 'Arial', sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Indicate interactivity */
+  gap: 5px; /* Adds spacing between text and image */
+}
+
+.user-info:hover .user-welcome-text {
+  color: #c79407; /* Changes to a teal color on hover */
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+.user-info:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #2c3e50;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown li:hover {
+  background-color: #f4f6f7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px 20px;
+  }
+
+  .header-title {
+      font-size: 20px; /* Smaller title on mobile */
+      margin-bottom: 10px;
+  }
+
+  .user-info {
+      margin-top: 10px;
+  }
+
+  .create-button {
+      font-size: 14px;
+      padding: 8px 15px;
+  }
+
+  .dropdown {
+      width: 100%; /* Full width on mobile */
+      left: 0;
   }
 }
