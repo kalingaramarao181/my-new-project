@@ -1,0 +1,116 @@
+/* General body styles */
+.Course-body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  /* Main container */
+  .Course-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  /* Header */
+  h1 {
+    color: #1ABC9C;
+    margin-bottom: 20px;
+  }
+  
+  /* Form group styles */
+  .Course-form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Label styles */
+  .Course-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    align-self: flex-start;
+    text-align: left;
+  }
+  
+  /* Dropdown styles */
+  .Course-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Selected courses section */
+  .Course-selected-courses {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  /* Heading for selected courses */
+  .Course-selected-courses h3 {
+    color: #1ABC9C;
+  }
+  
+  /* List item for each course */
+  .Course-course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Button to remove a course */
+  .Course-remove-button {
+    background-color: #1ABC9C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Submit button */
+  .Course-submit-button {
+    background-color: #1ABC9C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    align-self: flex-end;
+  }
+  
+  /* Popup styles */
+  .Course-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Popup content */
+  .Course-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  

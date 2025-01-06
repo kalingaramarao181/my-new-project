@@ -33,7 +33,6 @@ const Login = () => {
 
   return (
     <>
-    <Header />
     <div className="login-container">
       <div className="login-header">
         <h1>LOGIN NOW</h1>
@@ -67,7 +66,7 @@ const Login = () => {
               <input type="email" placeholder="Enter your email" />
               <label className='login-label'>Password</label>
               <input type="password" placeholder="Enter your password" />
-              <Link to="/dashboard"> <button type="submit" className="login-popup-login-button">Login</button></Link>
+              <Link to="/student-reg"> <button type="submit" className="login-popup-login-button">Login</button></Link>
             </form>
             <p className="login-forgot-password">SignUp / Forgot Password?</p>
             <button className="login-close-popup" onClick={closePopup}>

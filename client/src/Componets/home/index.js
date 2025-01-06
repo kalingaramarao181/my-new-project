@@ -2,11 +2,11 @@ import Header from "../header"
 import { FaCircle } from 'react-icons/fa';
 import { SlArrowRightCircle } from "react-icons/sl";
 import "./index.css"
+import Footer from "../Footer";
 
 const Home = () => {
   return <div className="homepage-container">
     {/* Header Section */}
-    <Header />
 
     {/* Image Slider Section */}
     <div className="image-slider">

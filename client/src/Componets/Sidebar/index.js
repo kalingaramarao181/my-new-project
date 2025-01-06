@@ -24,20 +24,20 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
       </div>
       <nav className="sidebar-navigation">
         <ul className="sidebar-menu">
-          <li className={`sidebar-menu-item ${location.pathname === "/dashboard" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
+          <li className={`sidebar-menu-item ${location.pathname === "/student-reg" ? "active" : ""}`}>
+            <Link className="sidebar-menu-link" to="/student-reg">
               <PiStudentBold className="sidebar-icon" />
-              <span className="sidebar-label">Students</span>
+              <span className="sidebar-label">Students Registeration</span>
             </Link>
           </li>
-          <li className={`sidebar-menu-item ${location.pathname === "/projects" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
+          <li className={`sidebar-menu-item ${location.pathname === "/course-enm" ? "active" : ""}`}>
+            <Link className="sidebar-menu-link" to="/course-enm">
               <FaProjectDiagram className="sidebar-icon" />
               <span className="sidebar-label">Cource Enrollment</span>
             </Link>
           </li>
-          <li className={`sidebar-menu-item ${location.pathname === "/tasks" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
+          <li className={`sidebar-menu-item ${location.pathname === "/attendance" ? "active" : ""}`}>
+            <Link className="sidebar-menu-link" to="/attendance">
               {/* <SiTask className="sidebar-icon" /> */}
               <FaRegCalendarAlt className="sidebar-icon" />
               <span className="sidebar-label">Attendance Tracking</span>
@@ -49,18 +49,18 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
               <span className="sidebar-label">Cources</span>
             </Link>
           </li>
-          <li className={`sidebar-menu-item ${location.pathname === "/timesheets" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
+          <li className={`sidebar-menu-item ${location.pathname === "/volunteer-reg" ? "active" : ""}`}>
+            <Link className="sidebar-menu-link" to="/volunteer-reg">
               <TiGroupOutline className="sidebar-icon" />
               <span className="sidebar-label">Volenteers</span>
             </Link>
           </li>
-          <li className={`sidebar-menu-item ${location.pathname === "/settings" ? "active" : ""}`}>
+          {/* <li className={`sidebar-menu-item ${location.pathname === "/settings" ? "active" : ""}`}>
             <Link className="sidebar-menu-link" to="/dashboard">
               <MdSettingsSuggest className="sidebar-icon" />
               <span className="sidebar-label">Settings</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

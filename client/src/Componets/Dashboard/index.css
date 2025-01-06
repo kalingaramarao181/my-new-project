@@ -5,9 +5,10 @@
   
   .main-content {
     padding: 20px;
-    width: 100%;    
+    width: 80%; 
+    height: 58vh;   
     transition: margin-left 0.3s;
-    margin-left: 20%; /* Space for the expanded sidebar */
+    overflow-y: auto;
   }
   
   /* When the sidebar is collapsed, reduce the margin-left for main content */

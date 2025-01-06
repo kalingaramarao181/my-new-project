@@ -14,7 +14,6 @@ const Cources = () => {
 
   return (
     <>
-    <Header />
     <div className="home-course">
       <h2>Available Courses</h2>
       <table className="home-course-table">

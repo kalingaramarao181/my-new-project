@@ -1,0 +1,85 @@
+/* Footer Styles */
+.footer {
+    background-color: #1E293B;
+    color: white;
+    padding: 40px 20px;
+    text-align: center; /* Center all text in the footer */
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap; /* Makes the footer responsive */
+    justify-content: center; /* Center content horizontally */
+    gap: 20px;
+  }
+  
+  /* Individual Footer Section */
+  .footer-section {
+    flex: 1;
+    min-width: 250px; /* Ensures sections stack nicely on smaller screens */
+  }
+  
+  .footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-section ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+  
+  /* Footer Bottom Section */
+  .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .footer-bottom hr {
+    border: none;
+    border-top: 1px solid #ffffff50; /* Light white border for separation */
+    margin-bottom: 20px;
+  }
+  
+  .footer-bottom p {
+    font-size: 14px;
+    color: #ffffff80; /* Slightly lighter text color */
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .footer-section {
+      text-align: center;
+    }
+  }
