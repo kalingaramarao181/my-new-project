@@ -1,11 +1,10 @@
 // Dashboard/index.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 
 const CourceEnrollment = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [popupVisible, setPopupVisible] = useState(false);
@@ -33,20 +32,13 @@ const CourceEnrollment = () => {
       selectedStudent,
       selectedCourses,
     });
-
-    // Clear inputs
     setSelectedStudent('');
     setSelectedCourses([]);
     setPopupVisible(true);
-
-    // Hide popup after 2 seconds
     setTimeout(() => setPopupVisible(false), 2000);
   };
 
-  // Handlers for popup
-  const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-  // Toggle Sidebar
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -56,10 +48,8 @@ const CourceEnrollment = () => {
     <div className={`dashboard-page ${isCollapsed ? "sidebar-collapsed" : ""}`}>
       <Sidebar onToggleSidebar={toggleSidebar}  isCollapsed={isCollapsed} />
       <div className="main-content">
-      <div className="Course-body">
       <div className="Course-container">
         <h1>Course Enrollment</h1>
-
         <div className="Course-form-group">
           <label htmlFor="student">Student:</label>
           <select
@@ -128,7 +118,6 @@ const CourceEnrollment = () => {
       </div>
     </div>
       </div>
-    </div>
     </>
   );
 };

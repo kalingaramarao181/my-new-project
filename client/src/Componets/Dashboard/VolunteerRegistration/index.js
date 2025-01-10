@@ -1,11 +1,10 @@
 // Dashboard/index.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 
 const VolunteerRegistration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -68,13 +67,10 @@ const VolunteerRegistration = () => {
 
     setTimeout(() => {
       setShowPopup(false);
-    }, 3000); // Popup disappears after 3 seconds
+    }, 3000);
   };
 
-  // Handlers for popup
-  const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-  // Toggle Sidebar
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };

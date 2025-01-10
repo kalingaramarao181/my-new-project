@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.css';
-import Header from '../header';
 
 const Cources = () => {
   const courses = [

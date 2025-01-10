@@ -1,11 +1,10 @@
 // Dashboard/index.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 
 const StudentRegisteration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -43,7 +42,6 @@ const StudentRegisteration = () => {
     console.log('Form Data:', formData);
     setShowPopup(true);
 
-    // Reset form data after submission
     setFormData({
       firstName: '',
       lastName: '',
@@ -62,13 +60,10 @@ const StudentRegisteration = () => {
 
     setTimeout(() => {
       setShowPopup(false);
-    }, 3000); // Popup disappears after 3 seconds
+    }, 3000);
   };
 
-  // Handlers for popup
-  const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-  // Toggle Sidebar
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -78,7 +73,7 @@ const StudentRegisteration = () => {
     <div className={`dashboard-page ${isCollapsed ? "sidebar-collapsed" : ""}`}>
       <Sidebar onToggleSidebar={toggleSidebar}  isCollapsed={isCollapsed} />
       <div className="main-content">
-      <div className="studentregister-container">
+      <div className="volunteerregistration-container">
       <h1 className="studentregister-title">Student Registration</h1>
       <form className="studentregister-form" onSubmit={handleSubmit}>
         <div className="studentregister-row">

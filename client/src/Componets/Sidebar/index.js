@@ -1,10 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MdOutlineDashboard } from "react-icons/md";
 import { FaProjectDiagram } from "react-icons/fa";
-import { SiTask } from "react-icons/si";
 import { TbReportAnalytics } from "react-icons/tb";
-import { MdSettingsSuggest } from "react-icons/md";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 
@@ -17,7 +14,6 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
   return (
     <div className={`sidebar-container ${isCollapsed ? "sidebar-collapsed" : ""}`}>
       <div className="sidebar-header-container">
-        {!isCollapsed && <h3 className="sidebar-title"></h3>}
         <button className="sidebar-toggle-btn" onClick={onToggleSidebar}>
           {isCollapsed ? "»" : "«"}
         </button>

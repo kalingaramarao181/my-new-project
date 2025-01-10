@@ -1,17 +1,13 @@
 // Dashboard/index.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar from "../Sidebar";
 import DashboardContent from "../Dashboard/DashboardContent";
 import "./index.css";
 
 const Dashboard = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  // Handlers for popup
-  const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-  // Toggle Sidebar
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };

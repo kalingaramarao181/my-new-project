@@ -5,13 +5,13 @@ body {
 
 /* Container */
 .studentregister-container {
-    max-width: 800px;
     margin: 20px auto;
     padding: 10px;
     background: linear-gradient(to bottom right, #ffffff, #eef2f7);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     animation: fadeIn 1s ease-in-out;
+    height: auto;
 }
 
 /* Title */

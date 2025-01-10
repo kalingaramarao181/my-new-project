@@ -3,7 +3,6 @@ import axios from 'axios';
 import './index.css';
 // import { baseUrl, baseUrlImg } from '../../config';
 const baseUrl = ""
-const baseUrlImg = ""
 const DashboardContent = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);

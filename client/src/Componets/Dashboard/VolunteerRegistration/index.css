@@ -1,16 +1,13 @@
 /* General container styling */
 .volunteerregistration-container {
-    max-width: 100%;  /* Use full width */
     margin: 0 auto;
     padding: 20px;
+    margin-bottom: 30px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    box-sizing: border-box;  /* Ensure padding doesn't affect the width */
   }
   
-  /* Title styling */
   .volunteerregistration-title {
     text-align: center;
     font-size: 2.5em;
@@ -18,7 +15,6 @@
     margin-bottom: 20px;
   }
   
-  /* Form layout */
   .volunteerregistration-form {
     display: flex;
     flex-direction: column;

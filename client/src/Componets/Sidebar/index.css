@@ -22,11 +22,12 @@
 /* Sidebar Header */
 .sidebar-header-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 10px;
   background-color: #1a252f;
   border-bottom: 1px solid #34495e;
+  padding-right: 30px;
 }
 
 .sidebar-title {

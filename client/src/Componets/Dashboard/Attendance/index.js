@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './index.css';
-import Header from '../../header';
 import Sidebar from '../../Sidebar';
 
 const Attendance = () => {

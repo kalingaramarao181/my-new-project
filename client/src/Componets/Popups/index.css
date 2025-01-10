@@ -1,0 +1,76 @@
+/* Login Popup Styles */
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background-color: white;
+}
+
+.login-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.login-popup-content h2 {
+    color: #1ABC9C;
+    margin-bottom: 20px;
+}
+
+.login-popup-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-popup-content input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-popup-login-button {
+    background-color: #1ABC9C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-popup-login-button:hover {
+    background-color: #17A589;
+}
+
+.login-forgot-password {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #1ABC9C;
+    cursor: pointer;
+}
+
+.login-close-popup {
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    color: #1ABC9C;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.login-label {
+    text-align: start;
+}

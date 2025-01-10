@@ -6,13 +6,27 @@
   .main-content {
     padding: 20px;
     width: 80%; 
-    height: 58vh;   
+    height: 60vh;   
     transition: margin-left 0.3s;
     overflow-y: auto;
-  }
-  
-  /* When the sidebar is collapsed, reduce the margin-left for main content */
-  .dashboard-page.sidebar-collapsed .main-content {
-    margin-left: 70px; /* Adjust space for collapsed sidebar */
-  }
-  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-grow: 1;
+    scrollbar-width: thin;
+  scrollbar-color: #024091 #E0E0E0;
+}
+
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background-color: #4CAF50; 
+  border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background-color: #E0E0E0;
+  border-radius: 10px;
+}
