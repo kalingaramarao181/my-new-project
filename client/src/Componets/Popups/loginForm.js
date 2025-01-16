@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
+import ParentSignupForm from "./parentSignupForm";
 
-const CreateFormPopup = ({ isPopupOpen, closePopup, role }) => {
+const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -18,8 +19,8 @@ const CreateFormPopup = ({ isPopupOpen, closePopup, role }) => {
       onClose={closePopup}
       modal
       nested
-      contentStyle={{ zIndex: 2, borderRadius: "12px", padding: "20px" }}
-      overlayStyle={{ zIndex: 1, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+      contentStyle={{ zIndex: 1100, borderRadius: "12px", padding: "20px" }}
+      overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <div className="login-popup">
         <div className="login-popup-content">
@@ -56,4 +57,4 @@ const CreateFormPopup = ({ isPopupOpen, closePopup, role }) => {
   );
 };
 
-export default CreateFormPopup;
+export default LoginForm;

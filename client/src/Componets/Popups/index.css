@@ -10,7 +10,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background-color: white;
 }
 
 .login-popup-content {
@@ -74,3 +73,14 @@
 .login-label {
     text-align: start;
 }
+
+.student-signup-content {
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 50%;
+    height: 70%;
+    overflow-y: auto;
+  }

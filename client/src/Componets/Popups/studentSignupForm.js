@@ -1,48 +1,12 @@
-// Dashboard/index.js
 import React, { useState } from "react";
+import Popup from "reactjs-popup";
 import "./index.css";
-import Sidebar from "../../Sidebar";
 
-const StudentRegisteration = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+const StudentSignupForm = ({ isPopupOpen, closePopup, role }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    studentID: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    zip: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    contactNumber: '',
-    agreeToTerms: false,
-  });
-
-  const [showPopup, setShowPopup] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.agreeToTerms) {
-      alert('You must agree to the Terms and Conditions!');
-      return;
-    }
-
-    console.log('Form Data:', formData);
-    setShowPopup(true);
-
-    setFormData({
       firstName: '',
       lastName: '',
       studentID: '',
@@ -57,24 +21,67 @@ const StudentRegisteration = () => {
       contactNumber: '',
       agreeToTerms: false,
     });
+  
+    const [showPopup, setShowPopup] = useState(false);
+  
+    const handleChange = (e) => {
+      const { name, value, type, checked } = e.target;
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+  
+      if (!formData.agreeToTerms) {
+        alert('You must agree to the Terms and Conditions!');
+        return;
+      }
+  
+      console.log('Form Data:', formData);
+      setShowPopup(true);
+  
+      setFormData({
+        firstName: '',
+        lastName: '',
+        studentID: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        contactNumber: '',
+        agreeToTerms: false,
+      });
+  
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+    };
+  
+  
 
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
-  };
-
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    setMessage("Login successful!"); // Example message
   };
 
   return (
-    <>
-    <div className={`dashboard-page ${isCollapsed ? "sidebar-collapsed" : ""}`}>
-      <Sidebar onToggleSidebar={toggleSidebar}  isCollapsed={isCollapsed} />
-      <div className="main-content">
-
-      <div className="volunteerregistration-container">
+    <Popup
+      open={isPopupOpen}
+      onClose={closePopup}
+      modal
+      nested
+      contentStyle={{ zIndex: 1100, borderRadius: "12px", padding: "20px" }}
+      overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+    >
+      <div className="login-popup">
+      <div className="student-signup-content">
       <h1 className="studentregister-title">Student Registration</h1>
       <form className="studentregister-form" onSubmit={handleSubmit}>
         <div className="studentregister-row">
@@ -234,12 +241,9 @@ const StudentRegisteration = () => {
         </div>
       )}
     </div>
-
-    
-      </div>
     </div>
-    </>
+    </Popup>
   );
 };
 
-export default StudentRegisteration;
+export default StudentSignupForm;
