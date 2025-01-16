@@ -13,11 +13,16 @@ function Header() {
     fullName: "Guest",
     email: "",
   });
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dashboardPaths = ["dashboard", "attendance", "student-reg", "volunteer-reg"];
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLogout = () => {
@@ -82,10 +87,10 @@ function Header() {
       <nav className="navbar">
         <div className="navbar-left">
           <div className={`logo-image-container ${showLogo ? "" : "hidden-logo"}`}>
-            <img src="\Images\sasaal_logo.png" alt="Logo" className="logo" />
+            <img src="/Images/sasaal_logo.png" alt="Logo" className="logo" />
           </div>
         </div>
-        <ul className="navbar-menu">
+        <ul className={`navbar-menu ${isMenuOpen ? "show" : ""}`}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -159,6 +164,9 @@ function Header() {
             <button className="signin-button">Sign In</button>
           </Link>
         )}
+        <button className={`menu-button ${isMenuOpen ? "open" : ""}`} onClick={toggleMenu}>
+          &#9776;
+        </button>
       </nav>
     </header>
   );

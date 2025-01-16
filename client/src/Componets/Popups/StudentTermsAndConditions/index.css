@@ -1,0 +1,64 @@
+.tc-popup-container {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    height: 80vh;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+  }
+
+  .tc-popup-container::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  .tc-popup-container::-webkit-scrollbar-thumb {
+    background-color: #031161;
+    border-radius: 10px;
+  }
+  
+  .tc-popup-container::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+  .tc-popup-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #555;
+  }
+  
+  .tc-popup-close-btn:hover {
+    color: #ff0000;
+  }
+  .tc-popup-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333333;
+    margin-bottom: 0px;
+    
+  }
+  .tc-popup-content{
+    font-size: 16px;
+    text-align: center;
+  }
+  .tc-popup-condition{
+    margin-bottom: 20px;
+  }
+  .tc-popup-condition h2{
+    font-size: 18px;
+    text-align: left;
+    color: rgb(29, 28, 28);
+  }
+
+  .tc-popup-condition p{
+    font-size: 16px;
+    text-align: left;
+    color: rgb(68, 67, 67);
+  }

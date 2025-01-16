@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         {/* About Section */}
-        <div className="footer-section-1">
+        <div className="footer-section">
           <h4>About</h4>
           <p>
             Originally Shruthi Vasudevan conceived this idea and subsequently assembled a team of volunteers to form

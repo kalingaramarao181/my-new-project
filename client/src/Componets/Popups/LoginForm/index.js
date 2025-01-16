@@ -1,17 +1,28 @@
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
-import ParentSignupForm from "./parentSignupForm";
+import StudentSignupPopup from "../StudentSignupPopup";
+import VolunteerSignupPopup from "../VolunteerSignupPopup";
 
 const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [isPopupOpenStudentSignup, setIsPopupOpenStudentSignup] = useState(false);
+  const [isPopupOpenVolunteerSignup, setIsPopupOpenVolunteerSignup] = useState(false);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setMessage("Login successful!"); // Example message
   };
+
+  const openSignUpForm = (role) => {
+    if (role === "Student") {
+      setIsPopupOpenStudentSignup(true);
+    } else if (role === "Volunteer") {
+      setIsPopupOpenVolunteerSignup(true);
+    } 
+  }
 
   return (
     <Popup
@@ -47,12 +58,21 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
             </button>
           </form>
           {message && <p className="login-message">{message}</p>}
-          <p className="login-forgot-password">SignUp / Forgot Password?</p>
+          <p className="login-forgot-password"><span onClick={() => openSignUpForm(role)}>SignUp </span>/ <span>Forgot Password?</span></p>
           <button className="login-close-popup" onClick={closePopup}>
             Close
           </button>
         </div>
       </div>
+      <StudentSignupPopup 
+      isPopupOpenStudentSignup={isPopupOpenStudentSignup}
+      closePopupStudentSignup={() => setIsPopupOpenStudentSignup(false)}
+      />
+
+    <VolunteerSignupPopup
+      isPopupOpenVolunteerSignup={isPopupOpenVolunteerSignup}
+      closePopupVolunteerSignup={() => setIsPopupOpenVolunteerSignup(false)}
+    />
     </Popup>
   );
 };

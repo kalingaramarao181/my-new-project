@@ -28,14 +28,14 @@ body.login-page::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    min-height: 70vh;
 }
 
 /* Header Styling */
 .login-header h1 {
     font-size: 2.5rem;
     font-weight: 600;
-    color: #1ABC9C;
+    color: #1E293B;
     text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 40px;
     font-family: 'Courier New', Courier, monospace;
@@ -60,7 +60,7 @@ body.login-page::before {
     text-align: center;
     padding: 20px;
     border-radius: 15px;
-    border: 1px solid #1ABC9C;
+    border: 1px solid #1E293B;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -72,12 +72,13 @@ body.login-page::before {
 
 .login-card-icon {
     font-size: 70px;
-    color: #1ABC9C;
+    color: #1E293B;
 }
 
 .login-role-card h2 {
     font-size: 1.5rem;
     margin-top: 15px;
+    color: #1E293B;
 }
 
 .login-role-button {
@@ -85,7 +86,7 @@ body.login-page::before {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    background-color: #1ABC9C;
+    background-color: #1E293B;
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -93,7 +94,7 @@ body.login-page::before {
 }
 
 .login-role-button:hover {
-    background-color: #17A589;
+    background-color: #1E293B;
     transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
@@ -123,7 +124,7 @@ body.login-page::before {
 }
 
 .login-popup-content h2 {
-    color: #1ABC9C;
+    color: #1E293B;
     margin-bottom: 20px;
 }
 
@@ -141,7 +142,7 @@ body.login-page::before {
 }
 
 .login-popup-login-button {
-    background-color: #1ABC9C;
+    background-color: #1E293B;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -151,13 +152,13 @@ body.login-page::before {
 }
 
 .login-popup-login-button:hover {
-    background-color: #17A589;
+    background-color: #1E293B;
 }
 
 .login-forgot-password {
     margin-top: 15px;
     font-size: 0.9rem;
-    color: #1ABC9C;
+    color: #1E293B;
     cursor: pointer;
 }
 
@@ -165,7 +166,7 @@ body.login-page::before {
     margin-top: 20px;
     background: transparent;
     border: none;
-    color: #1ABC9C;
+    color: #1E293B;
     font-size: 1rem;
     cursor: pointer;
 }

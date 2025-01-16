@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonCircle } from "react-icons/io5";
-import LoginForm from '../Popups/loginForm';
-import ParentSignupForm from '../Popups/parentSignupForm';
-import StudentRegisteration from '../Dashboard/StudentRegisteration';
-import StudentSignupForm from '../Popups/studentSignupForm';
+import LoginForm from '../Popups/LoginForm';
 
 const Login = () => {
   const [role, setRole] = useState('');
@@ -40,7 +37,7 @@ const Login = () => {
           <button className="login-role-button">Login/SignUp</button>
         </div>
       </div>
-      <StudentSignupForm
+      <LoginForm
           isPopupOpen={isPopupOpen}
           closePopup={() => setIsPopupOpen(false)}
           role={role}
