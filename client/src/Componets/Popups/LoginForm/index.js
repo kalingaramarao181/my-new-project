@@ -3,17 +3,45 @@ import Popup from "reactjs-popup";
 import "./index.css";
 import StudentSignupPopup from "../StudentSignupPopup";
 import VolunteerSignupPopup from "../VolunteerSignupPopup";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../config";
 
 const LoginForm = ({ isPopupOpen, closePopup, role }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const [isPopupOpenStudentSignup, setIsPopupOpenStudentSignup] = useState(false);
   const [isPopupOpenVolunteerSignup, setIsPopupOpenVolunteerSignup] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    setMessage("Login successful!"); // Example message
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${baseUrl}login`, {email, password});
+
+      if (response.status === 200) {
+        // Save JWT token in cookies
+        Cookies.set("token", response.data.token, { expires: 1, secure: true });
+
+        // Redirect to dashboard
+        setMessage("Login successful!");
+        setTimeout(() => {
+          closePopup();
+          navigate("/dashboard");
+        }, 1000);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setMessage(err.response?.data?.error || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const openSignUpForm = (role) => {
@@ -21,8 +49,8 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
       setIsPopupOpenStudentSignup(true);
     } else if (role === "Volunteer") {
       setIsPopupOpenVolunteerSignup(true);
-    } 
-  }
+    }
+  };
 
   return (
     <Popup
@@ -53,26 +81,27 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button type="submit" className="login-popup-login-button">
-              Login
+            <button type="submit" className="login-popup-login-button" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
-          {message && <p className="login-message">{message}</p>}
-          <p className="login-forgot-password"><span onClick={() => openSignUpForm(role)}>SignUp </span>/ <span>Forgot Password?</span></p>
+          {message && <p className={`login-message ${message.includes("successful") ? "success" : "error"}`}>{message}</p>}
+          <p className="login-forgot-password">
+            <span onClick={() => openSignUpForm(role)}>SignUp</span> / <span>Forgot Password?</span>
+          </p>
           <button className="login-close-popup" onClick={closePopup}>
             Close
           </button>
         </div>
       </div>
-      <StudentSignupPopup 
-      isPopupOpenStudentSignup={isPopupOpenStudentSignup}
-      closePopupStudentSignup={() => setIsPopupOpenStudentSignup(false)}
+      <StudentSignupPopup
+        isPopupOpenStudentSignup={isPopupOpenStudentSignup}
+        closePopupStudentSignup={() => setIsPopupOpenStudentSignup(false)}
       />
-
-    <VolunteerSignupPopup
-      isPopupOpenVolunteerSignup={isPopupOpenVolunteerSignup}
-      closePopupVolunteerSignup={() => setIsPopupOpenVolunteerSignup(false)}
-    />
+      <VolunteerSignupPopup
+        isPopupOpenVolunteerSignup={isPopupOpenVolunteerSignup}
+        closePopupVolunteerSignup={() => setIsPopupOpenVolunteerSignup(false)}
+      />
     </Popup>
   );
 };

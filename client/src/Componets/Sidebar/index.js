@@ -4,7 +4,6 @@ import { FaProjectDiagram } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
-
 import { PiStudentBold } from "react-icons/pi";
 import "./index.css";
 
@@ -12,7 +11,7 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
   const location = useLocation();
 
   return (
-    <div className={`sidebar-container ${isCollapsed ? "sidebar-collapsed" : ""}`}>
+    <div className={`sidebar-container ${isCollapsed ? "sidebar-collapsed" : ""}`}> 
       <div className="sidebar-header-container">
         <button className="sidebar-toggle-btn" onClick={onToggleSidebar}>
           {isCollapsed ? "»" : "«"}
@@ -28,21 +27,20 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
           </li>
           <li className={`sidebar-menu-item ${location.pathname === "/course-enm" ? "active" : ""}`}>
             <Link className="sidebar-menu-link" to="/course-enm">
-              <FaProjectDiagram className="sidebar-icon" />
+              <FaProjectDiagram className="sidebar-icon" /> 
               <span className="sidebar-label">Cource Enrollment</span>
             </Link>
           </li>
           <li className={`sidebar-menu-item ${location.pathname === "/attendance" ? "active" : ""}`}>
             <Link className="sidebar-menu-link" to="/attendance">
-              {/* <SiTask className="sidebar-icon" /> */}
               <FaRegCalendarAlt className="sidebar-icon" />
               <span className="sidebar-label">Attendance Tracking</span>
             </Link>
           </li>
-          <li className={`sidebar-menu-item ${location.pathname === "/reports" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
+          <li className={`sidebar-menu-item ${location.pathname === "/course-management" ? "active" : ""}`}>
+            <Link className="sidebar-menu-link" to="/course-management">
               <TbReportAnalytics className="sidebar-icon" />
-              <span className="sidebar-label">Cources</span>
+              <span className="sidebar-label">Course Management</span>
             </Link>
           </li>
           <li className={`sidebar-menu-item ${location.pathname === "/volunteer-reg" ? "active" : ""}`}>
@@ -51,12 +49,6 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
               <span className="sidebar-label">Volenteers</span>
             </Link>
           </li>
-          {/* <li className={`sidebar-menu-item ${location.pathname === "/settings" ? "active" : ""}`}>
-            <Link className="sidebar-menu-link" to="/dashboard">
-              <MdSettingsSuggest className="sidebar-icon" />
-              <span className="sidebar-label">Settings</span>
-            </Link>
-          </li> */}
         </ul>
       </nav>
     </div>

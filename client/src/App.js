@@ -10,6 +10,8 @@ import Attendance from './Componets/Dashboard/Attendance';
 import StudentRegisteration from './Componets/Dashboard/StudentRegisteration';
 import VolunteerRegistration from './Componets/Dashboard/VolunteerRegistration';
 import CourseEnrollment from './Componets/Dashboard/CourceEnrollment';
+import CourseManagement from './Componets/Dashboard/CourseManagement';
+import Payment from './Componets/Payment';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Route path="/student-reg" element={<StudentRegisteration/>} />
         <Route path="/volunteer-reg" element={<VolunteerRegistration/>} />
         <Route path="/course-enm" element={<CourseEnrollment/>} />
+        <Route path="/course-management" element={<CourseManagement/>} />
+        <Route path="/payment" element={<Payment/>} />
 
 
         {/* Add more routes here */}

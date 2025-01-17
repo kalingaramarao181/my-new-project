@@ -1,128 +1,113 @@
-/* General Styles */
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Container */
-.studentregister-container {
+/* Volunteer Registration Container */
+.student-register-container {
     margin: 20px auto;
-    padding: 10px;
-    background: linear-gradient(to bottom right, #ffffff, #eef2f7);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    animation: fadeIn 1s ease-in-out;
-    height: auto;
-}
-
-/* Title */
-.studentregister-title {
+    padding: 30px;
+    min-width: 100%;
+  
+  }
+  /* Title */
+  .studentregister-title {
+    font-size: 28px;
+    font-weight: bold;
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 30px; /* Added more space below the title */
-}
-
-/* Form */
-.studentregister-form {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form */
+  .studentregister-form {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Increased space between form groups */
-}
-
-.studentregister-row {
-    display: flex;
-    gap: 30px; /* Increased space between fields */
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-}
-
-.studentregister-form-group {
-    flex: 1;
+    gap: 15px;
+  }
+  
+  /* Input Groups */
+  .studentregister-form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px; /* Added bottom margin for spacing */
-}
-
-.studentregister-form-group label {
-    margin-bottom: 5px; /* Added margin to labels for spacing */
-}
-
-/* Input Fields */
-.studentregister-form-group input {
-    padding: 14px; /* Increased padding for input fields */
-    font-size: 1rem;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.studentregister-form-group input:focus {
-    border-color: #1ABC9C;
+  }
+  
+  .studentregister-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .studentregister-form-group input,
+  .studentregister-form-group select,
+  .studentregister-form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     outline: none;
-    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
-}
-
-/* Terms Checkbox */
-.studentregister-terms {
+  }
+  
+  .studentregister-form-group input:focus,
+  .studentregister-form-group select:focus,
+  .studentregister-form-group textarea:focus {
+    border-color: #021968;
+  }
+  
+  /* Textarea Styling */
+  .studentregister-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  /* Row Styles */
+  .studentregister-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .studentregister-row .studentregister-form-group {
+    flex: 1;
+  }
+  
+  /* Required Indicator */
+  .required {
+    color: red;
+  }
+  
+  /* Terms Checkbox */
+  .studentregister-terms {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.9rem;
+  }
+  
+  .studentregister-terms label {
     color: #555;
-}
-
-/* Button */
-.studentregister-submit-btn {
-    padding: 14px 20px;
-    font-size: 1.2rem;
+    font-size: 14px;
+  }
+  
+  /* Submit Button */
+  .studentregister-submit-btn {
+    padding: 12px 20px;
+    background-color: #024091;
+    color: white;
+    font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background: linear-gradient(to right, #1ABC9C, #16a085);
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.studentregister-submit-btn:hover {
-    background: linear-gradient(to right, #16a085, #1ABC9C);
-    transform: scale(1.03);
-}
-
-/* Popup */
-.studentregister-popup {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #1ABC9C;
-    color: #fff;
-    padding: 15px 30px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .studentregister-container {
-        padding: 20px;
-    }
-    
-    .studentregister-row {
-        flex-direction: column; /* Stack form fields vertically on mobile */
-        gap: 20px; /* Reduce gap between fields */
-    }
-
-    .studentregister-form-group {
-        flex: 1 0 100%; /* Make form fields take full width */
-    }
-    
-    .studentregister-form-group input {
-        padding: 12px; /* Adjust input padding for smaller screens */
-    }
-
-    .studentregister-submit-btn {
-        padding: 14px 0; /* Adjust button size */
-        width: 100%; /* Make submit button full-width */
-    }
-}
+    text-align: center;
+  }
+  
+  .studentregister-submit-btn:hover {
+    background-color: #024091;
+  }
+  
+  /* Success Popup */
+  .studentregister-popup {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  

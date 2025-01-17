@@ -1,0 +1,122 @@
+.course-manage {
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .course-manage h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #1F2A3B; 
+    font-family: 'Arial', sans-serif;
+    font-weight: 600;
+  }
+  
+  .course-manage-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+  }
+  .course-manage-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+  }
+  .course-manage-add-btn{
+    padding: 10px 20px;
+    background-color: #1F2A3B;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .course-manage-table th, .course-manage-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .home-course-table th {
+    background-color: #1F2A3B;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .home-course-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  .home-course-table td {
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+  
+  .course-manage-buy-btn {
+    padding: 10px 20px;
+    background-color: #1F2A3B;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .course-manage-buy-btn:hover {
+    background-color: #324150;
+    transform: translateY(-2px);
+  }
+
+  .course-manage-actions{
+    display: flex;
+  }
+
+  .course-manage-edit-btn, .course-manage-delete-btn{
+    padding: 6px 10px;
+    background-color: #708cb6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
+    margin-right: 6px;
+
+  }
+
+  .course-manage-delete-btn{
+    background-color: red;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .home-course-table th, .home-course-table td {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .course-manage h2 {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    
+  
+    .course-manage h2 {
+      font-size: 20px;
+    }
+  
+    .course-manage-buy-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }

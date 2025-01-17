@@ -16,18 +16,15 @@
   }
   
   .Attendance-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    margin: auto;
+    margin: 20px auto;
+  padding: 30px;
+  min-width: 100%;
   }
   
-  h1,
+  .Attendance-container h1,
   h2 {
     text-align: center;
-    color: #1ABC9C;
+    color: #024091;
   }
   
   .Attendance-form .Attendance-form-group {
@@ -44,17 +41,21 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 100%;
   }
   
   .Attendance-submit-button,
   .Attendance-update-button,
   .Attendance-close-popup {
-    background-color: #1ABC9C;
+    background-color: #024091;
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+  .Attendance-submit-button{
+    width: 100%;
   }
   
   .Attendance-list .Attendance-item {
@@ -85,7 +86,7 @@
   
   .Attendance-close-popup {
     margin-top: 10px;
-    background: #1ABC9C;
+    background: #024091;
     color: white;
   }
   

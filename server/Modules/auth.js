@@ -61,6 +61,8 @@ const insertUser = (userData) => {
 router.post('/signup', async (req, res) => {
   try {
     const { firstName, lastName, email, mobile, memberType, password, roleId } = req.body;
+    console.log(req.body);
+    
 
     const role = roleId || 3;
 
@@ -110,6 +112,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
+  console.log(email, password);
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required.' });

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
 import StudentTermsAndConditions from "../StudentTermsAndConditions";
+import axios from "axios";
+import { baseUrl } from "../../config";
 
 const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup }) => {
   const [formData, setFormData] = useState({
@@ -57,34 +59,54 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
     return formErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-    setShowPopup(true);
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      studentID: "",
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      zip: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      contactNumber: "",
-      agreeToTerms: false,
-    });
+    // Prepare data for the backend
+    const requestData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      mobile: formData.contactNumber,
+      memberType: "student",
+      password: formData.password,
+    };
 
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+    try {
+      const response = await axios.post(`${baseUrl}signup`, requestData);
+      if (response.status === 201) {
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+          closePopupStudentSignup();
+        }, 3000);
+
+        // Reset form data
+        setFormData({
+          firstName: "",
+          lastName: "",
+          studentID: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          zip: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          contactNumber: "",
+          agreeToTerms: false,
+        });
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setErrors({ general: error.response?.data?.error || "Something went wrong. Please try again." });
+    }
   };
 
   return (

@@ -8,9 +8,6 @@ const VolunteerRegistration = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    volunteerType: '',
-    subject: '',
-    aboutYou: '',
     studentID: '',
     address1: '',
     address2: '',
@@ -22,6 +19,9 @@ const VolunteerRegistration = () => {
     confirmPassword: '',
     contactNumber: '',
     agreeToTerms: false,
+    volunteerType: '',
+    subject: '',
+    about: ''
   });
 
   const [showPopup, setShowPopup] = useState(false);
@@ -45,13 +45,9 @@ const VolunteerRegistration = () => {
     console.log('Form Data:', formData);
     setShowPopup(true);
 
-    // Reset form data after submission
     setFormData({
       firstName: '',
       lastName: '',
-      volunteerType: '',
-      subject: '',
-      aboutYou: '',
       studentID: '',
       address1: '',
       address2: '',
@@ -63,13 +59,15 @@ const VolunteerRegistration = () => {
       confirmPassword: '',
       contactNumber: '',
       agreeToTerms: false,
+      volunteerType: '',
+      subject: '',
+      about: ''
     });
 
     setTimeout(() => {
       setShowPopup(false);
     }, 3000);
   };
-
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -80,11 +78,12 @@ const VolunteerRegistration = () => {
     <div className={`dashboard-page ${isCollapsed ? "sidebar-collapsed" : ""}`}>
       <Sidebar onToggleSidebar={toggleSidebar}  isCollapsed={isCollapsed} />
       <div className="main-content">
-      <div className="volunteerregistration-container">
-      <h1 className="volunteerregistration-title">Volunteer Registration</h1>
-      <form className="volunteerregistration-form" onSubmit={handleSubmit}>
-        <div className="volunteerregistration-row">
-          <div className="volunteerregistration-form-group">
+
+      <div className="volunteer-registration-container">
+      <h1 className="volunteer-registration-title">Volunteer Registration</h1>
+      <form className="volunteer-registration-form" onSubmit={handleSubmit}>
+        <div className="volunteer-registration-row">
+          <div className="volunteer-registration-form-group">
             <label>First Name</label>
             <input
               type="text"
@@ -95,7 +94,7 @@ const VolunteerRegistration = () => {
               required
             />
           </div>
-          <div className="volunteerregistration-form-group">
+          <div className="volunteer-registration-form-group">
             <label>Last Name</label>
             <input
               type="text"
@@ -107,52 +106,7 @@ const VolunteerRegistration = () => {
             />
           </div>
         </div>
-        <div className="volunteerregistration-form-group">
-          <label>Volunteer Type</label>
-          <select
-            name="volunteerType"
-            value={formData.volunteerType}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Volunteer Type</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Teaching Assistant">Teaching Assistant</option>
-            <option value="Back Office">Back Office</option>
-            <option value="Others">Others</option>
-          </select>
-        </div>
-        <div className="volunteerregistration-form-group">
-          <label>Subject</label>
-          <select
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Subject</option>
-            <option value="Tamil">Tamil</option>
-            <option value="Literature">Literature</option>
-            <option value="English">English</option>
-            <option value="Math">Math</option>
-            <option value="Science">Science</option>
-            <option value="Social">Social</option>
-            <option value="History">History</option>
-            <option value="Yoga">Yoga</option>
-            <option value="Financial Education">Financial Education</option>
-          </select>
-        </div>
-        <div className="volunteerregistration-form-group">
-          <label>About You and Your Interests</label>
-          <textarea
-            name="aboutYou"
-            value={formData.aboutYou}
-            onChange={handleChange}
-            placeholder="Tell us about yourself and your interests"
-            required
-          />
-        </div>
-        <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-form-group">
           <label>Student ID</label>
           <input
             type="text"
@@ -163,7 +117,7 @@ const VolunteerRegistration = () => {
             required
           />
         </div>
-        <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-form-group">
           <label>Address 1</label>
           <input
             type="text"
@@ -174,7 +128,7 @@ const VolunteerRegistration = () => {
             required
           />
         </div>
-        <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-form-group">
           <label>Address 2</label>
           <input
             type="text"
@@ -184,8 +138,8 @@ const VolunteerRegistration = () => {
             placeholder="Enter address line 2"
           />
         </div>
-        <div className="volunteerregistration-row">
-          <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-row">
+          <div className="volunteer-registration-form-group">
             <label>City</label>
             <input
               type="text"
@@ -196,7 +150,7 @@ const VolunteerRegistration = () => {
               required
             />
           </div>
-          <div className="volunteerregistration-form-group">
+          <div className="volunteer-registration-form-group">
             <label>State</label>
             <input
               type="text"
@@ -207,7 +161,7 @@ const VolunteerRegistration = () => {
               required
             />
           </div>
-          <div className="volunteerregistration-form-group">
+          <div className="volunteer-registration-form-group">
             <label>ZIP</label>
             <input
               type="text"
@@ -219,7 +173,7 @@ const VolunteerRegistration = () => {
             />
           </div>
         </div>
-        <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-form-group">
           <label>Email</label>
           <input
             type="email"
@@ -230,8 +184,8 @@ const VolunteerRegistration = () => {
             required
           />
         </div>
-        <div className="volunteerregistration-row">
-          <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-row">
+          <div className="volunteer-registration-form-group">
             <label>Password</label>
             <input
               type="password"
@@ -242,7 +196,7 @@ const VolunteerRegistration = () => {
               required
             />
           </div>
-          <div className="volunteerregistration-form-group">
+          <div className="volunteer-registration-form-group">
             <label>Confirm Password</label>
             <input
               type="password"
@@ -254,7 +208,7 @@ const VolunteerRegistration = () => {
             />
           </div>
         </div>
-        <div className="volunteerregistration-form-group">
+        <div className="volunteer-registration-form-group">
           <label>Contact Number</label>
           <input
             type="text"
@@ -265,7 +219,57 @@ const VolunteerRegistration = () => {
             required
           />
         </div>
-        <div className="volunteerregistration-terms">
+
+        <div className="volunteer-registration-form-group">
+          <label>Volunteer Type <span className="required">*</span></label>
+          <select 
+            onChange={handleChange}
+            value={formData.volunteerType}
+            name="volunteerType"
+            required
+          >
+            <option value="">Select Volunteer Type</option>
+            <option value="teacher">Teacher</option>
+            <option value="teachingAssistant">Teaching Assistant</option>
+            <option value="backOffice">Back Office</option>
+            <option value="others">Others</option>  
+          </select>
+        </div>
+
+        <div className="volunteer-registration-form-group">
+          <label>Subject <span className="required">*</span></label>
+          <select 
+            onChange={handleChange}
+            value={formData.subject}
+            name="subject"
+            required
+          >
+            <option value="">Select Subject</option>
+            <option value="tamil">Tamil</option>
+            <option value="literature">Literature</option>
+            <option value="english">English</option>
+            <option value="math">Math</option>  
+            <option value="science">Science</option>  
+            <option value="social">Social</option>  
+            <option value="history">History</option>  
+            <option value="yoga">Yoga</option>  
+            <option value="financialEducation">Financial Education</option>  
+          </select>
+        </div>
+
+        <div className="volunteer-registration-form-group">
+          <label>About you and your interests <span className="required">*</span></label>
+          <textarea
+            type="text"
+            name="about"
+            value={formData.about}
+            onChange={handleChange}
+            placeholder="Tell us about yourself and why you are interested in volunteering. What skills or experiences can you bring to our organization?"
+            required
+          />
+        </div>
+
+        <div className="volunteer-registration-terms">
           <input
             type="checkbox"
             name="agreeToTerms"
@@ -275,16 +279,18 @@ const VolunteerRegistration = () => {
           />
           <label>I agree to the Terms and Conditions of registration</label>
         </div>
-        <button className="volunteerregistration-submit-btn" type="submit">
+        <button className="volunteer-registration-submit-btn" type="submit">
           Submit
         </button>
       </form>
       {showPopup && (
-        <div className="volunteerregistration-popup">
+        <div className="volunteer-registration-popup">
           Registration Successfully Submitted!
         </div>
       )}
     </div>
+
+      
       </div>
     </div>
     </>

@@ -19,12 +19,6 @@ const Login = () => {
         <h1>LOGIN NOW</h1>
       </div>
       <div className="login-card-container">
-        <div className="login-role-card" onClick={() => togglePopup('Parent')}>
-          <div className="login-card-icon"><GiTeacher /></div>
-          <h2>Parent</h2>
-          <button className="login-role-button">Login/SignUp</button> 
-        </div>
-
         <div className="login-role-card" onClick={() => togglePopup('Student')}>
           <div className="login-card-icon"><PiStudentFill /></div>
           <h2>Student</h2>
@@ -35,6 +29,11 @@ const Login = () => {
           <div className="login-card-icon"><IoPersonCircle /></div>
           <h2>Volunteer</h2>
           <button className="login-role-button">Login/SignUp</button>
+        </div>
+        <div className="login-role-card" onClick={() => togglePopup('Parent')}>
+          <div className="login-card-icon"><GiTeacher /></div>
+          <h2>Parent</h2>
+          <button className="login-role-button">Login/SignUp</button> 
         </div>
       </div>
       <LoginForm

@@ -281,16 +281,16 @@
 .youtube-grid {
   display: flex;
   justify-content: space-between;
-  gap: 30px; /* Adjust gap between videos */
+  gap: 30px; 
   padding: 20px;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  flex-wrap: wrap; 
   height: 50vh;
 }
 
 .video-container {
-  flex: 1 1 calc(33.33% - 20px); /* 3 videos per row */
-  max-width: 300px; /* Adjust video width */
-  aspect-ratio: 16 / 9; /* Maintain video aspect ratio */
+  flex: 1 1 calc(33.33% - 20px); 
+  max-width: 300px; 
+  aspect-ratio: 16 / 9; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
@@ -305,10 +305,10 @@ iframe {
 
 .parallax-section {
   position: relative;
-  height: 50vh; /* Full viewport height */
+  height: 50vh; 
   width: 100%;
   background-image: url('https://media.istockphoto.com/id/1757344400/photo/smiling-college-student-writing-during-a-class-at-the-university.jpg?s=612x612&w=0&k=20&c=_o2ZaJedvI0VfuH2rjGjMpYqXlBm_0BUv9Qxy2tHqK0='); /* Replace with your image URL */
-  background-attachment: fixed; /* Fixed image */
+  background-attachment: fixed; 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

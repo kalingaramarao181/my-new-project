@@ -1,186 +1,112 @@
-/* General container styling */
-.volunteerregistration-container {
-    margin: 0 auto;
-    padding: 20px;
-    margin-bottom: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 100%;
-  }
-  
-  .volunteerregistration-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #1ABC9C;
-    margin-bottom: 20px;
-  }
-  
-  .volunteerregistration-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .volunteerregistration-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  /* Input Group */
-  .volunteerregistration-form-group {
-    margin-bottom: 20px;  /* Increase space between fields */
-    width: 100%;
-  }
-  
-  /* Label Styling */
-  .volunteerregistration-form-group label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-    display: block;
-  }
-  
-  /* Input, Select, and Textarea styling */
-  .volunteerregistration-form-group input,
-  .volunteerregistration-form-group select,
-  .volunteerregistration-form-group textarea {
-    width: 100%;  /* Full width */
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    margin-top: 5px;
-    box-sizing: border-box;  /* Ensure padding doesn't affect width */
-    transition: border-color 0.3s ease;
-  }
-  
-  /* Focus effect for inputs, select, and textarea */
-  .volunteerregistration-form-group input:focus,
-  .volunteerregistration-form-group select:focus,
-  .volunteerregistration-form-group textarea:focus {
-    border-color: #1ABC9C;
-    outline: none;
-  }
-  
-  /* Terms and conditions styling */
-  .volunteerregistration-terms {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-  }
-  
-  .volunteerregistration-terms label {
-    font-size: 0.95em;
-    color: #333;
-    margin-left: 5px;
-  }
-  
-  /* Submit button styling */
-  .volunteerregistration-submit-btn {
-    background-color: #1ABC9C;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Button hover effect */
-  .volunteerregistration-submit-btn:hover {
-    background-color: #16a085;
-  }
-  
-  /* Popup notification styling */
-  .volunteerregistration-popup {
-    background-color: #1ABC9C;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    animation: popup-animation 0.5s ease-out;
-  }
-  
-  @keyframes popup-animation {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Responsive Design for Tablets and Phones */
-  @media screen and (max-width: 1024px) {
-    .volunteerregistration-container {
-      padding: 20px;
-    }
-  
-    .volunteerregistration-row {
-      flex-direction: column;
-    }
-  
-    .volunteerregistration-form-group {
-      width: 100%;
-    }
-  
-    .volunteerregistration-title {
-      font-size: 2em;
-    }
-  
-    .volunteerregistration-submit-btn {
-      padding: 12px;
-      font-size: 1.1em;
-    }
-  }
-  
-  /* For Smaller Mobile Devices */
-  @media screen and (max-width: 768px) {
-    .volunteerregistration-container {
-      padding: 15px;
-    }
-  
-    .volunteerregistration-title {
-      font-size: 1.8em;
-    }
-  
-    .volunteerregistration-submit-btn {
-      padding: 12px;
-      font-size: 1em;
-    }
-  
-    .volunteerregistration-form-group input,
-    .volunteerregistration-form-group select,
-    .volunteerregistration-form-group textarea {
-      padding: 10px;
-    }
-  }
-  
-  /* For Extra Small Devices */
-  @media screen and (max-width: 480px) {
-    .volunteerregistration-container {
-      padding: 10px;
-    }
-  
-    .volunteerregistration-title {
-      font-size: 1.5em;
-    }
-  
-    .volunteerregistration-submit-btn {
-      padding: 10px;
-      font-size: 1em;
-    }
-  
-    .volunteerregistration-form-group input,
-    .volunteerregistration-form-group select,
-    .volunteerregistration-form-group textarea {
-      padding: 8px;
-    }
-  }
-  
+/* Volunteer Registration Container */
+.volunteer-registration-container {
+  margin: 20px auto;
+  padding: 30px;
+  min-width: 100%;
+
+}
+/* Title */
+.volunteer-registration-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form */
+.volunteer-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Input Groups */
+.volunteer-registration-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.volunteer-registration-form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.volunteer-registration-form-group input,
+.volunteer-registration-form-group select,
+.volunteer-registration-form-group textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.volunteer-registration-form-group input:focus,
+.volunteer-registration-form-group select:focus,
+.volunteer-registration-form-group textarea:focus {
+  border-color: #024091;
+}
+
+/* Textarea Styling */
+.volunteer-registration-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Row Styles */
+.volunteer-registration-row {
+  display: flex;
+  gap: 15px;
+}
+
+.volunteer-registration-row .volunteer-registration-form-group {
+  flex: 1;
+}
+
+/* Required Indicator */
+.required {
+  color: red;
+}
+
+/* Terms Checkbox */
+.volunteer-registration-terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.volunteer-registration-terms label {
+  color: #555;
+  font-size: 14px;
+}
+
+/* Submit Button */
+.volunteer-registration-submit-btn {
+  padding: 12px 20px;
+  background-color: #024091;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.volunteer-registration-submit-btn:hover {
+  background-color: #024091;
+}
+
+/* Success Popup */
+.volunteer-registration-popup {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #024091;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+}

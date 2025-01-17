@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
+import StudentTermsAndConditions from "../../Popups/StudentTermsAndConditions";
 
 const StudentRegisteration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isPopupOpenTC, setIsPopupOpenTC] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -74,7 +76,7 @@ const StudentRegisteration = () => {
       <Sidebar onToggleSidebar={toggleSidebar}  isCollapsed={isCollapsed} />
       <div className="main-content">
 
-      <div className="volunteerregistration-container">
+      <div className="student-register-container">
       <h1 className="studentregister-title">Student Registration</h1>
       <form className="studentregister-form" onSubmit={handleSubmit}>
         <div className="studentregister-row">
@@ -222,7 +224,7 @@ const StudentRegisteration = () => {
             onChange={handleChange}
             required
           />
-          <label>I agree to the Terms and Conditions of registration</label>
+          <label>I agree to the <span className="terms-link" onClick={() => setIsPopupOpenTC(true)}>Terms and Conditions</span> of registration </label>
         </div>
         <button className="studentregister-submit-btn" type="submit">
           Submit
@@ -234,9 +236,11 @@ const StudentRegisteration = () => {
         </div>
       )}
     </div>
-
-    
       </div>
+      <StudentTermsAndConditions
+        isPopupOpenTC={isPopupOpenTC}
+        closePopupTC={() => setIsPopupOpenTC(false)}
+      />
     </div>
     </>
   );

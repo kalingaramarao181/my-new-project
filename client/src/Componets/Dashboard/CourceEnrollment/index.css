@@ -11,18 +11,14 @@
   
   /* Main container */
   .Course-container {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
     padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
+    min-width: 100%;
   }
   
   /* Header */
-  h1 {
-    color: #1ABC9C;
+  .Course-container h1 {
+    color: #024091;
     margin-bottom: 20px;
   }
   
@@ -71,7 +67,7 @@
   
   /* Button to remove a course */
   .Course-remove-button {
-    background-color: #1ABC9C;
+    background-color: #024091;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -81,7 +77,7 @@
   
   /* Submit button */
   .Course-submit-button {
-    background-color: #1ABC9C;
+    background-color: #024091;
     color: white;
     padding: 10px 20px;
     border: none;
