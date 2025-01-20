@@ -18,7 +18,7 @@ const Secure = () => {
     Attendance: "/attendance",
     "Course Enrollment": "/course-enm",
     "Student Registration": "/student-reg",
-    "Volunteer Registration": "/volunteer-reg",
+    "Volunteers": "/volunteer-reg",
     Payment: "/payment",
   };
 

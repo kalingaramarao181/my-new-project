@@ -13,7 +13,7 @@ const Attendance = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const date = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+    const date = new Date().toISOString().split('T')[0];
 
     if (selectedStudent && selectedCourse && attendanceStatus) {
       const newRecord = {

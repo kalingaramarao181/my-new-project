@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { baseUrl } from "../config";
 import "./index.css";
 
 function Header() {
@@ -21,15 +25,39 @@ function Header() {
     setDropdownVisible(!dropdownVisible);
   };
 
+  
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLogout = () => {
     navigate("/");
+    Cookies.remove("jwtToken");
   };
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const token = Cookies.get("token");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+      if (token) {
+        try {
+          const response = await axios.get(`${baseUrl}users/${userId}`);
+
+          const { F_NAME, L_NAME, email } = response.data;
+          setUser({
+            fullName: F_NAME + " " + L_NAME || "Guest",
+            email: email || "",
+          });
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {

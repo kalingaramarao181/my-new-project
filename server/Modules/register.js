@@ -1,8 +1,11 @@
+const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../Config/connection');
 const { checkUserExists, checkMemberTypeExists, generateUserId, insertUser } = require('./utils');
 
-const signup = async (req, res) => {
+const router = express.Router();
+
+router.post('/signup', async (req, res) => {
   try {
     const {
       firstName,
@@ -42,6 +45,8 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const existingUsers = await checkUserExists(email);
+    console.log('Existing users:', existingUsers);
+    
     if (existingUsers.length > 0) {
       return res.status(400).json({ error: 'User already exists with this email.' });
     }
@@ -59,7 +64,7 @@ const signup = async (req, res) => {
       state,
       zip,
       memberType,
-      roleId || 3, // Default role ID to 3 if not provided
+      roleId || 3,
     ];
 
     const memberInsertSql = `
@@ -93,6 +98,6 @@ const signup = async (req, res) => {
     console.error('Error during signup:', err);
     res.status(500).json({ error: 'Internal Server Error. Please try again later.' });
   }
-};
+});
 
-module.exports = signup;
+module.exports = router;

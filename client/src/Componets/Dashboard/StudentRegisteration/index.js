@@ -100,6 +100,7 @@ const StudentRegisteration = () => {
           password: "",
           confirmPassword: "",
         });
+        window.location.reload()
       }
     } catch (error) {
       console.error("Error during signup:", error);

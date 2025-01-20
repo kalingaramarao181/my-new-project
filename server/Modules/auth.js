@@ -1,11 +1,14 @@
+const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../Config/connection');
 const { checkUserExists } = require('./utils');
 
+const router = express.Router();
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-const login = async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -32,7 +35,7 @@ const login = async (req, res) => {
         email: user.EMAIL,
         role: user.ROLE_ID,
         fullName: `${user.F_NAME} ${user.L_NAME}`,
-        userId: user.USER_ID,
+        userId: user.MEMBER_ID,
       },
       JWT_SECRET,
       { expiresIn: '5h' }
@@ -46,6 +49,6 @@ const login = async (req, res) => {
     console.error('Error during login:', err);
     res.status(500).json({ error: 'Internal Server Error. Please try again later.' });
   }
-};
+});
 
-module.exports = login;
+module.exports = router;
