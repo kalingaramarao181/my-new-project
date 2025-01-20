@@ -67,13 +67,17 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
       return;
     }
 
-    // Prepare data for the backend
     const requestData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      address1: formData.address1,
+      address2: formData.address2,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
       email: formData.email,
       mobile: formData.contactNumber,
-      memberType: "student",
+      memberType: 4,
       password: formData.password,
     };
 
@@ -81,26 +85,19 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
       const response = await axios.post(`${baseUrl}signup`, requestData);
       if (response.status === 201) {
         setShowPopup(true);
-        setTimeout(() => {
-          setShowPopup(false);
-          closePopupStudentSignup();
-        }, 3000);
-
-        // Reset form data
+        setTimeout(() => setShowPopup(false), 3000);
         setFormData({
           firstName: "",
           lastName: "",
-          studentID: "",
           address1: "",
           address2: "",
           city: "",
           state: "",
           zip: "",
           email: "",
+          contactNumber: "",
           password: "",
           confirmPassword: "",
-          contactNumber: "",
-          agreeToTerms: false,
         });
       }
     } catch (error) {

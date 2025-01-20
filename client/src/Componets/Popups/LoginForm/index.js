@@ -21,28 +21,31 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
-
+  
     try {
-      const response = await axios.post(`${baseUrl}login`, {email, password});
-
+      console.log("Starting login process...");
+      const response = await axios.post(`${baseUrl}login`, { email, password }, { timeout: 5000 });
+      console.log("Response received:", response);
+  
       if (response.status === 200) {
-        // Save JWT token in cookies
         Cookies.set("token", response.data.token, { expires: 1, secure: true });
-
-        // Redirect to dashboard
         setMessage("Login successful!");
         setTimeout(() => {
           closePopup();
           navigate("/dashboard");
         }, 1000);
+      } else {
+        setMessage("Unexpected response. Please try again.");
       }
     } catch (err) {
       console.error("Login error:", err);
       setMessage(err.response?.data?.error || "Login failed. Please try again.");
     } finally {
       setLoading(false);
+      console.log("Login process complete.");
     }
   };
+  
 
   const openSignUpForm = (role) => {
     if (role === "Student") {

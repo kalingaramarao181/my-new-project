@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 import StudentTermsAndConditions from "../../Popups/StudentTermsAndConditions";
+import { baseUrl } from "../../config";
+import axios from "axios";
 
 const StudentRegisteration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -23,6 +25,7 @@ const StudentRegisteration = () => {
     agreeToTerms: false,
   });
 
+  const [errors, setErrors] = useState({});
   const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e) => {
@@ -33,36 +36,75 @@ const StudentRegisteration = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateForm = () => {
+    let formErrors = {};
+    if (!formData.firstName.trim())
+      formErrors.firstName = "First name is required.";
+    if (!formData.lastName.trim())
+      formErrors.lastName = "Last name is required.";
+    if (!formData.studentID.trim())
+      formErrors.studentID = "Student ID is required.";
+    if (!formData.address1.trim()) formErrors.address1 = "Address is required.";
+    if (!formData.city.trim()) formErrors.city = "City is required.";
+    if (!formData.state.trim()) formErrors.state = "State is required.";
+    if (!formData.zip.trim()) formErrors.zip = "ZIP code is required.";
+    if (!formData.email.trim()) formErrors.email = "Email is required.";
+    if (!formData.password) formErrors.password = "Password is required.";
+    if (formData.password !== formData.confirmPassword) {
+      formErrors.confirmPassword = "Passwords do not match.";
+    }
+    if (!formData.contactNumber.trim())
+      formErrors.contactNumber = "Contact number is required.";
+    if (!formData.agreeToTerms)
+      formErrors.agreeToTerms = "You must agree to the terms and conditions.";
+    return formErrors;
+  };
 
-    if (!formData.agreeToTerms) {
-      alert('You must agree to the Terms and Conditions!');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
       return;
     }
 
-    console.log('Form Data:', formData);
-    setShowPopup(true);
+    const requestData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      address1: formData.address1,
+      address2: formData.address2,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+      email: formData.email,
+      mobile: formData.contactNumber,
+      memberType: 4,
+      password: formData.password,
+    };
 
-    setFormData({
-      firstName: '',
-      lastName: '',
-      studentID: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zip: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      contactNumber: '',
-      agreeToTerms: false,
-    });
-
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+    try {
+      const response = await axios.post(`${baseUrl}signup`, requestData);
+      if (response.status === 201) {
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          zip: "",
+          email: "",
+          contactNumber: "",
+          password: "",
+          confirmPassword: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setErrors({ general: error.response?.data?.error || "Something went wrong. Please try again." });
+    }
   };
 
 
@@ -81,7 +123,7 @@ const StudentRegisteration = () => {
       <form className="studentregister-form" onSubmit={handleSubmit}>
         <div className="studentregister-row">
           <div className="studentregister-form-group">
-            <label>First Name</label>
+            <label>First Name<span className="required">*</span></label>
             <input
               type="text"
               name="firstName"
@@ -90,9 +132,12 @@ const StudentRegisteration = () => {
               placeholder="Enter your first name"
               required
             />
+            {errors.firstName && (
+                <p className="error-message">{errors.firstName}</p>
+              )}
           </div>
           <div className="studentregister-form-group">
-            <label>Last Name</label>
+            <label>Last Name<span className="required">*</span></label>
             <input
               type="text"
               name="lastName"
@@ -101,10 +146,13 @@ const StudentRegisteration = () => {
               placeholder="Enter your last name"
               required
             />
+            {errors.lastName && (
+                <p className="error-message">{errors.lastName}</p>
+              )}
           </div>
         </div>
         <div className="studentregister-form-group">
-          <label>Student ID</label>
+          <label>Student ID<span className="required">*</span></label>
           <input
             type="text"
             name="studentID"
@@ -113,9 +161,12 @@ const StudentRegisteration = () => {
             placeholder="Enter your student ID"
             required
           />
+          {errors.studentID && (
+                <p className="error-message">{errors.studentID}</p>
+              )}
         </div>
         <div className="studentregister-form-group">
-          <label>Address 1</label>
+          <label>Address 1<span className="required">*</span></label>
           <input
             type="text"
             name="address1"
@@ -124,6 +175,9 @@ const StudentRegisteration = () => {
             placeholder="Enter address line 1"
             required
           />
+          {errors.address1 && (
+                <p className="error-message">{errors.address1}</p>
+              )}
         </div>
         <div className="studentregister-form-group">
           <label>Address 2</label>
@@ -137,7 +191,7 @@ const StudentRegisteration = () => {
         </div>
         <div className="studentregister-row">
           <div className="studentregister-form-group">
-            <label>City</label>
+            <label>City<span className="required">*</span></label>
             <input
               type="text"
               name="city"
@@ -146,9 +200,12 @@ const StudentRegisteration = () => {
               placeholder="Enter your city"
               required
             />
+            {errors.city && (
+                <p className="error-message">{errors.city}</p>
+              )}
           </div>
           <div className="studentregister-form-group">
-            <label>State</label>
+            <label>State<span className="required">*</span></label>
             <input
               type="text"
               name="state"
@@ -157,9 +214,12 @@ const StudentRegisteration = () => {
               placeholder="Enter your state"
               required
             />
+            {errors.state && (
+                <p className="error-message">{errors.state}</p>
+              )}
           </div>
           <div className="studentregister-form-group">
-            <label>ZIP</label>
+            <label>ZIP<span className="required">*</span></label>
             <input
               type="text"
               name="zip"
@@ -171,7 +231,7 @@ const StudentRegisteration = () => {
           </div>
         </div>
         <div className="studentregister-form-group">
-          <label>Email</label>
+          <label>Email<span className="required">*</span></label>
           <input
             type="email"
             name="email"
@@ -180,10 +240,13 @@ const StudentRegisteration = () => {
             placeholder="Enter your email"
             required
           />
+          {errors.zip && (
+                <p className="error-message">{errors.zip}</p>
+              )}
         </div>
         <div className="studentregister-row">
           <div className="studentregister-form-group">
-            <label>Password</label>
+            <label>Password<span className="required">*</span></label>
             <input
               type="password"
               name="password"
@@ -192,9 +255,12 @@ const StudentRegisteration = () => {
               placeholder="Enter a password"
               required
             />
+            {errors.password && (
+                <p className="error-message">{errors.password}</p>
+              )}
           </div>
           <div className="studentregister-form-group">
-            <label>Confirm Password</label>
+            <label>Confirm Password<span className="required">*</span></label>
             <input
               type="password"
               name="confirmPassword"
@@ -203,10 +269,13 @@ const StudentRegisteration = () => {
               placeholder="Confirm your password"
               required
             />
+            {errors.confirmPassword && (
+                <p className="error-message">{errors.confirmPassword}</p>
+              )}
           </div>
         </div>
         <div className="studentregister-form-group">
-          <label>Contact Number</label>
+          <label>Contact Number<span className="required">*</span></label>
           <input
             type="text"
             name="contactNumber"
@@ -215,6 +284,9 @@ const StudentRegisteration = () => {
             placeholder="Enter your contact number"
             required
           />
+          {errors.contactNumber && (
+                <p className="error-message">{errors.contactNumber}</p>
+              )}
         </div>
         <div className="studentregister-terms">
           <input
@@ -224,8 +296,11 @@ const StudentRegisteration = () => {
             onChange={handleChange}
             required
           />
-          <label>I agree to the <span className="terms-link" onClick={() => setIsPopupOpenTC(true)}>Terms and Conditions</span> of registration </label>
+          <label>I agree to the <span className="terms-link" onClick={() => setIsPopupOpenTC(true)}>Terms and Conditions</span> of registration <span className="required">*</span></label>
         </div>
+        {errors.agreeToTerms && (
+                <p className="error-message">{errors.agreeToTerms}</p>
+              )}
         <button className="studentregister-submit-btn" type="submit">
           Submit
         </button>
