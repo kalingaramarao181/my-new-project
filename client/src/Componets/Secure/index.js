@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import { baseUrl } from "../config";
+import { userRoleResources } from "../api";
 
 const Secure = () => {
-  const [authorized, setAuthorized] = useState(null); // null = loading state
-  const [accessibleRoutes, setAccessibleRoutes] = useState([]);
-  const token = Cookies.get("jwtToken");
+  const [authorized, setAuthorized] = useState(null);
+  const token = Cookies.get("token");
   const location = useLocation();
 
-  const resourceToPath = {
-    Dashboard: "/dashboard",
-    "Course Management": "/course-management",
-    Courses: "/courses",
-    Attendance: "/attendance",
-    "Course Enrollment": "/course-enm",
-    "Student Registration": "/student-reg",
-    "Volunteers": "/volunteer-reg",
-    Payment: "/payment",
+  const pathToResource = {
+    "/dashboard": "Dashboard",
+    "/student-reg": "Student Registration",
+    "/course-enm": "Course Enrollment",
+    "/attendance": "Attendance Tracking",
+    "/course-management": "Course Management",
+    "/volunteer-reg": "Volunteers",
   };
 
   useEffect(() => {
@@ -28,45 +24,40 @@ const Secure = () => {
       return;
     }
 
-    try {
-      const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000; 
+    const verifyAccess = async () => {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.userId;
 
-      if (decodedToken.exp < currentTime) {
-        alert("Session expired. Please log in again.");
-        Cookies.remove("jwtToken");
-        setAuthorized(false);
-        return;
-      }
+        const userResources = await userRoleResources(userId);
 
-      axios
-        .get(`${baseUrl}user/role-resources/${decodedToken.userId}`)
-        .then((response) => {
-          const userResources = response.data;
+        // Check if the user has access to all necessary resources
+        if (
+          userResources.includes("Dashboard") &&
+          userResources.includes("Student Registration") &&
+          userResources.includes("Course Enrollment") &&
+          userResources.includes("Attendance Tracking") &&
+          userResources.includes("Course Management") &&
+          userResources.includes("Volunteers")
+        ) {
+          setAuthorized(true);
+          return;
+        }
 
-          const userPaths = userResources
-            .map((resource) => resourceToPath[resource])
-            .filter((path) => path); 
-
-          if (userPaths.includes(location.pathname)) {
-            setAccessibleRoutes(userPaths);
-            setAuthorized(true);
-          } else {
-            alert("Access denied. Insufficient permissions.");
-            setAuthorized(false);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user resources:", error);
-          alert("Error validating access. Please log in again.");
-          Cookies.remove("jwtToken");
+        // Check access for specific path
+        const requiredResource = pathToResource[location.pathname];
+        if (requiredResource && userResources.includes(requiredResource)) {
+          setAuthorized(true);
+        } else {
           setAuthorized(false);
-        });
-    } catch (error) {
-      console.error("Invalid token:", error);
-      Cookies.remove("jwtToken");
-      setAuthorized(false);
-    }
+        }
+      } catch (error) {
+        console.error("Error verifying access:", error);
+        setAuthorized(false);
+      }
+    };
+
+    verifyAccess();
   }, [token, location.pathname]);
 
   if (authorized === null) {

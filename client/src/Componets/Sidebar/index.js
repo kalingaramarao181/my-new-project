@@ -7,9 +7,8 @@ import { TiGroupOutline } from "react-icons/ti";
 import { PiStudentBold } from "react-icons/pi";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import { baseUrl } from "../config"; // Assuming this contains the API base URL
 import "./index.css";
+import { userRoleResources } from "../api";
 
 const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
   const [accessibleRoutes, setAccessibleRoutes] = useState([]);
@@ -26,11 +25,11 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
   };
 
   const resources = [
+    { name: "Dashboard", icon: <TbReportAnalytics className="sidebar-icon" /> },
     { name: "Student Registration", icon: <PiStudentBold className="sidebar-icon" /> },
     { name: "Course Enrollment", icon: <FaProjectDiagram className="sidebar-icon" /> },
     { name: "Attendance Tracking", icon: <FaRegCalendarAlt className="sidebar-icon" /> },
     { name: "Course Management", icon: <TbReportAnalytics className="sidebar-icon" /> },
-    { name: "Dashboard", icon: <TbReportAnalytics className="sidebar-icon" /> },
     { name: "Volunteers", icon: <TiGroupOutline className="sidebar-icon" /> },
   ];
 
@@ -40,25 +39,23 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
 
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.userId;
-    
 
-    axios
-      .get(`${baseUrl}user/role-resources/${userId}`)
-      .then((response) => {
-        const userResources = response.data; 
-        console.log(userResources);
-        
+    const fetchUserResources = async () => {
+      try {
+        const userResources = await userRoleResources(userId);
         
         const userPaths = userResources
           .map((resource) => resourceToPath[resource])
           .filter((path) => path);
 
         setAccessibleRoutes(userPaths);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching user resources:", error);
-      });
-  }, [ token ]);
+      }
+    };
+
+    fetchUserResources();
+  }, [token, location.pathname]);
 
   return (
     <div className={`sidebar-container ${isCollapsed ? "sidebar-collapsed" : ""}`}>

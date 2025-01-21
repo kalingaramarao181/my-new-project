@@ -8,15 +8,16 @@ import { TiTick } from "react-icons/ti";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import axios from "axios";
 import { baseUrl } from "../config";
+import { getUser } from "../api";
 
 const Dashboard = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [studentData, setStudentData] = useState({});
-  const [updatedStudentData, setUpdatedStudentData] = useState({});
+  const [userData, setUserData] = useState({});
+  const [updatedUserData, setUpdatedUserData] = useState({});
   const [editField, setEditField] = useState("");
 
   useEffect(() => {
-    const fetchStudentData = async () => {
+    const fetchUserData = async () => {
       try {
         const token = Cookies.get("token");
         if (!token) {
@@ -30,25 +31,25 @@ const Dashboard = () => {
           throw new Error("User ID not found in token");
         }
 
-        const response = await axios.get(`${baseUrl}users/${userId}`);
-        console.log(response.data);
+        const data = await getUser(userId);  // Use the getUser function
+        console.log(data);
 
-        setStudentData(response.data);
+        setUserData(data);
       } catch (error) {
-        console.error("Error fetching student data:", error);
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchStudentData();
+    fetchUserData();
   }, []);
 
   const handleInputChange = (e) => {
-    setUpdatedStudentData({
-      ...updatedStudentData,
+    setUpdatedUserData({
+      ...updatedUserData,
       [e.target.name]: e.target.value,
     });
-    setStudentData({
-      ...studentData,
+    setUserData({
+      ...userData,
       [e.target.name]: e.target.value,
     });
   };
@@ -69,20 +70,20 @@ const Dashboard = () => {
       }
 
       // If only the password is updated, send only the password
-      if (editField === "PWD" && updatedStudentData.PWD) {
+      if (editField === "PWD" && updatedUserData.PWD) {
         const response = await axios.put(`${baseUrl}users/${userId}`, {
-          PWD: updatedStudentData.PWD,
+          PWD: updatedUserData.PWD,
         });
 
         console.log("Password updated successfully", response.data);
       }
 
       // Reset edit field and clear the updated data after saving
-      setStudentData({ ...studentData, PWD: updatedStudentData.PWD });
-      setUpdatedStudentData({});
+      setUserData({ ...userData, PWD: updatedUserData.PWD });
+      setUpdatedUserData({});
       setEditField(""); // Exit edit mode
     } catch (error) {
-      console.error("Error updating student data:", error);
+      console.error("Error updating user data:", error);
     }
   };
 
@@ -101,20 +102,20 @@ const Dashboard = () => {
       <div className={`dashboard-page ${isCollapsed ? "sidebar-collapsed" : ""}`}>
         <Sidebar onToggleSidebar={toggleSidebar} isCollapsed={isCollapsed} />
         <div className="main-content">
-          <div className="student-profile-container">
-            <div className="student-profile-header">
+          <div className="user-profile-container">
+            <div className="user-profile-header">
               <img
-                className="student-photo"
-                src={studentData.documents?.photo}
-                alt="Student"
+                className="user-photo"
+                src={userData.documents?.photo}
+                alt="User"
               />
               <h1>
-                {studentData.F_NAME} {studentData.L_NAME}
+                {userData.F_NAME} {userData.L_NAME}
               </h1>
-              <p className="student-id">Student ID: {studentData.USER_ID}</p>
+              <p className="user-id">User ID: {userData.USER_ID}</p>
             </div>
 
-            <div className="student-details student-card">
+            <div className="user-details user-card">
               <h2>Personal Details</h2>
               {[
                 "F_NAME",
@@ -132,12 +133,12 @@ const Dashboard = () => {
                   {editField === field ? (
                     <input
                       name={field}
-                      value={studentData[field]}
+                      value={userData[field]}
                       onChange={handleInputChange}
                     />
                   ) : (
                     <span>
-                      {field === "PWD" ? maskPassword(studentData[field]) : studentData[field]}
+                      {field === "PWD" ? maskPassword(userData[field]) : userData[field]}
                     </span>
                   )}
                   {editField === field ? (
@@ -152,17 +153,17 @@ const Dashboard = () => {
               ))}
             </div>
 
-            <div className="student-documents student-card">
+            <div className="user-documents user-card">
               <h2>Documents</h2>
-              {Object.keys(studentData.documents || {}).map((docKey) => (
+              {Object.keys(userData.documents || {}).map((docKey) => (
                 <div className="document-item" key={docKey}>
                   <label>{docKey.replace("_", " ").toUpperCase()}:</label>
                   <img
                     className="document-preview"
-                    src={studentData.documents[docKey]}
+                    src={userData.documents[docKey]}
                     alt={docKey}
                   />
-                  {studentData.verified[docKey] ? (
+                  {userData.verified[docKey] ? (
                     <IoIosCheckmarkCircle className="verified-icon" />
                   ) : (
                     <span className="unverified-text">Pending</span>

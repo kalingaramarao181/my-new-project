@@ -4,9 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import { baseUrl } from "../config";
 import "./index.css";
+import { getUser } from "../api";
 
 function Header() {
   const location = useLocation();
@@ -20,6 +19,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dashboardPaths = ["dashboard", "attendance", "student-reg", "volunteer-reg"];
+  const token = Cookies.get("token");
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -33,19 +33,24 @@ function Header() {
 
   const handleLogout = () => {
     navigate("/");
-    Cookies.remove("jwtToken");
+    Cookies.remove("token");
   };
+
+  const handleShowAccount = () => {
+    navigate("/dashboard");
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
       const token = Cookies.get("token");
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.userId;
+
       if (token) {
         try {
-          const response = await axios.get(`${baseUrl}users/${userId}`);
+          const userData = await getUser(userId);
+          const { F_NAME, L_NAME, email } = userData;
 
-          const { F_NAME, L_NAME, email } = response.data;
           setUser({
             fullName: F_NAME + " " + L_NAME || "Guest",
             email: email || "",
@@ -163,7 +168,7 @@ function Header() {
             <a href="#">Research</a>
           </li>
         </ul>
-        {dashboardPaths.includes(currentPath) ? (
+        {token !== undefined ? (
           <div className="user-info">
             <p className="user-welcome-text" onClick={toggleDropdown}>
               {user.fullName}
@@ -176,7 +181,7 @@ function Header() {
             {dropdownVisible && (
               <div className="dropdown">
                 <ul>
-                  <li>
+                  <li  onClick={handleShowAccount}>
                     <span>Account</span>
                   </li>
                   <li>Profile</li>

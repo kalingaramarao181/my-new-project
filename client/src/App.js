@@ -12,6 +12,7 @@ import VolunteerRegistration from './Componets/Dashboard/VolunteerRegistration';
 import CourseEnrollment from './Componets/Dashboard/CourceEnrollment';
 import CourseManagement from './Componets/Dashboard/CourseManagement';
 import Payment from './Componets/Payment';
+import Secure from './Componets/Secure';
 
 
 function App() {
@@ -20,20 +21,29 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Login/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />    
-        <Route path="/courses" element={<Cources/>} />
-        <Route path="/attendance" element={<Attendance/>} />
-        <Route path="/student-reg" element={<StudentRegisteration/>} />
-        <Route path="/volunteer-reg" element={<VolunteerRegistration/>} />
-        <Route path="/course-enm" element={<CourseEnrollment/>} />
-        <Route path="/course-management" element={<CourseManagement/>} />
-        <Route path="/payment" element={<Payment/>} />
+        <Route path="/auth" element={<Login />} />
 
-
-        {/* Add more routes here */}
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={<Secure />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+        <Route path="/student-reg" element={<Secure />}>
+          <Route index element={<StudentRegisteration />} />
+        </Route>
+        <Route path="/course-enm" element={<Secure />}>
+          <Route index element={<CourseEnrollment />} />
+        </Route>
+        <Route path="/attendance" element={<Secure />}>
+          <Route index element={<Attendance />} />
+        </Route>
+        <Route path="/course-management" element={<Secure />}>
+          <Route index element={<CourseManagement />} />
+        </Route>
+        <Route path="/volunteer-reg" element={<Secure />}>
+          <Route index element={<VolunteerRegistration />} />
+        </Route>
       </Routes>
-    <Footer/>
+      <Footer />
     </Router>
   );
 }

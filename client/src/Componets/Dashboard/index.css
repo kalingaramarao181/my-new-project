@@ -1,19 +1,19 @@
 .dashboard-page {
-    display: flex;
-    width: 100%;
-  }
-  
-  .main-content {
-    padding: 20px;
-    width: 80%; 
-    height: 66vh;   
-    transition: margin-left 0.3s;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-grow: 1;
-    scrollbar-width: thin;
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  padding: 20px;
+  width: 80%; 
+  height: 66vh;   
+  transition: margin-left 0.3s;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-grow: 1;
+  scrollbar-width: thin;
   scrollbar-color: #024091 #E0E0E0;
 }
 
@@ -36,13 +36,14 @@
   display: flex;
   width: 100%;
 }
+
 /* Profile Header */
-.student-profile-container {
+.user-profile-container {
   max-width: 900px;
   width: 100%;
 }
 
-.student-profile-header {
+.user-profile-header {
   text-align: center;
   margin-bottom: 20px;
   background: #00193f;
@@ -51,7 +52,7 @@
   border-radius: 10px;
 }
 
-.student-photo {
+.user-photo {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -59,13 +60,13 @@
   margin-bottom: 10px;
 }
 
-.student-id {
+.user-id {
   font-size: 1.2rem;
   margin-top: 10px;
 }
 
-/* .student-card Style */
-.student-card {
+/* .user-card Style */
+.user-card {
   background: white;
   padding: 20px;
   margin: 20px 0;
@@ -142,16 +143,16 @@ h2 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .student-profile-header {
+  .user-profile-header {
     padding: 15px;
   }
 
-  .student-photo {
+  .user-photo {
     width: 100px;
     height: 100px;
   }
 
-  .student-card {
+  .user-card {
     padding: 15px;
   }
 
