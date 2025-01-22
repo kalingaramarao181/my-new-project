@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import {
   FaGooglePay,
@@ -9,16 +9,50 @@ import {
   FaEuroSign,
 } from 'react-icons/fa';
 import { MdPayment } from 'react-icons/md';
+import { getUser, getCourseDetails, getSavedCards, addNewCard } from '../api';
+import { useParams, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
 const CoursePayment = () => {
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [savedCards, setSavedCards] = useState([
-    { id: 1, cardNumber: '**** **** **** 1234', cardHolder: 'John Doe', expiry: '12/24' },
-    { id: 2, cardNumber: '**** **** **** 5678', cardHolder: 'Jane Smith', expiry: '01/25' },
-  ]);
+  const [savedCards, setSavedCards] = useState([]);
   const [newCard, setNewCard] = useState({ cardNumber: '', cardHolder: '', expiry: '' });
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [courseDetails, setCourseDetails] = useState({});
+  const [userInfo, setUserInfo] = useState({});
+  const token = Cookies.get('token');
+  const { courseId } = useParams();
+  const navigate = useNavigate();  // Hook for navigation
+
+  useEffect(() => {
+    // If no token is found, redirect to the /auth page
+    if (!token) {
+      navigate('/auth');
+      return;
+    }
+
+    const userId = jwtDecode(token).userId;
+
+    const fetchData = async () => {
+      try {
+        const userRes = await getUser(userId);
+        const courseRes = await getCourseDetails(courseId);
+        // const cardsRes = await getSavedCards();
+        
+        setUserInfo(userRes);
+        console.log(courseRes);
+        
+        setCourseDetails(courseRes);
+        // setSavedCards(cardsRes);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [courseId, token, navigate]); // Dependency array includes navigate
 
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
@@ -32,20 +66,25 @@ const CoursePayment = () => {
     setNewCard({ ...newCard, [name]: value });
   };
 
-  const handleAddCard = (e) => {
+  const handleAddCard = async (e) => {
     e.preventDefault();
-    setSavedCards([...savedCards, { ...newCard, id: Date.now() }]);
-    setNewCard({ cardNumber: '', cardHolder: '', expiry: '' });
-    setIsAddingCard(false);
+    try {
+      const response = await addNewCard(newCard);
+      setSavedCards([...savedCards, { ...newCard, id: response.id }]);
+      setNewCard({ cardNumber: '', cardHolder: '', expiry: '' });
+      setIsAddingCard(false);
+    } catch (error) {
+      console.error('Error adding new card:', error);
+    }
   };
 
   return (
     <div className="course-card-container">
       <header className="course-header">
-        <div className="course-logo">K</div>
+        <div className="course-logo">Payment</div>
         <div className="course-user-info">
-          <p>Hi Joe Bloggs,</p>
-          <h2>Pay AspireCo €1,749.96</h2>
+          <p>Hi {userInfo.F_NAME} {userInfo.L_NAME},</p>
+          <h2>Pay {courseDetails.COURSE_NAME} €{courseDetails.PRICE}</h2>
         </div>
       </header>
 
@@ -149,27 +188,27 @@ const CoursePayment = () => {
           <h3>Summary</h3>
           <ul>
             <li>
-              <span>144Hz gaming monitor</span>
-              <span>€1,399.98 (2 x €699.99)</span>
+              <span>Course Name</span>
+              <span>{courseDetails.COURSE_NAME}</span>
             </li>
             <li>
-              <span>Wireless gaming mouse</span>
-              <span>€149.99</span>
+              <span>Start Date</span>
+              <span>{new Date(courseDetails.START_DT).toLocaleDateString()} {courseDetails.START_TIME}</span>
             </li>
             <li>
-              <span>Mechanical switch keyboard with wrist rest</span>
-              <span>€199.99</span>
+              <span>End Date</span>
+              <span>{new Date(courseDetails.END_DT).toLocaleDateString()} {courseDetails.END_TIME}</span>
             </li>
           </ul>
-          <h4>Total order amount: €1,749.96</h4>
+          <h4>Total order amount: €{courseDetails.PRICE}</h4>
         </div>
       </div>
 
       <div className="course-personal-info">
         <p>Personal information</p>
-        <p>Joe Bloggs, joe.bloggs@example.com</p>
+        <p>{userInfo.F_NAME} {userInfo.L_NAME}, {userInfo.EMAIL}</p>
       </div>
-      <button className="course-pay-button">Pay €1,749.96</button>
+      <button className="course-pay-button">Pay €{courseDetails.PRICE}</button>
     </div>
   );
 };

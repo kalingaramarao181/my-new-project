@@ -8,6 +8,7 @@ const authRoutes = require('./Modules/auth');
 const registerRouters = require('./Modules/register') 
 const resourceRouters = require('./Modules/resource')
 const userRouters = require('./Modules/users')
+const courseRouters = require('./Modules/course')
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api', authRoutes);
 app.use('/api', registerRouters); 
 app.use('/api', resourceRouters); 
 app.use('/api', userRouters);
+app.use('/api', courseRouters);
 
 
 const port = process.env.PORT || 3000;

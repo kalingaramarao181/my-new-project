@@ -15,7 +15,6 @@ const checkUserExists = (email) => {
           return reject(err);
         }
   
-        console.log('Query result:', data); 
         resolve(data);
       });
     });

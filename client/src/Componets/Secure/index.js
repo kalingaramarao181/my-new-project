@@ -31,7 +31,6 @@ const Secure = () => {
 
         const userResources = await userRoleResources(userId);
 
-        // Check if the user has access to all necessary resources
         if (
           userResources.includes("Dashboard") &&
           userResources.includes("Student Registration") &&
@@ -44,7 +43,6 @@ const Secure = () => {
           return;
         }
 
-        // Check access for specific path
         const requiredResource = pathToResource[location.pathname];
         if (requiredResource && userResources.includes(requiredResource)) {
           setAuthorized(true);

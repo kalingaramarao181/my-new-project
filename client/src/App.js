@@ -13,6 +13,7 @@ import CourseEnrollment from './Componets/Dashboard/CourceEnrollment';
 import CourseManagement from './Componets/Dashboard/CourseManagement';
 import Payment from './Componets/Payment';
 import Secure from './Componets/Secure';
+import CoursePayment from './Componets/Payment';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Login />} />
+        <Route path="/courses" element={<Cources />} />
+        <Route path='/course-payment/:courseId' element={<CoursePayment />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={<Secure />}>

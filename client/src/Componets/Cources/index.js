@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
+import { getCourses } from '../api';
+import { Link } from 'react-router-dom';
 
 const Cources = () => {
-  const courses = [
-    { id: 1, name: 'React for Beginners', price: '$50', duration: '4 weeks' },
-    { id: 2, name: 'Advanced JavaScript', price: '$70', duration: '6 weeks' },
-    { id: 3, name: 'Web Development Bootcamp', price: '$100', duration: '12 weeks' },
-    { id: 4, name: 'Data Science with Python', price: '$120', duration: '8 weeks' },
-    { id: 5, name: 'Advanced JavaScript', price: '$70', duration: '6 weeks' },
-    { id: 6, name: 'Web Development Bootcamp', price: '$100', duration: '12 weeks' },
-  ];
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const data = await getCourses();
+        setCourses(data);
+      } catch (error) {
+        console.error('Failed to load courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  const calculateDuration = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    const diffInMonths =
+      (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+      (endDate.getMonth() - startDate.getMonth());
+
+    if (diffInMonths >= 12) {
+      const years = Math.floor(diffInMonths / 12);
+      const remainingMonths = diffInMonths % 12;
+      return remainingMonths > 0
+        ? `${years} year${years > 1 ? 's' : ''} ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`
+        : `${years} year${years > 1 ? 's' : ''}`;
+    }
+
+    return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''}`;
+  };
 
   return (
-    <>
     <div className="home-course">
       <h2>Available Courses</h2>
       <table className="home-course-table">
@@ -21,22 +47,27 @@ const Cources = () => {
             <th>Course Name</th>
             <th>Price</th>
             <th>Duration</th>
+            <th>Teacher ID</th>
+            <th>Batch</th>
+            <th>Active</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {courses.map((course) => (
-            <tr key={course.id}>
-              <td>{course.name}</td>
-              <td>{course.price}</td>
-              <td>{course.duration}</td>
-              <td><button className="home-course-buy-btn">Enroll Now </button></td>
+            <tr key={course.COURSE_ID}>
+              <td>{course.COURSE_NAME}</td>
+              <td>{course.PRICE}</td>
+              <td>{calculateDuration(course.START_DT, course.END_DT)}</td>
+              <td>{course.TEACHER_ID}</td>
+              <td>{course.BATCH}</td>
+              <td>{course.ACTIVE ? 'Yes' : 'No'}</td>
+              <td><Link to={`/course-payment/${course.COURSE_ID}`}><button className="home-course-buy-btn">Enroll Now</button></Link></td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-    </>
   );
 };
 
