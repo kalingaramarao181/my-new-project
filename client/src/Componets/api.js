@@ -12,6 +12,15 @@ export const getUser = async (userId) => {
   }
 };
 
+export const signupUser = async (requestData) => {
+  try {
+    const response = await axios.post(`${baseUrl}signup`, requestData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const userRoleResources = async (userId) => {
   try {
     const response = await axios.get(`${baseUrl}user/role-resources/${userId}`);
@@ -42,15 +51,20 @@ export const getCourseDetails = async (courseId) => {
   }
 };
 
-// Function to get saved cards
-export const getSavedCards = async () => {
+
+export const getSavedCards = async (userId) => {
   try {
-    const response = await axios.get(`${baseUrl}saved-cards`);
+    const response = await axios.get(`${baseUrl}saved-cards/${userId}`);  // Pass userId to the API endpoint
     return response.data;
   } catch (error) {
     console.error('Error fetching saved cards:', error);
     throw error;
   }
+};
+
+export const payWithPaytm = async (paymentData) => {
+  const response = await axios.post(`${baseUrl}payWithPaytm`, paymentData);
+  return response.data;
 };
 
 export const addNewCard = async (cardData) => {

@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 import StudentTermsAndConditions from "../../Popups/StudentTermsAndConditions";
-import { baseUrl } from "../../config";
-import axios from "axios";
+import { signupUser } from "../../api";
 
 const StudentRegisteration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -19,6 +18,7 @@ const StudentRegisteration = () => {
     state: '',
     zip: '',
     email: '',
+    memberType: 4,
     password: '',
     confirmPassword: '',
     contactNumber: '',
@@ -83,7 +83,7 @@ const StudentRegisteration = () => {
     };
 
     try {
-      const response = await axios.post(`${baseUrl}signup`, requestData);
+      const response = await signupUser(requestData);
       if (response.status === 201) {
         setShowPopup(true);
         setTimeout(() => setShowPopup(false), 3000);
@@ -100,7 +100,7 @@ const StudentRegisteration = () => {
           password: "",
           confirmPassword: "",
         });
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error during signup:", error);

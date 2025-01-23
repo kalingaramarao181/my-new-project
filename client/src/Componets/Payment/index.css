@@ -154,26 +154,33 @@
     color: var(--primary-color);
   }
   
-  /* Saved Cards */
   .course-saved-cards {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
   }
   
   .course-saved-cards h4 {
     font-size: 18px;
     color: var(--primary-color);
+    width: 100%;
     margin-bottom: 10px;
   }
   
   .course-card-item {
-    background: linear-gradient(135deg, #1E293B, #1E293B);
+    background: linear-gradient(135deg, #1E293B, #989faa);
     color: white;
     padding: 15px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    max-width: 250px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  .course-card-item span {
+    font-weight: bold;
   }
   
   .course-card-item:hover {
@@ -183,6 +190,7 @@
   .course-card-item.selected {
     border: 2px solid #fff;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    background: linear-gradient(135deg, #1E293B, #35373a);
   }
   
   .course-card-item p {

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
 import VolunteerTermsAndConditions from "../VolunteerTermsAndConditions";
+import { signupUser } from "../../api";
 
-const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerSignup }) => {
+const VolunteerSignupPopup = ({
+  isPopupOpenVolunteerSignup,
+  closePopupVolunteerSignup,
+}) => {
   const [formData, setFormData] = useState({
-    firstName: "",  
+    firstName: "",
     lastName: "",
-    studentID: "",
     address1: "",
     address2: "",
     city: "",
@@ -20,6 +23,7 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
     volunteerType: "",
     subject: "",
     about: "",
+    memberType: 5,
     agreeToTerms: false,
   });
 
@@ -33,7 +37,7 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-    setErrors({ ...errors, [name]: "" }); // Clear error for the field
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateForm = () => {
@@ -42,8 +46,6 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
       formErrors.firstName = "First name is required.";
     if (!formData.lastName.trim())
       formErrors.lastName = "Last name is required.";
-    if (!formData.studentID.trim())
-      formErrors.studentID = "Student ID is required.";
     if (!formData.address1.trim()) formErrors.address1 = "Address is required.";
     if (!formData.city.trim()) formErrors.city = "City is required.";
     if (!formData.state.trim()) formErrors.state = "State is required.";
@@ -57,45 +59,71 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
       formErrors.contactNumber = "Contact number is required.";
     if (!formData.volunteerType.trim())
       formErrors.volunteerType = "Volunteer type is required.";
-    if (!formData.subject.trim())
-      formErrors.subject = "Subject is required.";
-    if (!formData.about.trim()) 
-      formErrors.about = "About is required.";
+    if (!formData.subject.trim()) formErrors.subject = "Subject is required.";
+    if (!formData.about.trim()) formErrors.about = "About is required.";
     if (!formData.agreeToTerms)
       formErrors.agreeToTerms = "You must agree to the terms and conditions.";
     return formErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
+    console.log("Form Errors: ", formErrors);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-    setShowPopup(true);
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      studentID: "",
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      zip: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      contactNumber: "",
-      subject: "",
-      about: "",
-      agreeToTerms: false,
-    });
-
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+    const requestData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      address1: formData.address1,
+      address2: formData.address2,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+      email: formData.email,
+      mobile: formData.contactNumber,
+      volunteerType: formData.volunteerType,
+      subject: formData.subject,
+      about: formData.about,
+      memberType: formData.memberType,
+      password: formData.password,
+    };
+    try {
+      const response = await signupUser(requestData);
+      if (response.status === 201) {
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          studentID: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          zip: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          contactNumber: "",
+          volunteerType: "",
+          subject: "",
+          about: "",
+          agreeToTerms: false,
+        });
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setErrors({
+        general:
+          error.response?.data?.error ||
+          "Something went wrong. Please try again.",
+      });
+    }
   };
 
   return (
@@ -108,7 +136,10 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
       overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <div className="signup-popup-container">
-        <button className="signup-popup-close-btn" onClick={closePopupVolunteerSignup}>
+        <button
+          className="signup-popup-close-btn"
+          onClick={closePopupVolunteerSignup}
+        >
           &times;
         </button>
         <h1 className="signup-popup-title">Volunteer Registration</h1>
@@ -145,7 +176,6 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
               )}
             </div>
           </div>
-
 
           <div className="signup-popup-form-group">
             <label>
@@ -277,16 +307,16 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
             <label>
               Volunteer Type <span className="required">*</span>
             </label>
-            <select 
+            <select
               onChange={handleChange}
               value={formData.volunteerType}
-              name="violunteerType"
+              name="volunteerType"
             >
               <option value="">Select Volunteer Type</option>
               <option value="teacher">Teacher</option>
               <option value="teachingAssistant">Teaching Assistant</option>
               <option value="backOffice">Back Office</option>
-              <option value="others">Others</option>  
+              <option value="others">Others</option>
             </select>
             {errors.volunteerType && (
               <p className="error-message">{errors.volunteerType}</p>
@@ -297,7 +327,7 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
             <label>
               Subject <span className="required">*</span>
             </label>
-            <select 
+            <select
               onChange={handleChange}
               value={formData.subject}
               name="subject"
@@ -306,12 +336,12 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
               <option value="tamil">Tamil</option>
               <option value="literature">Literature</option>
               <option value="english">English</option>
-              <option value="math">Math</option>  
-              <option value="science">Science</option>  
-              <option value="social">Social</option>  
-              <option value="history">History</option>  
-              <option value="yoga">Yoga</option>  
-              <option value="financialEducation">Financial Education</option>  
+              <option value="math">Math</option>
+              <option value="science">Science</option>
+              <option value="social">Social</option>
+              <option value="history">History</option>
+              <option value="yoga">Yoga</option>
+              <option value="financialEducation">Financial Education</option>
             </select>
             {errors.subject && (
               <p className="error-message">{errors.subject}</p>
@@ -323,14 +353,12 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
             </label>
             <textarea
               type="text"
-              name="contactNumber"
+              name="about"
               value={formData.about}
               onChange={handleChange}
               placeholder="Tell us about yourself and why you are intrested in volunteering. What skills are experiences can you bring to our organization?"
             />
-            {errors.about && (
-              <p className="error-message">{errors.about}</p>
-            )}
+            {errors.about && <p className="error-message">{errors.about}</p>}
           </div>
           <div className="signup-popup-terms">
             <input
@@ -340,7 +368,14 @@ const VolunteerSignupPopup = ({ isPopupOpenVolunteerSignup, closePopupVolunteerS
               onChange={handleChange}
             />
             <label>
-              I agree to the <span className="terms-link" onClick={() => setIsPopupOpenVolunteerTC(true)}>Terms and Conditions</span> of registration
+              I agree to the{" "}
+              <span
+                className="terms-link"
+                onClick={() => setIsPopupOpenVolunteerTC(true)}
+              >
+                Terms and Conditions
+              </span>{" "}
+              of registration
               <span className="required">*</span>
             </label>
           </div>

@@ -8,7 +8,6 @@ const checkUserExists = (email) => {
         JOIN MEMBER m ON u.MEMBER_ID = m.MEMBER_ID 
         WHERE m.EMAIL = ?
       `;
-      console.log('Query:', checkUserSql);
       db.query(checkUserSql, [email], (err, data) => {
         if (err) {
           console.error('Database error in checkUserExists:', err);

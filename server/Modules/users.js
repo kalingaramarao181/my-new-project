@@ -1,6 +1,8 @@
 // routes/users.js
 const express = require('express');
 const db = require('../Config/connection');
+const bcrypt = require('bcrypt');
+
 
 const router = express.Router();
 
@@ -30,50 +32,63 @@ router.get('/users/:userId', (req, res) => {
     });
   });
 
-router.put('/users/:userId', async (req, res) => {
+  router.put('/users/:userId', async (req, res) => {
     const userId = req.params.userId;
     const updatedData = req.body;
-  
-    let hashedPassword = null;
-    if (updatedData.password) {
-      try {
-        hashedPassword = await bcrypt.hash(updatedData.password, 10);
-      } catch (error) {
-        console.error("Error hashing password:", error);
-        return res.status(500).json({ message: "Error hashing password" });
-      }
+
+    try {
+        let query = `
+          UPDATE member
+          JOIN user ON member.MEMBER_ID = user.MEMBER_ID
+          SET 
+        `;
+
+        const queryParams = [];
+        if (updatedData.ADD1) {
+            query += "member.ADD1 = ?, ";
+            queryParams.push(updatedData.ADD1);
+        }
+        if (updatedData.ADD2) {
+            query += "member.ADD2 = ?, ";
+            queryParams.push(updatedData.ADD2);
+        }
+        if (updatedData.CITY) {
+            query += "member.CITY = ?, ";
+            queryParams.push(updatedData.CITY);
+        }
+        if (updatedData.STATE) {
+            query += "member.STATE = ?, ";
+            queryParams.push(updatedData.STATE);
+        }
+        if (updatedData.ZIP) {
+            query += "member.ZIP = ?, ";
+            queryParams.push(updatedData.ZIP);
+        }
+        if (updatedData.PWD) {
+            const hashedPassword = await bcrypt.hash(updatedData.PWD, 10);
+            query += "user.PWD = ?, ";
+            queryParams.push(hashedPassword);
+        }
+
+        query = query.slice(0, -2);
+
+        query += " WHERE user.MEMBER_ID = ?";
+        queryParams.push(userId);
+
+        db.query(query, queryParams, (err, results) => {
+            if (err) {
+                console.error("Error updating user data:", err);
+                return res.status(500).json({ message: "Error updating user data" });
+            }
+
+            res.json({ message: "User data updated successfully" });
+        });
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-  
-    const query = `
-      UPDATE member
-      JOIN user ON member.MEMBER_ID = user.MEMBER_ID
-      SET 
-        member.ADD1 = ?, 
-        member.ADD2 = ?, 
-        member.CITY = ?, 
-        member.STATE = ?, 
-        member.ZIP = ?, 
-        user.PWD = ?
-      WHERE user.MEMBER_ID = ?
-    `;
-  
-    db.query(query, [
-      updatedData.address1,
-      updatedData.address2,
-      updatedData.city,
-      updatedData.state,
-      updatedData.zip,
-      hashedPassword || updatedData.password,
-      userId
-    ], (err, results) => {
-      if (err) {
-        console.error("Error updating user data:", err);
-        return res.status(500).json({ message: "Error updating user data" });
-      }
-  
-      res.json({ message: "User data updated successfully" });
-    });
-  });
+});
+
   
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie"; // For managing cookies
-import { jwtDecode } from "jwt-decode"; // For decoding JWT tokens
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
 import Sidebar from "../Sidebar";
 import "./index.css";
 import { MdEdit } from "react-icons/md";
@@ -15,25 +15,19 @@ const Dashboard = () => {
   const [userData, setUserData] = useState({});
   const [updatedUserData, setUpdatedUserData] = useState({});
   const [editField, setEditField] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = Cookies.get("token");
-        if (!token) {
-          throw new Error("No token found");
-        }
+        if (!token) throw new Error("No token found");
 
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
+        if (!userId) throw new Error("User ID not found in token");
 
-        if (!userId) {
-          throw new Error("User ID not found in token");
-        }
-
-        const data = await getUser(userId);  // Use the getUser function
-        console.log(data);
-
+        const data = await getUser(userId);
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -54,34 +48,24 @@ const Dashboard = () => {
     });
   };
 
-  // Handle saving data
   const handleSave = async () => {
     try {
       const token = Cookies.get("token");
-      if (!token) {
-        throw new Error("No token found");
-      }
+      if (!token) throw new Error("No token found");
 
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.userId;
+      if (!userId) throw new Error("User ID not found in token");
 
-      if (!userId) {
-        throw new Error("User ID not found in token");
-      }
+      const updatedData = { [editField]: updatedUserData[editField] };
 
-      // If only the password is updated, send only the password
-      if (editField === "PWD" && updatedUserData.PWD) {
-        const response = await axios.put(`${baseUrl}users/${userId}`, {
-          PWD: updatedUserData.PWD,
-        });
+      const response = await axios.put(`${baseUrl}users/${userId}`, updatedData);
+      console.log("Field updated successfully", response.data);
 
-        console.log("Password updated successfully", response.data);
-      }
-
-      // Reset edit field and clear the updated data after saving
-      setUserData({ ...userData, PWD: updatedUserData.PWD });
+      setUserData({ ...userData, ...updatedData });
       setUpdatedUserData({});
-      setEditField(""); // Exit edit mode
+      setEditField("");
+      setShowPopup(false); // Close popup after saving
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -91,10 +75,9 @@ const Dashboard = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  // Updated maskPassword function to check for undefined
   const maskPassword = (password) => {
-    if (!password) return ""; // Return empty string if password is undefined or null
-    return "*".repeat(password.length > 5 ? 5 : password.length); // Display up to 5 stars
+    if (!password) return "";
+    return "*".repeat(password.length > 5 ? 5 : password.length);
   };
 
   return (
@@ -106,7 +89,10 @@ const Dashboard = () => {
             <div className="user-profile-header">
               <img
                 className="user-photo"
-                src={userData.documents?.photo}
+                src={
+                  userData.documents?.photo ||
+                  "https://via.placeholder.com/150"
+                }
                 alt="User"
               />
               <h1>
@@ -142,7 +128,10 @@ const Dashboard = () => {
                     </span>
                   )}
                   {editField === field ? (
-                    <TiTick className="edit-icon" onClick={handleSave} />
+                    <TiTick
+                      className="edit-icon"
+                      onClick={() => setShowPopup(true)}
+                    />
                   ) : (
                     <MdEdit
                       className="edit-icon"
@@ -174,6 +163,25 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="user-dashboard-popup">
+          <div className="user-dashboard-popup-content">
+            <h3>Are you sure you want to update {editField.replace("_", " ")}?</h3>
+            <div className="user-dashboard-popup-actions">
+              <button className="btn-save" onClick={handleSave}>
+                Save
+              </button>
+              <button
+                className="btn-cancel"
+                onClick={() => setShowPopup(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

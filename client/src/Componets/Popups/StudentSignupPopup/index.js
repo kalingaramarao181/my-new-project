@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
 import StudentTermsAndConditions from "../StudentTermsAndConditions";
-import axios from "axios";
-import { baseUrl } from "../../config";
+import { signupUser } from "../../api";
 
 const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup }) => {
   const [formData, setFormData] = useState({
@@ -18,6 +17,7 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
     email: "",
     password: "",
     confirmPassword: "",
+    memberType: 4,
     contactNumber: "",
     agreeToTerms: false,
   });
@@ -82,7 +82,7 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
     };
 
     try {
-      const response = await axios.post(`${baseUrl}signup`, requestData);
+      const response = await signupUser(requestData);
       if (response.status === 201) {
         setShowPopup(true);
         setTimeout(() => setShowPopup(false), 3000);
@@ -99,6 +99,7 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
           password: "",
           confirmPassword: "",
         });
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error during signup:", error);
