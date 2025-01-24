@@ -45,6 +45,14 @@ router.get('/users/:userId', (req, res) => {
 
         const queryParams = [];
         if (updatedData.ADD1) {
+          query += "member.F_NAME = ?, ";
+          queryParams.push(updatedData.F_NAME);
+      }
+      if (updatedData.ADD1) {
+        query += "member.L_NAME = ?, ";
+        queryParams.push(updatedData.L_NAME);
+    }
+        if (updatedData.ADD1) {
             query += "member.ADD1 = ?, ";
             queryParams.push(updatedData.ADD1);
         }
