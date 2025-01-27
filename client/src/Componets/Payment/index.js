@@ -15,7 +15,7 @@ const CoursePayment = () => {
     expiry: '',
     cvv: '',
     billingAddress: '',
-    userId: jwtDecode(Cookies.get('token')).userId
+    userId: jwtDecode(Cookies.get('token')).userId || 3
   });
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);

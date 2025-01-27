@@ -16,6 +16,7 @@ const Secure = () => {
     "/attendance": "Attendance Tracking",
     "/course-management": "Course Management",
     "/volunteer-reg": "Volunteers",
+    "/profile": "Profile",
   };
 
   useEffect(() => {
@@ -37,7 +38,9 @@ const Secure = () => {
           userResources.includes("Course Enrollment") &&
           userResources.includes("Attendance Tracking") &&
           userResources.includes("Course Management") &&
-          userResources.includes("Volunteers")
+          userResources.includes("Volunteers") &&
+          userResources.includes("Profile")
+          
         ) {
           setAuthorized(true);
           return;

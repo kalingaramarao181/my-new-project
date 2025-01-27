@@ -5,6 +5,7 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 import { PiStudentBold } from "react-icons/pi";
+import { ImProfile } from "react-icons/im";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import "./index.css";
@@ -22,6 +23,7 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
     "Course Management": "/course-management",
     "Volunteers": "/volunteer-reg",
     "Dashboard": "/dashboard",
+    "Profile": "/profile"
   };
 
   const resources = [
@@ -31,6 +33,7 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
     { name: "Attendance Tracking", icon: <FaRegCalendarAlt className="sidebar-icon" /> },
     { name: "Course Management", icon: <TbReportAnalytics className="sidebar-icon" /> },
     { name: "Volunteers", icon: <TiGroupOutline className="sidebar-icon" /> },
+    { name: "Profile", icon: <ImProfile className="sidebar-icon" /> },
   ];
 
 

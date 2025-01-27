@@ -184,9 +184,6 @@ function Header() {
                   <li  onClick={handleShowAccount}>
                     <span>Account</span>
                   </li>
-                  <li>Profile</li>
-                  <li>Personal Settings</li>
-                  <li>Notifications</li>
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>

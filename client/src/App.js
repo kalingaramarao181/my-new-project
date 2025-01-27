@@ -14,6 +14,7 @@ import CourseManagement from './Componets/Dashboard/CourseManagement';
 import Payment from './Componets/Payment';
 import Secure from './Componets/Secure';
 import CoursePayment from './Componets/Payment';
+import Profile from './Componets/Dashboard/Profile';
 
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path="/volunteer-reg" element={<Secure />}>
           <Route index element={<VolunteerRegistration />} />
+        </Route>
+        <Route path="/profile" element={<Secure />}>
+          <Route index element={<Profile />} />
         </Route>
       </Routes>
       <Footer />

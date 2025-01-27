@@ -65,7 +65,7 @@ const Dashboard = () => {
       setUserData({ ...userData, ...updatedData });
       setUpdatedUserData({});
       setEditField("");
-      setShowPopup(false); // Close popup after saving
+      setShowPopup(false);
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -86,102 +86,11 @@ const Dashboard = () => {
         <Sidebar onToggleSidebar={toggleSidebar} isCollapsed={isCollapsed} />
         <div className="main-content">
           <div className="user-profile-container">
-            <div className="user-profile-header">
-              <img
-                className="user-photo"
-                src={
-                  userData.documents?.photo ||
-                  "https://via.placeholder.com/150"
-                }
-                alt="User"
-              />
-              <h1>
-                {userData.F_NAME} {userData.L_NAME}
-              </h1>
-              <p className="user-id">User ID: {userData.USER_ID}</p>
-            </div>
-
-            <div className="user-details user-card">
-              <h2>Personal Details</h2>
-              {[
-                "F_NAME",
-                "L_NAME",
-                "EMAIL",
-                "MOBILE",
-                "ADD1",
-                "STATE",
-                "CITY",
-                "ZIP",
-                "PWD", // Keep "PWD" for password masking
-              ].map((field, index) => (
-                <div className="details-item" key={index}>
-                  <label>{field.replace("_", " ").toUpperCase()}:</label>
-                  {editField === field ? (
-                    <input
-                      name={field}
-                      value={userData[field]}
-                      onChange={handleInputChange}
-                    />
-                  ) : (
-                    <span>
-                      {field === "PWD" ? maskPassword(userData[field]) : userData[field]}
-                    </span>
-                  )}
-                  {editField === field ? (
-                    <TiTick
-                      className="edit-icon"
-                      onClick={() => setShowPopup(true)}
-                    />
-                  ) : (
-                    <MdEdit
-                      className="edit-icon"
-                      onClick={() => setEditField(field)}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="user-documents user-card">
-              <h2>Documents</h2>
-              {Object.keys(userData.documents || {}).map((docKey) => (
-                <div className="document-item" key={docKey}>
-                  <label>{docKey.replace("_", " ").toUpperCase()}:</label>
-                  <img
-                    className="document-preview"
-                    src={userData.documents[docKey]}
-                    alt={docKey}
-                  />
-                  {userData.verified[docKey] ? (
-                    <IoIosCheckmarkCircle className="verified-icon" />
-                  ) : (
-                    <span className="unverified-text">Pending</span>
-                  )}
-                </div>
-              ))}
+              <h1>Hi {userData.F_NAME} {userData.L_NAME} you enrolled courses:</h1>
+              
             </div>
           </div>
         </div>
-      </div>
-
-      {showPopup && (
-        <div className="user-dashboard-popup">
-          <div className="user-dashboard-popup-content">
-            <h3>Are you sure you want to update {editField.replace("_", " ")}?</h3>
-            <div className="user-dashboard-popup-actions">
-              <button className="btn-save" onClick={handleSave}>
-                Save
-              </button>
-              <button
-                className="btn-cancel"
-                onClick={() => setShowPopup(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };

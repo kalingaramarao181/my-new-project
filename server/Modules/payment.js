@@ -6,100 +6,100 @@ const db = require('../Config/connection');
 
 
 // Paytm Configuration
-const PAYTM_MERCHANT_ID = "YOUR_MERCHANT_ID";
-const PAYTM_MERCHANT_KEY = "YOUR_MERCHANT_KEY";
-const PAYTM_WEBSITE = "YOUR_WEBSITE";
-const PAYTM_CALLBACK_URL = "YOUR_CALLBACK_URL";
-const PAYTM_TXN_URL =
-  "https://securegw-stage.paytm.in/theia/processTransaction"; // Use production URL for live
+// const PAYTM_MERCHANT_ID = "YOUR_MERCHANT_ID";
+// const PAYTM_MERCHANT_KEY = "YOUR_MERCHANT_KEY";
+// const PAYTM_WEBSITE = "YOUR_WEBSITE";
+// const PAYTM_CALLBACK_URL = "YOUR_CALLBACK_URL";
+// const PAYTM_TXN_URL =
+//   "https://securegw-stage.paytm.in/theia/processTransaction"; 
 
-// Pay with Paytm and Save Transaction
-router.post("/payWithPaytm", async (req, res) => {
-  const { amount, courseId, cardId } = req.body;
+// // Pay with Paytm and Save Transaction
+// router.post("/payWithPaytm", async (req, res) => {
+//   const { amount, courseId, cardId } = req.body;
 
-  const orderId = `ORDER_${new Date().getTime()}`;
-  const customerId = `CUST_${new Date().getTime()}`;
+//   const orderId = `ORDER_${new Date().getTime()}`;
+//   const customerId = `CUST_${new Date().getTime()}`;
 
-  const paytmParams = {
-    MID: PAYTM_MERCHANT_ID,
-    WEBSITE: PAYTM_WEBSITE,
-    CHANNEL_ID: "WEB",
-    INDUSTRY_TYPE_ID: "Retail",
-    ORDER_ID: orderId,
-    CUST_ID: customerId,
-    TXN_AMOUNT: amount.toString(),
-    CALLBACK_URL: PAYTM_CALLBACK_URL,
-  };
+//   const paytmParams = {
+//     MID: PAYTM_MERCHANT_ID,
+//     WEBSITE: PAYTM_WEBSITE,
+//     CHANNEL_ID: "WEB",
+//     INDUSTRY_TYPE_ID: "Retail",
+//     ORDER_ID: orderId,
+//     CUST_ID: customerId,
+//     TXN_AMOUNT: amount.toString(),
+//     CALLBACK_URL: PAYTM_CALLBACK_URL,
+//   };
 
-  try {
-    const checksum = await PaytmChecksum.generateSignature(
-      paytmParams,
-      PAYTM_MERCHANT_KEY
-    );
-    paytmParams.CHECKSUMHASH = checksum;
+//   try {
+//     const checksum = await PaytmChecksum.generateSignature(
+//       paytmParams,
+//       PAYTM_MERCHANT_KEY
+//     );
+//     paytmParams.CHECKSUMHASH = checksum;
 
-    const post_data = JSON.stringify(paytmParams);
+//     const post_data = JSON.stringify(paytmParams);
 
-    const options = {
-      hostname: "securegw-stage.paytm.in",
-      port: 443,
-      path: "/theia/processTransaction",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": post_data.length,
-      },
-    };
+//     const options = {
+//       hostname: "securegw-stage.paytm.in",
+//       port: 443,
+//       path: "/theia/processTransaction",
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Content-Length": post_data.length,
+//       },
+//     };
 
-    const request = https.request(options, (response) => {
-      let data = "";
-      response.on("data", (chunk) => {
-        data += chunk;
-      });
-      response.on("end", () => {
-        const result = JSON.parse(data);
+//     const request = https.request(options, (response) => {
+//       let data = "";
+//       response.on("data", (chunk) => {
+//         data += chunk;
+//       });
+//       response.on("end", () => {
+//         const result = JSON.parse(data);
 
-        if (result.STATUS === "TXN_SUCCESS") {
-          // Insert transaction into database
-          const query = `INSERT INTO transactions (order_id, customer_id, course_id, amount, status) VALUES (?, ?, ?, ?, ?)`;
-          db.query(
-            query,
-            [orderId, customerId, courseId, amount, "SUCCESS"],
-            (err) => {
-              if (err) {
-                console.error("Error inserting transaction:", err);
-                return res
-                  .status(500)
-                  .json({ success: false, message: "Database error" });
-              }
+//         if (result.STATUS === "TXN_SUCCESS") {
+//           // Insert transaction into database
+//           const query = `INSERT INTO transactions (order_id, customer_id, course_id, amount, status) VALUES (?, ?, ?, ?, ?)`;
+//           db.query(
+//             query,
+//             [orderId, customerId, courseId, amount, "SUCCESS"],
+//             (err) => {
+//               if (err) {
+//                 console.error("Error inserting transaction:", err);
+//                 return res
+//                   .status(500)
+//                   .json({ success: false, message: "Database error" });
+//               }
 
-              res.json({
-                success: true,
-                message: "Payment successful",
-                data: result,
-              });
-            }
-          );
-        } else {
-          res.json({ success: false, message: "Payment failed", data: result });
-        }
-      });
-    });
+//               res.json({
+//                 success: true,
+//                 message: "Payment successful",
+//                 data: result,
+//               });
+//             }
+//           );
+//         } else {
+//           res.json({ success: false, message: "Payment failed", data: result });
+//         }
+//       });
+//     });
 
-    request.on("error", (error) => {
-      console.error("Error in payment request:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Payment request failed" });
-    });
+//     request.on("error", (error) => {
+//       console.error("Error in payment request:", error);
+//       res
+//         .status(500)
+//         .json({ success: false, message: "Payment request failed" });
+//     });
 
-    request.write(post_data);
-    request.end();
-  } catch (error) {
-    console.error("Error handling payment:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-});
+//     request.write(post_data);
+//     request.end();
+//   } catch (error) {
+//     console.error("Error handling payment:", error);
+//     res.status(500).json({ success: false, message: "Internal Server Error" });
+//   }
+// });
 
 // Get Transaction Details
 router.get("/transactions", (req, res) => {
