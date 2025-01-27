@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
-import VolunteerTermsAndConditions from "../VolunteerTermsAndConditions";
+import StudentTermsAndConditions from "../StudentTermsAndConditions";
 import { signupUser } from "../../api";
 import { formValidation } from "../../formValidation";
 import { countries } from "../../countries";
 
-
-const VolunteerSignupPopup = ({
-  isPopupOpenVolunteerSignup,
-  closePopupVolunteerSignup,
+const ParentSignupPopup = ({
+  isPopupOpenParentSignup,
+  closePopupParentSignup,
 }) => {
   const [formData, setFormData] = useState({
+    title: "",
     firstName: "",
     lastName: "",
-    title: "",
     address1: "",
     address2: "",
     city: "",
@@ -23,18 +22,16 @@ const VolunteerSignupPopup = ({
     email: "",
     password: "",
     confirmPassword: "",
+    memberType: 3,
     contactNumber: "",
-    volunteerType: "",
-    subject: "",
-    about: "",
-    memberType: 5,
-    roleId: 5,
     agreeToTerms: false,
+    roleId: 3,
+    country: "",
   });
 
   const [errors, setErrors] = useState({});
   const [showPopup, setShowPopup] = useState(false);
-  const [isPopupOpenVolunteerTC, setIsPopupOpenVolunteerTC] = useState(false);
+  const [isPopupOpenTC, setIsPopupOpenTC] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -48,16 +45,15 @@ const VolunteerSignupPopup = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = await formValidation(formData);
-    console.log("Form Errors: ", formErrors);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
 
     const requestData = {
+      title: formData.title,
       firstName: formData.firstName,
       lastName: formData.lastName,
-      title: formData.title,
       address1: formData.address1,
       address2: formData.address2,
       city: formData.city,
@@ -65,37 +61,31 @@ const VolunteerSignupPopup = ({
       zip: formData.zip,
       email: formData.email,
       mobile: formData.contactNumber,
-      volunteerType: formData.volunteerType,
-      subject: formData.subject,
-      about: formData.about,
-      memberType: formData.memberType,
+      memberType: 3,
       password: formData.password,
       roleId: formData.roleId,
       country: formData.country,
     };
+
     try {
       const response = await signupUser(requestData);
       if (response.status === 201) {
         setShowPopup(true);
         setTimeout(() => setShowPopup(false), 3000);
         setFormData({
+          title: "",
           firstName: "",
           lastName: "",
-          title: "",
-          studentID: "",
           address1: "",
           address2: "",
           city: "",
           state: "",
           zip: "",
           email: "",
+          contactNumber: "",
           password: "",
           confirmPassword: "",
-          contactNumber: "",
-          volunteerType: "",
-          subject: "",
-          about: "",
-          agreeToTerms: false,
+          country: "",
         });
         window.location.reload();
       }
@@ -111,8 +101,8 @@ const VolunteerSignupPopup = ({
 
   return (
     <Popup
-      open={isPopupOpenVolunteerSignup}
-      onClose={closePopupVolunteerSignup}
+      open={isPopupOpenParentSignup}
+      onClose={closePopupParentSignup}
       modal
       nested
       contentStyle={{ zIndex: 1100, borderRadius: "12px", padding: "20px" }}
@@ -121,11 +111,11 @@ const VolunteerSignupPopup = ({
       <div className="signup-popup-container">
         <button
           className="signup-popup-close-btn"
-          onClick={closePopupVolunteerSignup}
+          onClick={closePopupParentSignup}
         >
           &times;
         </button>
-        <h1 className="signup-popup-title">Volunteer Registration</h1>
+        <h1 className="signup-popup-title">Parent Registration</h1>
         <form className="signup-popup-form" onSubmit={handleSubmit}>
           <div className="signup-popup-row">
             <div className="signup-popup-form-group">
@@ -174,7 +164,6 @@ const VolunteerSignupPopup = ({
               )}
             </div>
           </div>
-
           <div className="signup-popup-form-group">
             <label>
               Address 1 <span className="required">*</span>
@@ -321,63 +310,6 @@ const VolunteerSignupPopup = ({
               <p className="error-message">{errors.contactNumber}</p>
             )}
           </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Volunteer Type <span className="required">*</span>
-            </label>
-            <select
-              onChange={handleChange}
-              value={formData.volunteerType}
-              name="volunteerType"
-            >
-              <option value="">Select Volunteer Type</option>
-              <option value="teacher">Teacher</option>
-              <option value="teachingAssistant">Teaching Assistant</option>
-              <option value="backOffice">Back Office</option>
-              <option value="others">Others</option>
-            </select>
-            {errors.volunteerType && (
-              <p className="error-message">{errors.volunteerType}</p>
-            )}
-          </div>
-
-          <div className="signup-popup-form-group">
-            <label>
-              Subject <span className="required">*</span>
-            </label>
-            <select
-              onChange={handleChange}
-              value={formData.subject}
-              name="subject"
-            >
-              <option value="">Select Subject</option>
-              <option value="tamil">Tamil</option>
-              <option value="literature">Literature</option>
-              <option value="english">English</option>
-              <option value="math">Math</option>
-              <option value="science">Science</option>
-              <option value="social">Social</option>
-              <option value="history">History</option>
-              <option value="yoga">Yoga</option>
-              <option value="financialEducation">Financial Education</option>
-            </select>
-            {errors.subject && (
-              <p className="error-message">{errors.subject}</p>
-            )}
-          </div>
-          <div className="signup-popup-form-group">
-            <label>
-              About you and your interests <span className="required">*</span>
-            </label>
-            <textarea
-              type="text"
-              name="about"
-              value={formData.about}
-              onChange={handleChange}
-              placeholder="Tell us about yourself and why you are intrested in volunteering. What skills are experiences can you bring to our organization?"
-            />
-            {errors.about && <p className="error-message">{errors.about}</p>}
-          </div>
           <div className="signup-popup-terms">
             <input
               type="checkbox"
@@ -389,7 +321,7 @@ const VolunteerSignupPopup = ({
               I agree to the{" "}
               <span
                 className="terms-link"
-                onClick={() => setIsPopupOpenVolunteerTC(true)}
+                onClick={() => setIsPopupOpenTC(true)}
               >
                 Terms and Conditions
               </span>{" "}
@@ -410,12 +342,12 @@ const VolunteerSignupPopup = ({
           </div>
         )}
       </div>
-      <VolunteerTermsAndConditions
-        isPopupOpenVolunteerTC={isPopupOpenVolunteerTC}
-        closePopupVolunteerTC={() => setIsPopupOpenVolunteerTC(false)}
+      <StudentTermsAndConditions
+        isPopupOpenTC={isPopupOpenTC}
+        closePopupTC={() => setIsPopupOpenTC(false)}
       />
     </Popup>
   );
 };
 
-export default VolunteerSignupPopup;
+export default ParentSignupPopup;

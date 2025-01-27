@@ -244,7 +244,6 @@
     color: var(--text-color);
   }
   
-  /* Pay Button */
   .course-pay-button {
     display: block;
     width: 100%;
@@ -261,6 +260,57 @@
   
   .course-pay-button:hover {
     background: var(--secondary-color);
+  }
+
+
+  .payment-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .payment-popup {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .payment-popup h2 {
+    margin-bottom: 10px;
+  }
+  
+  .payment-popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .payment-popup-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .payment-cancel-button {
+    background-color: #ccc;
+  }
+  
+  .payment-login-button {
+    background-color: #007bff;
+    color: white;
   }
   
   /* Responsive Design */

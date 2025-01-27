@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../config";
+import ParentSignupPopup from "../ParentSignupPopup";
 
 const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [message, setMessage] = useState("");
   const [isPopupOpenStudentSignup, setIsPopupOpenStudentSignup] = useState(false);
   const [isPopupOpenVolunteerSignup, setIsPopupOpenVolunteerSignup] = useState(false);
+  const [isPopupOpenParentSignup, setIsPopupOpenParentSignup] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -52,6 +54,8 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
       setIsPopupOpenStudentSignup(true);
     } else if (role === "Volunteer") {
       setIsPopupOpenVolunteerSignup(true);
+    } else if (role === "Parent") {
+      setIsPopupOpenParentSignup(true);
     }
   };
 
@@ -104,6 +108,10 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
       <VolunteerSignupPopup
         isPopupOpenVolunteerSignup={isPopupOpenVolunteerSignup}
         closePopupVolunteerSignup={() => setIsPopupOpenVolunteerSignup(false)}
+      />
+      <ParentSignupPopup 
+        isPopupOpenParentSignup={isPopupOpenParentSignup} 
+        closePopupParentSignup={() => setIsPopupOpenParentSignup(false)} 
       />
     </Popup>
   );

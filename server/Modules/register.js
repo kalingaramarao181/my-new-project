@@ -8,6 +8,7 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
   try {
     const {
+      title,
       firstName,
       lastName,
       email,
@@ -20,14 +21,16 @@ router.post('/signup', async (req, res) => {
       memberType,
       password,
       roleId,
-      studentID,      
-      volunteerType, 
-      subject,       
-      about,      
+      studentID,
+      volunteerType,
+      subject,
+      about,
+      createdBy, 
     } = req.body;
 
     // Validate required fields
     if (
+      !title ||
       !firstName ||
       !lastName ||
       !email ||
@@ -35,7 +38,7 @@ router.post('/signup', async (req, res) => {
       !address1 ||
       !city ||
       !state ||
-      !zip || 
+      !zip ||
       !password ||
       !memberType
     ) {
@@ -50,7 +53,6 @@ router.post('/signup', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Check if the email already exists
     const existingUsers = await checkUserExists(email);
     if (existingUsers.length > 0) {
       return res.status(400).json({ error: 'User already exists with this email.' });
@@ -58,10 +60,10 @@ router.post('/signup', async (req, res) => {
 
     const userId = await generateUserId(lastName);
 
-    // Prepare member data based on the memberType
     let memberData = [
       firstName,
       lastName,
+      title,
       email,
       mobile,
       address1,
@@ -70,42 +72,39 @@ router.post('/signup', async (req, res) => {
       state,
       zip,
       memberType,
-      roleId || 4,  // Default role if not provided
+      roleId,
     ];
 
-    if (memberType === 5) {  // Volunteer
-      // Add volunteer-specific fields
-      memberData.push(volunteerType || null);  
-      memberData.push(subject || null);        
-      memberData.push(about || null);          
-      memberData.push(null);  // No studentID for volunteers
-    } else if (memberType === 3) {  // Parent
-      // Add parent-specific fields
-      memberData.push(null);  // No volunteerType, subject, or about for parents
+    if (memberType === 5) {
+      // Volunteer
+      memberData.push(volunteerType || null);
+      memberData.push(subject || null);
+      memberData.push(about || null);
+      memberData.push(null);
+    } else if (memberType === 3) {
+      // Parent
       memberData.push(null);
       memberData.push(null);
-      memberData.push(studentID || null);  // Add studentID for parents
+      memberData.push(null);
+      memberData.push(studentID || null); // Add studentID for parents
     } else {
-      // For other member types, just insert null for the extra fields
-      memberData.push(null); 
       memberData.push(null);
       memberData.push(null);
-      memberData.push(null);  
+      memberData.push(null);
+      memberData.push(null);
     }
 
-    // Ensure that there are exactly 15 values in the memberData array
-    if (memberData.length !== 15) {
+    if (memberData.length !== 16) {
       return res.status(500).json({ error: 'Internal Server Error: Invalid number of data values.' });
     }
 
-    // Insert into MEMBER table
     const memberInsertSql = `
       INSERT INTO MEMBER 
-      (F_NAME, L_NAME, EMAIL, MOBILE, ADD1, ADD2, CITY, STATE, ZIP, MEMBER_TYPE_ID, ROLE_ID, VOLUNTEER_TYPE, SUBJECT, ABOUT, STUDENT_ID) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (F_NAME, L_NAME, GENDER, EMAIL, MOBILE, ADD1, ADD2, CITY, STATE, ZIP, MEMBER_TYPE_ID, ROLE_ID, VOLUNTEER_TYPE, SUBJECT, ABOUT, STUDENT_ID, CREATED_BY) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(memberInsertSql, memberData, async (err, memberResult) => {
+    db.query(memberInsertSql, [...memberData, createdBy || null], async (err, memberResult) => {
       if (err) {
         console.error('Database error while inserting member:', err);
         return res.status(500).json({ error: 'Error while adding member' });
@@ -113,16 +112,44 @@ router.post('/signup', async (req, res) => {
 
       const memberId = memberResult.insertId;
 
-      const userData = [memberId, hashedPassword, true, userId];
-      const result = await insertUser(userData);
+      const updatedCreatedBy = createdBy || memberId;
 
-      res.status(201).json({
-        message: 'User created successfully',
-        id: result.insertId,
-        firstName,
-        lastName,
-        email,
-        userId,
+      if (!createdBy) {
+        const updateCreatedBySql = `
+          UPDATE MEMBER
+          SET CREATED_BY = ?
+          WHERE MEMBER_ID = ?
+        `;
+        db.query(updateCreatedBySql, [updatedCreatedBy, memberId], (updateErr) => {
+          if (updateErr) {
+            console.error('Error while updating CREATED_BY:', updateErr);
+            return res.status(500).json({ error: 'Error while updating createdBy field.' });
+          }
+        });
+      }
+
+      const roleAssignSql = `
+        INSERT INTO ROLE_ASSIGN (MEMBER_ID, ROLE_ID, UPDATED_BY, CREATED_TS, LAST_UPD_TS) 
+        VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      `;
+
+      db.query(roleAssignSql, [memberId, roleId, updatedCreatedBy], async (roleErr) => {
+        if (roleErr) {
+          console.error('Database error while inserting role assignment:', roleErr);
+          return res.status(500).json({ error: 'Error while assigning role to the member.' });
+        }
+
+        const userData = [memberId, hashedPassword, true, userId];
+        const result = await insertUser(userData);
+
+        res.status(201).json({
+          message: 'User created successfully',
+          id: result.insertId,
+          firstName,
+          lastName,
+          email,
+          userId,
+        });
       });
     });
   } catch (err) {
@@ -130,6 +157,5 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error. Please try again later.' });
   }
 });
-
 
 module.exports = router;

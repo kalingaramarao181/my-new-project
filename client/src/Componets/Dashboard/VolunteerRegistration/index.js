@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 import { signupUser } from "../../api";
+import { formValidation } from "../../formValidation";
+import { countries } from "../../countries";
 
 const VolunteerRegistration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    title: "",
     studentID: "",
     address1: "",
     address2: "",
@@ -24,6 +27,9 @@ const VolunteerRegistration = () => {
     volunteerType: "",
     subject: "",
     about: "",
+    roleId: 5,
+    country: "",
+
   });
 
   const [errors, setErrors] = useState({});
@@ -37,35 +43,10 @@ const VolunteerRegistration = () => {
     });
   };
 
-  const validateForm = () => {
-    let formErrors = {};
-    if (!formData.firstName.trim())
-      formErrors.firstName = "First name is required.";
-    if (!formData.lastName.trim())
-      formErrors.lastName = "Last name is required.";
-    if (!formData.address1.trim()) formErrors.address1 = "Address is required.";
-    if (!formData.city.trim()) formErrors.city = "City is required.";
-    if (!formData.state.trim()) formErrors.state = "State is required.";
-    if (!formData.zip.trim()) formErrors.zip = "ZIP code is required.";
-    if (!formData.email.trim()) formErrors.email = "Email is required.";
-    if (!formData.password) formErrors.password = "Password is required.";
-    if (formData.password !== formData.confirmPassword) {
-      formErrors.confirmPassword = "Passwords do not match.";
-    }
-    if (!formData.contactNumber.trim())
-      formErrors.contactNumber = "Contact number is required.";
-    if (!formData.volunteerType.trim())
-      formErrors.volunteerType = "Volunteer type is required.";
-    if (!formData.subject.trim()) formErrors.subject = "Subject is required.";
-    if (!formData.about.trim()) formErrors.about = "About is required.";
-    if (!formData.agreeToTerms)
-      formErrors.agreeToTerms = "You must agree to the terms and conditions.";
-    return formErrors;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
+    const formErrors = await formValidation(formData);
     console.log("Form Errors: ", formErrors);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
@@ -75,6 +56,7 @@ const VolunteerRegistration = () => {
     const requestData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      title: formData.title,
       address1: formData.address1,
       address2: formData.address2,
       city: formData.city,
@@ -87,6 +69,9 @@ const VolunteerRegistration = () => {
       about: formData.about,
       memberType: formData.memberType,
       password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      roleId: formData.roleId,
+      country: formData.country,
     };
 
     try {
@@ -144,6 +129,21 @@ const VolunteerRegistration = () => {
               onSubmit={handleSubmit}
             >
               <div className="volunteer-registration-row">
+              <div className="studentregister-form-group">
+              <label>
+                Title <span className="required">*</span>
+              </label>
+              <select
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              >
+                <option value="">Select Title</option>
+                <option value="Male">Mr.</option>
+                <option value="Female">Ms.</option>
+              </select>
+              {errors.title && <p className="error-message">{errors.title}</p>}
+            </div>
                 <div className="volunteer-registration-form-group">
                   <label>
                     First Name <span className="required">*</span>
@@ -251,6 +251,26 @@ const VolunteerRegistration = () => {
                   />
                   {errors.zip && <p className="error-message">{errors.zip}</p>}
                 </div>
+                <div className="signup-popup-form-group">
+                                  <label>
+                                    Country <span className="required">*</span>
+                                  </label>
+                                  <select
+                                    name="country"
+                                    value={formData.country}
+                                    onChange={handleChange}
+                                  >
+                                    <option value="">Select Country</option>
+                                    {countries.map((country) => (
+                                      <option key={country.code} value={country.code}>
+                                        {country.name}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  {errors.country && (
+                                    <p className="error-message">{errors.country}</p>
+                                  )}
+                                </div>
               </div>
               <div className="volunteer-registration-form-group">
                 <label>

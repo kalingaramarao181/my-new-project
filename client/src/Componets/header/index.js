@@ -43,11 +43,13 @@ function Header() {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = Cookies.get("token");
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
 
-      if (token) {
+      if (!token) {
+        return;
+      }
         try {
+          const decodedToken = jwtDecode(token);
+           const userId = decodedToken.userId;
           const userData = await getUser(userId);
           const { F_NAME, L_NAME, email } = userData;
 
@@ -59,7 +61,6 @@ function Header() {
           console.error("Error fetching user data:", error);
         }
       }
-    };
 
     fetchUserData();
 
