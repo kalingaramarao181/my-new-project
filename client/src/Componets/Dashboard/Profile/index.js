@@ -8,7 +8,7 @@ import { TiTick } from "react-icons/ti";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import axios from "axios";
 import { baseUrl } from "../../config";
-import { getUser } from "../../api";
+import { getUser, updateUser } from "../../api";
 
 const Profile = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -59,7 +59,7 @@ const Profile = () => {
 
       const updatedData = { [editField]: updatedUserData[editField] };
 
-      const response = await axios.put(`${baseUrl}users/${userId}`, updatedData);
+      const response = await updateUser(userId, updatedData);
       console.log("Field updated successfully", response.data);
 
       setUserData({ ...userData, ...updatedData });

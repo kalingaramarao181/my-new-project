@@ -12,6 +12,16 @@ export const getUser = async (userId) => {
   }
 };
 
+export const updateUser = async ( userId, updatedData ) => {
+  try {
+    const response = await axios.put(`${baseUrl}users/${userId}`, updatedData);
+    return response.data;
+  } catch (error) { 
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
 export const signupUser = async (requestData) => {
   try {
     const response = await axios.post(`${baseUrl}signup`, requestData);
