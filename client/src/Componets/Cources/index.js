@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import { getCourses } from '../api';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-const Cources = () => {
+const Courses = () => {
   const [courses, setCourses] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -17,6 +19,9 @@ const Cources = () => {
     };
 
     fetchCourses();
+
+    const token = Cookies.get('token');
+    setIsLoggedIn(!!token);
   }, []);
 
   const calculateDuration = (start, end) => {
@@ -67,8 +72,14 @@ const Cources = () => {
           ))}
         </tbody>
       </table>
+      {isLoggedIn && (
+        <div className="courses-container">
+          <h1>Courses</h1>
+          <Link to="/dashboard"><button className="enrolled-courses-btn">Your Enrolled Courses</button></Link>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Cources;
+export default Courses;

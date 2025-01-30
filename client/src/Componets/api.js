@@ -61,10 +61,9 @@ export const getCourseDetails = async (courseId) => {
   }
 };
 
-
 export const getSavedCards = async (userId) => {
   try {
-    const response = await axios.get(`${baseUrl}saved-cards/${userId}`);  // Pass userId to the API endpoint
+    const response = await axios.get(`${baseUrl}saved-cards/${userId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching saved cards:', error);
@@ -83,6 +82,36 @@ export const addNewCard = async (cardData) => {
     return response.data;
   } catch (error) {
     console.error('Error adding new card:', error);
+    throw error;
+  }
+};
+
+export const getStudents = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}students`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    throw error;
+  }
+};
+
+export const getEnrolledCourses = async (studentId) => {
+  try {
+    const response = await axios.get(`${baseUrl}enrolled-courses/${studentId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching enrolled courses:', error);
+    throw error;
+  }
+};
+
+export const getParentChildrenEnrolledCourses = async (parentId) => {
+  try {
+    const response = await axios.get(`${baseUrl}parent-children-enrolled-courses/${parentId}`);    
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching parent children enrolled courses:', error);
     throw error;
   }
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./index.css";
 import { baseUrl } from "../config";
+import { getEnrolledCourses } from "../api";
 
 const StudentDashboardContent = ({ userId, userName }) => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
@@ -11,7 +12,7 @@ const StudentDashboardContent = ({ userId, userName }) => {
     // Fetch enrolled courses for the user
     const fetchEnrolledCourses = async () => {
       try {
-        const response = await axios.get(`${baseUrl}enrolled-courses/${userId}`);
+        const response = await getEnrolledCourses(userId);
         setEnrolledCourses(response.data);
       } catch (error) {
         console.error("Error fetching enrolled courses:", error);
@@ -68,6 +69,7 @@ const StudentDashboardContent = ({ userId, userName }) => {
                 <p className="course-info">
                   <strong>Batch:</strong> {course.BATCH}
                 </p>
+                <button className="course-details-btn">View Course Details</button>
               </div>
             </div>
           ))}

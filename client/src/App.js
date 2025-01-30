@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Componets/home';
 import Dashboard from './Componets/Dashboard';
 import Login from './Componets/Auth';
-import Cources from './Componets/Cources';
+import Courses from './Componets/Cources';
 import Header from './Componets/header';
 import Footer from './Componets/Footer';
 import Attendance from './Componets/Dashboard/Attendance';
@@ -24,8 +24,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Login />} />
-        <Route path="/courses" element={<Cources />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path='/course-payment/:courseId' element={<CoursePayment />} />
+        <Route path="/payment" element={<CoursePayment />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={<Secure />}>
