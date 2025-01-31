@@ -183,6 +183,26 @@
     flex-wrap: wrap;
     gap: 15px;
   }
+
+  .stripe-card-container {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .stripe-card-container:hover {
+    border-color: #007bff;
+  }
+  
+  .stripe-card-container:focus-within {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
   
   .course-saved-cards h4 {
     font-size: 18px;

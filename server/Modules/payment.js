@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const PaytmChecksum = require("paytmchecksum");
 const https = require("https");
+require('dotenv').config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); 
 const db = require('../Config/connection');
+
 
 
 // Paytm Configuration
@@ -100,6 +103,34 @@ const db = require('../Config/connection');
 //     res.status(500).json({ success: false, message: "Internal Server Error" });
 //   }
 // });
+
+router.post("/make-payment", async (req, res) => {
+  const { amount, courseId, userId } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount * 100, // Stripe uses cents
+      currency: "inr",
+      payment_method_types: ["card"],
+    });
+
+    const query = `INSERT INTO transactions (order_id, customer_id, course_id, amount, status) VALUES (?, ?, ?, ?, ?)`;
+    db.query(query, [paymentIntent.id, userId, courseId, amount, "PENDING"], (err) => {
+      if (err) {
+        console.error("Error inserting transaction:", err);
+        return res.status(500).json({ success: false, message: "Database error" });
+      }
+
+      res.json({
+        success: true,
+        clientSecret: paymentIntent.client_secret, // Send to frontend
+      });
+    });
+  } catch (error) {
+    console.error("Error handling payment:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
 
 // Get Transaction Details
 router.get("/transactions", (req, res) => {

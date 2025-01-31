@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./index.css";
-import { baseUrl } from "../config";
 import { getEnrolledCourses } from "../api";
 
 const StudentDashboardContent = ({ userId, userName }) => {
@@ -9,11 +7,10 @@ const StudentDashboardContent = ({ userId, userName }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch enrolled courses for the user
     const fetchEnrolledCourses = async () => {
       try {
         const response = await getEnrolledCourses(userId);
-        setEnrolledCourses(response.data);
+        setEnrolledCourses(response.data || []);
       } catch (error) {
         console.error("Error fetching enrolled courses:", error);
       } finally {

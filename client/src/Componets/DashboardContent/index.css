@@ -13,6 +13,44 @@
     color: #333;
   }
 
+  .dashboard-course-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .dashboard-course-table th, .dashboard-course-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .dashboard-course-table th {
+    background-color: #1F2A3B; /* Set header background color */
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .dashboard-course-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  .dashboard-course-table td {
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dashboard-course-table tr:hover td {
+    background-color: #f0f0f0;
+  }
+
   .course-details-btn{
     padding: 10px 20px;
     background-color: #1F2A3B;
@@ -76,5 +114,22 @@
   
   .course-info strong {
     color: #000;
+  }
+  .student-courses{
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-course-table th, .dashboard-course-table td {
+      padding: 12px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-course-table th, .dashboard-course-table td {
+      padding: 10px;
+      font-size: 12px;
+    }
   }
   

@@ -6,8 +6,6 @@ import "./index.css";
 import { MdEdit } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import axios from "axios";
-import { baseUrl } from "../../config";
 import { getUser, updateUser } from "../../api";
 
 const Profile = () => {
@@ -65,7 +63,7 @@ const Profile = () => {
       setUserData({ ...userData, ...updatedData });
       setUpdatedUserData({});
       setEditField("");
-      setShowPopup(false); // Close popup after saving
+      setShowPopup(false);
     } catch (error) {
       console.error("Error updating user data:", error);
     }
