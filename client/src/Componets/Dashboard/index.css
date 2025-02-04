@@ -37,20 +37,6 @@
   width: 100%;
 }
 
-/* Profile Header */
-.user-profile-container {
-  width: 100%;
-}
-
-.user-profile-header {
-  text-align: center;
-  margin-bottom: 20px;
-  background: #213452;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
 .user-photo {
   width: 120px;
   height: 120px;
@@ -64,14 +50,6 @@
   margin-top: 10px;
 }
 
-/* .user-card Style */
-.user-card {
-  background: white;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 h2 {
   font-size: 1.8rem;
@@ -188,9 +166,6 @@ h2 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .user-profile-header {
-    padding: 15px;
-  }
 
   .user-photo {
     width: 100px;

@@ -1,11 +1,16 @@
 /* Assuming the styles in CourceEnrollment\index.css are similar to the following */
 
+
+
+
+
 .course-enrollment {
     display: flex;
     flex-direction: column;
     padding: 20px;
     background-color: #f9f9f9;
 }
+
 
 .course-enrollment-header {
     font-size: 24px;

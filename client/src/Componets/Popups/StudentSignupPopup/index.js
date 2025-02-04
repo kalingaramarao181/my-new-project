@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./index.css";
 import StudentTermsAndConditions from "../StudentTermsAndConditions";
-import { signupUser } from "../../api";
+import { getLocationData, signupUser } from "../../api";
 import { formValidation } from "../../formValidation";
 import { countries } from "../../countries";
 
-const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup }) => {
+const StudentSignupPopup = ({
+  isPopupOpenStudentSignup,
+  closePopupStudentSignup,
+}) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,16 +34,43 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
   const [showPopup, setShowPopup] = useState(false);
   const [isPopupOpenTC, setIsPopupOpenTC] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-    setErrors({ ...errors, [name]: "" }); // Clear error for the field
+  const handleChange = async (e) => {
+      const { name, value, type, checked } = e.target;
+    
+      const newFormData = {
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      };
+  
+      setFormData(newFormData);
+  
+      if (name === "zip" && newFormData.country) {
+          const country = newFormData.country;
+          const zip = value;
+  
+          if (country === "IN" && !/^\d{6}$/.test(zip)) {
+              setErrors({ zip: "Indian PIN code must be exactly 6 digits." });
+              return;
+          }
+          if (country === "US" && !/^\d{5}$/.test(zip)) {
+              setErrors({ zip: "US ZIP code must be exactly 5 digits." });
+              return;
+          }
+  
+          const locationData = await getLocationData(country, zip, newFormData.city, newFormData.state);
+          
+          if (locationData.error) {
+              setErrors({ zip: locationData.error });
+              console.error("Location data error:", locationData.error);
+          } else {
+              setFormData({
+                  ...newFormData,
+                  city: locationData.city || newFormData.city,
+                  state: locationData.state || newFormData.state,
+              });
+          }
+      }
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +119,11 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      setErrors({ general: error.response?.data?.error || "Something went wrong. Please try again." });
+      setErrors({
+        general:
+          error.response?.data?.error ||
+          "Something went wrong. Please try again.",
+      });
     }
   };
 
@@ -103,13 +137,16 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
       overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <div className="signup-popup-container">
-        <button className="signup-popup-close-btn" onClick={closePopupStudentSignup}>
+        <button
+          className="signup-popup-close-btn"
+          onClick={closePopupStudentSignup}
+        >
           &times;
         </button>
         <h1 className="signup-popup-title">Student Registration</h1>
         <form className="signup-popup-form" onSubmit={handleSubmit}>
           <div className="signup-popup-row">
-          <div className="signup-popup-form-group">
+            <div className="signup-popup-form-group">
               <label>
                 Title <span className="required">*</span>
               </label>
@@ -155,47 +192,66 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
               )}
             </div>
           </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Student ID <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="studentID"
-              value={formData.studentID}
-              onChange={handleChange}
-              placeholder="Enter your student ID"
-            />
-            {errors.studentID && (
-              <p className="error-message">{errors.studentID}</p>
-            )}
-          </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Address 1 <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="address1"
-              value={formData.address1}
-              onChange={handleChange}
-              placeholder="Enter address line 1"
-            />
-            {errors.address1 && (
-              <p className="error-message">{errors.address1}</p>
-            )}
-          </div>
-          <div className="signup-popup-form-group">
-            <label>Address 2</label>
-            <input
-              type="text"
-              name="address2"
-              value={formData.address2}
-              onChange={handleChange}
-              placeholder="Enter address line 2"
-            />
+          <div className="signup-popup-row">
+            <div className="signup-popup-form-group">
+              <label>
+                Address 1 <span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="address1"
+                value={formData.address1}
+                onChange={handleChange}
+                placeholder="Enter address line 1"
+              />
+              {errors.address1 && (
+                <p className="error-message">{errors.address1}</p>
+              )}
+            </div>
+            <div className="signup-popup-form-group">
+              <label>Address 2</label>
+              <input
+                type="text"
+                name="address2"
+                value={formData.address2}
+                onChange={handleChange}
+                placeholder="Enter address line 2"
+              />
+            </div>
           </div>
           <div className="signup-popup-row">
+            <div className="signup-popup-form-group">
+              <label>
+                Country <span className="required">*</span>
+              </label>
+              <select
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+              >
+                <option value="">Select Country</option>
+                {countries.map((country) => (
+                  <option key={country.code} value={country.code}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+              {errors.country && (
+                <p className="error-message">{errors.country}</p>
+              )}
+            </div>
+            <div className="signup-popup-form-group">
+              <label>
+                ZIP <span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="zip"
+                value={formData.zip}
+                onChange={handleChange}
+                placeholder="Enter ZIP code"
+              />
+            </div>
             <div className="signup-popup-form-group">
               <label>
                 City <span className="required">*</span>
@@ -222,40 +278,8 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
               />
               {errors.state && <p className="error-message">{errors.state}</p>}
             </div>
-            <div className="signup-popup-form-group">
-              <label>
-                ZIP <span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="zip"
-                value={formData.zip}
-                onChange={handleChange}
-                placeholder="Enter ZIP code"
-              />
-              {errors.zip && <p className="error-message">{errors.zip}</p>}
-            </div>
-            <div className="signup-popup-form-group">
-                          <label>
-                            Country <span className="required">*</span>
-                          </label>
-                          <select
-                            name="country"
-                            value={formData.country}
-                            onChange={handleChange}
-                          >
-                            <option value="">Select Country</option>
-                            {countries.map((country) => (
-                              <option key={country.code} value={country.code}>
-                                {country.name}
-                              </option>
-                            ))}
-                          </select>
-                          {errors.country && (
-                            <p className="error-message">{errors.country}</p>
-                          )}
-                        </div>
           </div>
+          <div className="signup-popup-row">
           <div className="signup-popup-form-group">
             <label>
               Email <span className="required">*</span>
@@ -269,7 +293,21 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div className="signup-popup-row">
+          <div className="signup-popup-form-group">
+            <label>
+              Contact Number <span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="contactNumber"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              placeholder="Enter your contact number"
+            />
+            {errors.contactNumber && (
+              <p className="error-message">{errors.contactNumber}</p>
+            )}
+          </div>
             <div className="signup-popup-form-group">
               <label>
                 Password <span className="required">*</span>
@@ -301,21 +339,6 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
               )}
             </div>
           </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Contact Number <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              placeholder="Enter your contact number"
-            />
-            {errors.contactNumber && (
-              <p className="error-message">{errors.contactNumber}</p>
-            )}
-          </div>
           <div className="signup-popup-terms">
             <input
               type="checkbox"
@@ -324,7 +347,14 @@ const StudentSignupPopup = ({ isPopupOpenStudentSignup, closePopupStudentSignup 
               onChange={handleChange}
             />
             <label>
-              I agree to the <span className="terms-link" onClick={() => setIsPopupOpenTC(true)}>Terms and Conditions</span> of registration
+              I agree to the{" "}
+              <span
+                className="terms-link"
+                onClick={() => setIsPopupOpenTC(true)}
+              >
+                Terms and Conditions
+              </span>{" "}
+              of registration
               <span className="required">*</span>
             </label>
           </div>

@@ -1,4 +1,7 @@
 /* Student Dashboard Styles */
+.parent-dashboard-content{
+  width: 100%;
+}
 
 .student-dashboard-content {
     padding: 20px;
@@ -11,7 +14,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     color: #333;
-  }
+  } 
 
   .dashboard-course-table {
     width: 100%;

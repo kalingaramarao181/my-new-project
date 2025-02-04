@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import Sidebar from "../../Sidebar";
 import StudentTermsAndConditions from "../../Popups/StudentTermsAndConditions";
-import { signupUser } from "../../api";
+import { getLocationData, signupUser } from "../../api";
 import { formValidation } from "../../formValidation";
 import { countries } from "../../countries";
 import Cookies from "js-cookie";
@@ -47,13 +47,48 @@ const StudentRegisteration = () => {
     }
   }, [token]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
+  
+    // Update formData immediately
+    const newFormData = {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
-    });
-  };
+    };
+
+    setFormData(newFormData);
+
+    // Validate ZIP code format based on country
+    if (name === "zip" && newFormData.country) {
+        const country = newFormData.country;
+        const zip = value; // Directly use the entered value
+
+        // Validate ZIP code format before making the API request
+        if (country === "IN" && !/^\d{6}$/.test(zip)) {
+            setErrors({ zip: "Indian PIN code must be exactly 6 digits." });
+            return;
+        }
+        if (country === "US" && !/^\d{5}$/.test(zip)) {
+            setErrors({ zip: "US ZIP code must be exactly 5 digits." });
+            return;
+        }
+
+        // Fetch location data
+        const locationData = await getLocationData(country, zip, newFormData.city, newFormData.state);
+        
+        if (locationData.error) {
+            setErrors({ zip: locationData.error });
+            console.error("Location data error:", locationData.error);
+        } else {
+            setFormData({
+                ...newFormData,
+                city: locationData.city || newFormData.city,
+                state: locationData.state || newFormData.state,
+            });
+        }
+    }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -176,22 +211,7 @@ const StudentRegisteration = () => {
                   )}
                 </div>
               </div>
-              <div className="studentregister-form-group">
-                <label>
-                  Student ID<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="studentID"
-                  value={formData.studentID}
-                  onChange={handleChange}
-                  placeholder="Enter your student ID"
-                  required
-                />
-                {errors.studentID && (
-                  <p className="error-message">{errors.studentID}</p>
-                )}
-              </div>
+              <div className="studentregister-row">
               <div className="studentregister-form-group">
                 <label>
                   Address 1<span className="required">*</span>
@@ -218,54 +238,9 @@ const StudentRegisteration = () => {
                   placeholder="Enter address line 2"
                 />
               </div>
+              </div>
               <div className="studentregister-row">
-                <div className="studentregister-form-group">
-                  <label>
-                    City<span className="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    placeholder="Enter your city"
-                    required
-                  />
-                  {errors.city && (
-                    <p className="error-message">{errors.city}</p>
-                  )}
-                </div>
-                <div className="studentregister-form-group">
-                  <label>
-                    State<span className="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    placeholder="Enter your state"
-                    required
-                  />
-                  {errors.state && (
-                    <p className="error-message">{errors.state}</p>
-                  )}
-                </div>
-                <div className="studentregister-form-group">
-                  <label>
-                    ZIP<span className="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="zip"
-                    value={formData.zip}
-                    onChange={handleChange}
-                    placeholder="Enter ZIP code"
-                    required
-                  />
-                  {errors.zip && <p className="error-message">{errors.zip}</p>}
-                </div>
-                <div className="signup-popup-form-group">
+              <div className="signup-popup-form-group">
                   <label>
                     Country <span className="required">*</span>
                   </label>
@@ -285,7 +260,53 @@ const StudentRegisteration = () => {
                     <p className="error-message">{errors.country}</p>
                   )}
                 </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    {formData.country === "IN" ? "PIN" : "ZIP"}<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="zip"
+                    value={formData.zip}
+                    onChange={handleChange}
+                    placeholder="Enter ZIP code"
+                    required
+                  />
+                </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    State<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                    placeholder="Enter your state"
+                    required
+                  />
+                  {errors.state && (
+                    <p className="error-message">{errors.state}</p>
+                  )}
+                </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    City<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    placeholder="Enter your city"
+                    required
+                  />
+                  {errors.city && (
+                    <p className="error-message">{errors.city}</p>
+                  )}
+                </div>
               </div>
+              <div className="studentregister-row">
               <div className="studentregister-form-group">
                 <label>
                   Email<span className="required">*</span>
@@ -302,7 +323,22 @@ const StudentRegisteration = () => {
                   <p className="error-message">{errors.email}</p>
                 )}
               </div>
-              <div className="studentregister-row">
+              <div className="studentregister-form-group">
+                <label>
+                  Contact Number<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="contactNumber"
+                  value={formData.contactNumber}
+                  onChange={handleChange}
+                  placeholder="Enter your contact number"
+                  required
+                />
+                {errors.contactNumber && (
+                  <p className="error-message">{errors.contactNumber}</p>
+                )}
+              </div>
                 <div className="studentregister-form-group">
                   <label>
                     Password<span className="required">*</span>
@@ -335,22 +371,6 @@ const StudentRegisteration = () => {
                     <p className="error-message">{errors.confirmPassword}</p>
                   )}
                 </div>
-              </div>
-              <div className="studentregister-form-group">
-                <label>
-                  Contact Number<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="contactNumber"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
-                  placeholder="Enter your contact number"
-                  required
-                />
-                {errors.contactNumber && (
-                  <p className="error-message">{errors.contactNumber}</p>
-                )}
               </div>
               <div className="studentregister-terms">
                 <input

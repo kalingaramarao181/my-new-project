@@ -99,7 +99,7 @@ const Profile = () => {
               <p className="user-id">User ID: {userData.USER_ID}</p>
             </div>
 
-            <div className="user-details user-card">
+            <div className="user-profile-details user-card">
               <h2>Personal Details</h2>
               {[
                 "F_NAME",
@@ -135,25 +135,6 @@ const Profile = () => {
                       className="edit-icon"
                       onClick={() => setEditField(field)}
                     />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="user-documents user-card">
-              <h2>Documents</h2>
-              {Object.keys(userData.documents || {}).map((docKey) => (
-                <div className="document-item" key={docKey}>
-                  <label>{docKey.replace("_", " ").toUpperCase()}:</label>
-                  <img
-                    className="document-preview"
-                    src={userData.documents[docKey]}
-                    alt={docKey}
-                  />
-                  {userData.verified[docKey] ? (
-                    <IoIosCheckmarkCircle className="verified-icon" />
-                  ) : (
-                    <span className="unverified-text">Pending</span>
                   )}
                 </div>
               ))}

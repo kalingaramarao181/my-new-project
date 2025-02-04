@@ -41,6 +41,7 @@ const ParentCourseEnrollmentContent = () => {
     return (
         <div className="Course-container">
             <h1>Course Enrollment</h1>
+            <div className='Course-form'>
 
             <div className="Course-form-group">
                 <label htmlFor="student">Select Student:</label>
@@ -93,7 +94,7 @@ const ParentCourseEnrollmentContent = () => {
                     </ul>
                 </div>
             )}
-
+            </div>
             <button
                 className="Course-submit-button"
                 onClick={handleSubmit}

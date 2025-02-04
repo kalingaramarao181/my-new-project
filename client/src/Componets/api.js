@@ -116,3 +116,47 @@ export const getParentChildrenEnrolledCourses = async (parentId) => {
   }
 };
 
+
+
+export const getLocationData = async (country, zip, city, state) => {
+  try {
+    let response;
+    if (country === "IN") {
+      response = await axios.get(`https://api.postalpincode.in/pincode/${zip}`);
+      console.log("Response from PIN code API (IN):", response.data);
+    } else if (country === "US") {
+      response = await axios.get(`https://api.zippopotam.us/us/${zip}`);
+      console.log("Response from ZIP code API (US):", response.data);
+    } else {
+      return { error: "Country not supported for postal code validation." };
+    }
+
+    const data = response.data;
+    if (country === "IN" && data[0].Status === "Error") {
+      return { error: "Invalid PIN code for India." };
+    } else if (country === "US" && !data.places) {
+      return { error: "Invalid ZIP code for the US." };
+    } else {
+      if (country === "IN") {
+        const place = data[0].PostOffice[0];
+        if (place) {
+          return { city: place.Block, state: place.State, zip: place.Pincode};
+        } else {
+          console.log("Available Post Offices for the PIN code:", data[0].PostOffice);
+          return { error: "Postal code does not match the entered city or state." };
+        }
+      } else if (country === "US") {
+        const place = data.places[0];
+        if (place) {
+          return { city: place["place name"], state: place["state"] };
+        } else {
+          console.log("Available places for ZIP code:", place);
+          return { error: "Postal code does not match the entered city or state." };
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error during postal code validation:", error);
+    return { error: "Unable to verify location." };
+  }
+};
