@@ -1,111 +1,178 @@
-/* Volunteer Registration Container */
+/* Global Styles */
 .student-register-container {
-    min-width: 100%;
+  min-width: 100%;
+}
+
+/* Title */
+.studentregister-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form */
+.studentregister-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Input Groups */
+.studentregister-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tooltip */
+.tooltip {
+  font-size: 0.7rem;
+}
+
+/* Input Field Group 1 (Title Dropdown) */
+.studentregister-form-group1 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title Dropdown */
+.studentregister-title-dropdown {
+  width: 100px;
+}
+
+/* Label Styles */
+.studentregister-form-group label,
+.studentregister-form-group1 label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+/* Input, Select, and Textarea Styles */
+.studentregister-form-group input,
+.studentregister-form-group select,
+.studentregister-form-group1 select,
+.studentregister-form-group textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Focused Input Fields */
+.studentregister-form-group input:focus,
+.studentregister-form-group select:focus,
+.studentregister-form-group textarea:focus {
+  border-color: #021968;
+}
+
+/* Textarea Styling */
+.studentregister-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Row Styles */
+.studentregister-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.studentregister-row .studentregister-form-group {
+  flex: 1;
+}
+
+/* Required Field Indicator */
+.required {
+  color: red;
+}
+
+/* Terms and Conditions Checkbox */
+.studentregister-terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.studentregister-terms label {
+  color: #555;
+  font-size: 14px;
+}
+
+/* Submit Button */
+.studentregister-submit-btn {
+  padding: 12px 20px;
+  background-color: #024091;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.studentregister-submit-btn:hover {
+  background-color: #024091;
+}
+
+/* Success Popup */
+.studentregister-popup {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive Styles */
+
+/* For Tablet and smaller screens (from 768px and below) */
+@media (max-width: 768px) {
+  .studentregister-row {
+    flex-direction: column;
   }
-  /* Title */
-  .studentregister-title {
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
+
   
-  /* Form */
+
   .studentregister-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
-  
-  /* Input Groups */
-  .studentregister-form-group {
-    display: flex;
-    flex-direction: column;
+
+  .studentregister-title {
+    font-size: 24px;
   }
-  
-  .studentregister-form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
+}
+
+/* For Mobile Screens (from 480px and below) */
+@media (max-width: 480px) {
+  .studentregister-title {
+    font-size: 20px;
   }
-  
+
+  .studentregister-form-group label,
+  .studentregister-form-group1 label {
+    font-size: 12px;
+  }
+
   .studentregister-form-group input,
   .studentregister-form-group select,
   .studentregister-form-group textarea {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
+    font-size: 12px;
   }
-  
-  .studentregister-form-group input:focus,
-  .studentregister-form-group select:focus,
-  .studentregister-form-group textarea:focus {
-    border-color: #021968;
-  }
-  
-  /* Textarea Styling */
-  .studentregister-form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  /* Row Styles */
-  .studentregister-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 10px;
-  }
-  
-  .studentregister-row .studentregister-form-group {
-    flex: 1;
-  }
-  
-  /* Required Indicator */
-  .required {
-    color: red;
-  }
-  
-  /* Terms Checkbox */
-  .studentregister-terms {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .studentregister-terms label {
-    color: #555;
-    font-size: 14px;
-  }
-  
-  /* Submit Button */
+
   .studentregister-submit-btn {
-    padding: 12px 20px;
-    background-color: #024091;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .studentregister-submit-btn:hover {
-    background-color: #024091;
-  }
-  
-  /* Success Popup */
-  .studentregister-popup {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    text-align: center;
     font-size: 14px;
+    padding: 10px 15px;
   }
-  
+
+  .studentregister-terms label {
+    font-size: 12px;
+  }
+}

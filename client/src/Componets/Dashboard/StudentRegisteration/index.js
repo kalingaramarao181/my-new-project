@@ -16,7 +16,7 @@ const StudentRegisteration = () => {
     firstName: "",
     lastName: "",
     title: "",
-    studentID: "",
+    dob: "",
     address1: "",
     address2: "",
     city: "",
@@ -58,10 +58,9 @@ const StudentRegisteration = () => {
 
     setFormData(newFormData);
 
-    // Validate ZIP code format based on country
     if (name === "zip" && newFormData.country) {
         const country = newFormData.country;
-        const zip = value; // Directly use the entered value
+        const zip = value; 
 
         // Validate ZIP code format before making the API request
         if (country === "IN" && !/^\d{6}$/.test(zip)) {
@@ -101,7 +100,7 @@ const StudentRegisteration = () => {
     const requestData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      studentID: formData.studentID,
+      dob: formData.dob,
       title: formData.title,
       address1: formData.address1,
       address2: formData.address2,
@@ -161,7 +160,7 @@ const StudentRegisteration = () => {
             <h1 className="studentregister-title">Student Registration</h1>
             <form className="studentregister-form" onSubmit={handleSubmit}>
               <div className="studentregister-row">
-                <div className="studentregister-form-group">
+                <div className="studentregister-form-group1">
                   <label>
                     Title <span className="required">*</span>
                   </label>
@@ -169,8 +168,8 @@ const StudentRegisteration = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
+                    className="studentregister-title-dropdown"
                   >
-                    <option value="">Select Title</option>
                     <option value="Male">Mr.</option>
                     <option value="Female">Ms.</option>
                   </select>
@@ -208,6 +207,22 @@ const StudentRegisteration = () => {
                   />
                   {errors.lastName && (
                     <p className="error-message">{errors.lastName}</p>
+                  )}
+                </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    DOB<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleChange}
+                    placeholder="MM-DD-YYYY"
+                    required
+                  />
+                  {errors.dob && (
+                    <p className="error-message">{errors.dob}</p>
                   )}
                 </div>
               </div>
@@ -309,7 +324,7 @@ const StudentRegisteration = () => {
               <div className="studentregister-row">
               <div className="studentregister-form-group">
                 <label>
-                  Email<span className="required">*</span>
+                  Email(<span className="tooltip">This is your sosaal Login ID</span>)<span className="required">*</span>
                 </label>
                 <input
                   type="email"

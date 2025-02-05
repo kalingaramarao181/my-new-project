@@ -14,15 +14,15 @@
   justify-content: center;
   flex-grow: 1;
   scrollbar-width: thin;
-  scrollbar-color: #024091 #E0E0E0;
+  scrollbar-color: #f7f7f8 #E0E0E0;
 }
 
 .main-content::-webkit-scrollbar {
-  width: 8px;
+  width: 1px;
 }
 
 .main-content::-webkit-scrollbar-thumb {
-  background-color: #4CAF50; 
+  background-color: #fdfdfd; 
   border-radius: 10px;
 }
 
