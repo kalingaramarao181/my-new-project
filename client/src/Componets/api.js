@@ -96,6 +96,16 @@ export const getStudents = async () => {
   }
 };
 
+export const getRefferedStudents = async (userId) => {
+  try {
+    const response = await axios.get(`${baseUrl}students/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    throw error;
+  }
+};
+
 export const getEnrolledCourses = async (studentId) => {
   try {
     const response = await axios.get(`${baseUrl}enrolled-courses/${studentId}`);

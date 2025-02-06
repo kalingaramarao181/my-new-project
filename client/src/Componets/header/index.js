@@ -37,7 +37,7 @@ function Header() {
   };
 
   const handleShowAccount = () => {
-    navigate("/dashboard");
+    navigate("/profile");
   }
 
   useEffect(() => {

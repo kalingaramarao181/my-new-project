@@ -14,7 +14,8 @@ const StudentSignupPopup = ({
     firstName: "",
     lastName: "",
     title: "",
-    studentID: "",
+    dob: "",
+    grade: "",
     address1: "",
     address2: "",
     city: "",
@@ -84,6 +85,8 @@ const StudentSignupPopup = ({
       firstName: formData.firstName,
       lastName: formData.lastName,
       title: formData.title,
+      dob: formData.dob,
+      grade: formData.grade,
       address1: formData.address1,
       address2: formData.address2,
       city: formData.city,
@@ -191,6 +194,51 @@ const StudentSignupPopup = ({
                 <p className="error-message">{errors.lastName}</p>
               )}
             </div>
+            <div className="signup-popup-form-group">
+              <label>
+                Date of Birth <span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                placeholder="MM-DD-YYYY"
+              />
+              {errors.dob && (
+                <p className="error-message">{errors.dob}</p>
+              )}
+            </div>
+            <div className="studentregister-form-group">
+                  <label>
+                    Grade<span className="required">*</span>
+                  </label>
+                  <select
+                    name="grade"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    className="studentregister-title-dropdown"
+                  >
+                    <option value="">Select Grade</option>
+                    <option value="Pre-K">Pre-K</option>
+                    <option value="Kindergarten">Kindergarten</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                    <option value="9th">9th</option>
+                    <option value="10th">10th</option>
+                    <option value="11th">11th</option>
+                    <option value="12th">12th</option>
+                  </select>
+                  {errors.grade && (
+                    <p className="error-message">{errors.grade}</p>
+                  )}
+                </div>
           </div>
           <div className="signup-popup-row">
             <div className="signup-popup-form-group">

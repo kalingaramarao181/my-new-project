@@ -11,6 +11,8 @@ router.post('/signup', async (req, res) => {
       title,
       firstName,
       lastName,
+      dob,
+      grade,
       email,
       mobile,
       address1,
@@ -45,6 +47,8 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required.' });
     }
 
+    const formatedDob = new Date(dob).toISOString().split('T')[0];
+
     // Check if the memberType is valid
     const memberTypeExists = await checkMemberTypeExists(memberType);
     if (memberTypeExists.length === 0) {
@@ -64,6 +68,8 @@ router.post('/signup', async (req, res) => {
       firstName,
       lastName,
       title,
+      formatedDob,
+      grade || null,
       email,
       mobile,
       address1,
@@ -93,15 +99,16 @@ router.post('/signup', async (req, res) => {
       memberData.push(null);
       memberData.push(null);
     }
+    
 
-    if (memberData.length !== 16) {
+    if (memberData.length !== 18) {
       return res.status(500).json({ error: 'Internal Server Error: Invalid number of data values.' });
     }
 
     const memberInsertSql = `
       INSERT INTO MEMBER 
-      (F_NAME, L_NAME, GENDER, EMAIL, MOBILE, ADD1, ADD2, CITY, STATE, ZIP, MEMBER_TYPE_ID, ROLE_ID, VOLUNTEER_TYPE, SUBJECT, ABOUT, STUDENT_ID, CREATED_BY) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (F_NAME, L_NAME, GENDER, DOB, GRADE, EMAIL, MOBILE, ADD1, ADD2, CITY, STATE, ZIP, MEMBER_TYPE_ID, ROLE_ID, VOLUNTEER_TYPE, SUBJECT, ABOUT, STUDENT_ID, CREATED_BY) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(memberInsertSql, [...memberData, createdBy || null], async (err, memberResult) => {

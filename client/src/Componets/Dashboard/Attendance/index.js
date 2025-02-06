@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import Sidebar from '../../Sidebar';
+import { getCourses, getStudents } from '../../api';
 
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -10,6 +11,8 @@ const Attendance = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentEdit, setCurrentEdit] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +31,22 @@ const Attendance = () => {
       alert('Attendance successfully recorded!');
     }
   };
+
+  useEffect(() => {
+    const feachStudentData = async () => {
+      try {
+        const data = await getStudents()
+        const coursesData = await getCourses();
+        console.log(coursesData);
+        setStudents(data);
+        setCourses(coursesData);
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+    feachStudentData(); 
+
+  }, []);
 
   const clearForm = () => {
     setSelectedStudent('');
@@ -78,9 +97,9 @@ const Attendance = () => {
                   value={selectedStudent}
                   onChange={(e) => setSelectedStudent(e.target.value)}
                 >
-                  <option value="">Select a student</option>
-                  <option value="Student 1">Student 1</option>
-                  <option value="Student 2">Student 2</option>
+                  {students.map((student) => (
+                    <option key={student.id} value={student.name}> {student.name} </option>
+                  ))}
                 </select>
               </div>
 
@@ -93,8 +112,9 @@ const Attendance = () => {
                   onChange={(e) => setSelectedCourse(e.target.value)}
                 >
                   <option value="">Select a course</option>
-                  <option value="Introduction to Programming">Introduction to Programming</option>
-                  <option value="Web Development Fundamentals">Web Development Fundamentals</option>
+                  {courses.map((course) => (
+                    <option key={course.id} value={course.COURSE_NAME}> {course.COURSE_NAME} </option>
+                  ))}
                 </select>
               </div>
 
@@ -116,25 +136,6 @@ const Attendance = () => {
                 Proceed to Record Attendance
               </button>
             </form>
-
-            <h2>Today's Attendance</h2>
-            <div className="Attendance-list">
-              {attendanceData.map((record) => (
-                <div key={record.id} className="Attendance-item">
-                  <p>
-                    <strong>Student:</strong> {record.student}
-                  </p>
-                  <p>
-                    <strong>Course:</strong> {record.course}
-                  </p>
-                  <p>
-                    <strong>Status:</strong> {record.status}
-                  </p>
-                  <button className="Attendance-update-button" onClick={() => handleEdit(record)}>
-                    Update
-                  </button>
-                </div>
-              ))}
             </div>
 
             {isPopupOpen && (
@@ -196,7 +197,6 @@ const Attendance = () => {
             )}
           </div>
       </div>
-    </div>
   )
 }
       

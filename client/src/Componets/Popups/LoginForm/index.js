@@ -34,7 +34,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
         setMessage("Login successful!");
         setTimeout(() => {
           closePopup();
-          navigate("/dashboard");
+          navigate("/profile");
         }, 1000);
       } else {
         setMessage("Unexpected response. Please try again.");

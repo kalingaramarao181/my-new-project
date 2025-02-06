@@ -10,15 +10,13 @@
   
   .Attendance-main {
     flex: 1;
-    padding: 20px;
     background-color: #f9f9f9;
     transition: margin-left 0.3s;
   }
   
   .Attendance-container {
     margin: 20px auto;
-  padding: 30px;
-  min-width: 100%;
+    min-width: 100%;
   }
   
   .Attendance-container h1,

@@ -10,6 +10,12 @@
     overflow-y: auto;
   }
 
+  .parent-signup-popup-container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
   .signup-popup-container::-webkit-scrollbar {
     width: 3px;
   }

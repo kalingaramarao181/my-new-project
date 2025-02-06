@@ -61,10 +61,14 @@
   outline: none;
 }
 
+.studentregister-form-group select{
+  width: auto;
+}
+
 /* Focused Input Fields */
 .studentregister-form-group input:focus,
 .studentregister-form-group select:focus,
-.studentregister-form-group textarea:focus {
+.studentregister-form-group textarea:focus {   
   border-color: #021968;
 }
 

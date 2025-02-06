@@ -17,6 +17,7 @@ const StudentRegisteration = () => {
     lastName: "",
     title: "",
     dob: "",
+    grade: "",
     address1: "",
     address2: "",
     city: "",
@@ -31,6 +32,7 @@ const StudentRegisteration = () => {
     roleId: 4,
     country: "",
     updatedBy: "",
+    createdBy: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -42,7 +44,8 @@ const StudentRegisteration = () => {
       const decodedToken = jwtDecode(token);
       setFormData({
         ...formData,
-        updatedBy: decodedToken.userId
+        updatedBy: decodedToken.userId,
+        createdBy: decodedToken.userId,
       });
     }
   }, [token]);
@@ -101,6 +104,7 @@ const StudentRegisteration = () => {
       firstName: formData.firstName,
       lastName: formData.lastName,
       dob: formData.dob,
+      grade: formData.grade,
       title: formData.title,
       address1: formData.address1,
       address2: formData.address2,
@@ -113,6 +117,7 @@ const StudentRegisteration = () => {
       password: formData.password,
       roleId: formData.roleId,
       country: formData.country,
+      createdBy: formData.createdBy,
     };
 
     try {
@@ -123,6 +128,9 @@ const StudentRegisteration = () => {
         setFormData({
           firstName: "",
           lastName: "",
+          title: "",
+          dob: "",
+          grade: "",
           address1: "",
           address2: "",
           city: "",
@@ -170,6 +178,7 @@ const StudentRegisteration = () => {
                     onChange={handleChange}
                     className="studentregister-title-dropdown"
                   >
+                    <option value="">Title</option>
                     <option value="Male">Mr.</option>
                     <option value="Female">Ms.</option>
                   </select>
@@ -223,6 +232,36 @@ const StudentRegisteration = () => {
                   />
                   {errors.dob && (
                     <p className="error-message">{errors.dob}</p>
+                  )}
+                </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    Grade<span className="required">*</span>
+                  </label>
+                  <select
+                    name="grade"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    className="studentregister-title-dropdown"
+                  >
+                    <option value="">Select Grade</option>
+                    <option value="Pre-K">Pre-K</option>
+                    <option value="Kindergarten">Kindergarten</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                    <option value="9th">9th</option>
+                    <option value="10th">10th</option>
+                    <option value="11th">11th</option>
+                    <option value="12th">12th</option>
+                  </select>
+                  {errors.grade && (
+                    <p className="error-message">{errors.grade}</p>
                   )}
                 </div>
               </div>
@@ -412,6 +451,7 @@ const StudentRegisteration = () => {
               <button className="studentregister-submit-btn" type="submit">
                 Submit
               </button>
+              <p className="error-message">{errors.general}</p>
             </form>
             {showPopup && (
               <div className="studentregister-popup">

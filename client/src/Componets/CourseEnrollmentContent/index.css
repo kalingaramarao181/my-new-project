@@ -9,8 +9,15 @@
 
 .course-form-row {
   display: flex;
-  justify-content: space-between;
-  width: 70%;
+  flex-direction: column;
+}
+
+.course-course-name{
+  cursor: pointer;
+}
+
+.course-course-name:hover{
+  color: #1abc9c;
 }
 
 .course-form-group {
