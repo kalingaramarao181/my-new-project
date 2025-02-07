@@ -1,0 +1,15 @@
+.volenteer-signup-popup-container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.volenteer-signup-popup-close-btn{
+    background-color: transparent;
+    color: black;
+    margin-left: auto;
+    border: none;
+    font-size: 24px;
+    align-self: flex-end;
+    cursor: pointer;
+}

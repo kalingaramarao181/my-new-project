@@ -118,4 +118,22 @@ router.get('/students', (req, res) => {
   });
 });
 
+router.get('/students/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const query = `
+    SELECT MEMBER_ID AS id, CONCAT(F_NAME, ' ', L_NAME) AS name
+    FROM member
+    WHERE MEMBER_TYPE_ID = 4 AND CREATED_BY = ?
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching students:", err);
+      return res.status(500).json({ message: "Error fetching students" });
+    }
+
+    res.json(results);
+  });
+});
+
 module.exports = router;

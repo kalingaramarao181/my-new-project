@@ -1,65 +1,181 @@
-/* Assuming the styles in CourceEnrollment\index.css are similar to the following */
+.course-container {
+  min-width: 100%;
+}
+
+.course-container h1 {
+  color: #024091;
+  margin-bottom: 20px;
+}
+
+.course-form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-course-name{
+  cursor: pointer;
+}
+
+.course-course-name:hover{
+  color: #1abc9c;
+}
+
+.course-form-group {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.course-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.course-dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.course-selected-courses {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.course-selected-courses h3 {
+  color: #1abc9c;
+}
+
+.course-selected-courses ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.course-course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  gap: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.course-remove-button {
+  background-color: #024091;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.course-submit-button {
+  background-color: #024091;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  align-self: flex-end;
+}
 
 .course-enrollment {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
 .course-enrollment-header {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .course-enrollment-list {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .course-enrollment-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .course-enrollment-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .course-enrollment-item:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
-/* Specific styles for studentCourseEnrollmentContent.js */
 
 .student-course-enrollment {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #ffffff;
 }
 
 .student-course-enrollment-header {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
 .student-course-enrollment-list {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .student-course-enrollment-item {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
 }
 
 .student-course-enrollment-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .student-course-enrollment-item:hover {
-    background-color: #e9e9e9;
+  background-color: #e9e9e9;
+}
+
+/* General body styles */
+.Course-body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }

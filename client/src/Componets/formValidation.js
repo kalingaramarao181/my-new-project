@@ -3,10 +3,11 @@ import axios from "axios";
 export const formValidation = async (formData) => {
   let errors = {};
 
-  // Basic validations
   if (!formData.title.trim()) errors.title = "Title is required.";
   if (!formData.firstName.trim()) errors.firstName = "First name is required.";
   if (!formData.lastName.trim()) errors.lastName = "Last name is required.";
+  if (!formData.dob.trim()) errors.dob = "Date of birth is required.";
+  if (!formData.grade.trim()) errors.grade = "Grade is required.";
   if (!formData.address1.trim()) errors.address1 = "Address is required.";
   if (!formData.city.trim()) errors.city = "City is required.";
   if (!formData.state.trim()) errors.state = "State is required.";

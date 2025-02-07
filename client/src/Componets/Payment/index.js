@@ -5,12 +5,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  useStripe,
-  useElements,
-  CardElement,
-} from "@stripe/react-stripe-js";
+import { Elements, useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import "./index.css";
 import { baseUrl } from "../config";  
 
@@ -37,37 +32,25 @@ const CheckoutForm = ({ amount, courseId }) => {
     const userId = decodedToken.userId;
 
     try {
-      // Send payment request to backend
-      const { data } = await axios.post(`${baseUrl}make-payment`, {
-        amount,
-        courseId,
-        userId,
-      });
-
+      const { data } = await axios.post(`${baseUrl}make-payment`, { amount, courseId, userId });
       if (data.requires_action) {
         setOtpRequired(true);
         setClientSecret(data.client_secret);
       } else {
-        navigate("/courses", {
-          state: { successMessage: "Payment successful!" },
-        });
+        navigate("/courses", { state: { successMessage: "Payment successful!" } });
       }
     } catch (err) {
       setError("Payment failed. Try again.");
     }
-
     setLoading(false);
   };
 
   const handleOtpSubmit = async () => {
     if (!stripe) return;
-
     try {
       const { paymentIntent } = await stripe.confirmCardPayment(clientSecret);
       if (paymentIntent.status === "succeeded") {
-        navigate("/courses", {
-          state: { successMessage: "Payment successful!" },
-        });
+        navigate("/courses", { state: { successMessage: "Payment successful!" } });
       } else {
         setError("OTP Verification Failed.");
       }
@@ -81,38 +64,24 @@ const CheckoutForm = ({ amount, courseId }) => {
       {!otpRequired ? (
         <>
           <h4>Enter Card Details</h4>
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    fontSize: "20px",
-                    color: "#333",
-                    "::placeholder": {
-                      color: "#888",
-                    },
-                  },
-                  invalid: {
-                    color: "#ff4d4f",
-                  },
-                },
-              }}
-            />
-          <button
-            type="submit"
-            disabled={loading || !stripe}
-            className="course-submit-button"
-          >
+          <CardElement options={{
+            style: {
+              base: {
+                fontSize: "20px",
+                color: "#333",
+                "::placeholder": { color: "#888" },
+              },
+              invalid: { color: "#ff4d4f" },
+            },
+          }} />
+          <button type="submit" disabled={loading || !stripe} className="course-submit-button">
             {loading ? "Processing..." : "Proceed to Payment"}
           </button>
         </>
       ) : (
         <div className="course-otp-form">
           <h4>Enter OTP</h4>
-          <button
-            type="button"
-            onClick={handleOtpSubmit}
-            className="course-submit-button"
-          >
+          <button type="button" onClick={handleOtpSubmit} className="course-submit-button">
             Confirm OTP
           </button>
         </div>
@@ -126,32 +95,25 @@ const CoursePayment = () => {
   const { courseId } = useParams();
   const location = useLocation();
   const selectedCourses = location.state?.selectedCourses || [];
-  const [amount, setAmount] = useState(5000); // Example amount
+  const [amount, setAmount] = useState(5000); 
   const [userInfo, setUserInfo] = useState({});
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get("token");
-
     if (!token) {
       setShowLoginPopup(true);
       return;
     }
 
-    let decodedToken;
     try {
-      decodedToken = jwtDecode(token);
+      const decodedToken = jwtDecode(token);
+      setUserInfo({ F_NAME: decodedToken.firstName, L_NAME: decodedToken.lastName });
     } catch (error) {
       console.error("Invalid token:", error);
       setShowLoginPopup(true);
-      return;
     }
-
-    setUserInfo({
-      F_NAME: decodedToken.firstName,
-      L_NAME: decodedToken.lastName,
-    });
   }, []);
 
   const handleCancel = () => {
@@ -170,23 +132,10 @@ const CoursePayment = () => {
           <div className="payment-popup-overlay">
             <div className="payment-popup">
               <h2>We need to login</h2>
-              <p>
-                You need to log in to access this section. Please log in to
-                continue.
-              </p>
+              <p>You need to log in to access this section. Please log in to continue.</p>
               <div className="payment-popup-buttons">
-                <button
-                  onClick={handleCancel}
-                  className="payment-popup-button payment-cancel-button"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleLogin}
-                  className="payment-popup-button payment-login-button"
-                >
-                  Login
-                </button>
+                <button onClick={handleCancel} className="payment-popup-button payment-cancel-button">Cancel</button>
+                <button onClick={handleLogin} className="payment-popup-button payment-login-button">Login</button>
               </div>
             </div>
           </div>
@@ -194,26 +143,22 @@ const CoursePayment = () => {
         <header className="course-header">
           <div className="course-logo">Payment</div>
         </header>
-
         <div className="course-main-content">
           <div className="course-payment-left">
             <div className="course-payment-options">
               <label>
-                <input type="radio" name="payment-method" checked readOnly />
-                Card <FaCcVisa /> <FaCcMastercard /> <FaCcAmex />
+                <input type="radio" name="payment-method" checked readOnly /> Card <FaCcVisa /> <FaCcMastercard /> <FaCcAmex />
               </label>
             </div>
             <CheckoutForm amount={amount} courseId={courseId} />
           </div>
           <div className="course-payment-right">
             <div className="course-user-info">
-              <p>
-                Hi {userInfo.F_NAME} {userInfo.L_NAME},
-              </p>
+              <p>Hi {userInfo.F_NAME} {userInfo.L_NAME},</p>
               <h2>Pay for Selected Courses</h2>
               <ul>
                 {selectedCourses.map((course, index) => (
-                  <li key={index}>{course}</li>
+                  <li key={index}>{course.courseName || "Unnamed Course"}</li>
                 ))}
               </ul>
             </div>

@@ -13,7 +13,7 @@ const Secure = () => {
     "/dashboard": "Dashboard",
     "/student-reg": "Student Registration",
     "/course-enm": "Course Enrollment",
-    "/attendance": "Attendance Tracking",
+    "/attendance": "Attendance",
     "/course-management": "Course Management",
     "/volunteer-reg": "Volunteers",
     "/profile": "Profile",
@@ -36,7 +36,7 @@ const Secure = () => {
           userResources.includes("Dashboard") &&
           userResources.includes("Student Registration") &&
           userResources.includes("Course Enrollment") &&
-          userResources.includes("Attendance Tracking") &&
+          userResources.includes("Attendance") &&
           userResources.includes("Course Management") &&
           userResources.includes("Volunteers") &&
           userResources.includes("Profile")

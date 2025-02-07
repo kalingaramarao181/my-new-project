@@ -19,7 +19,7 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
   const resourceToPath = {
     "Student Registration": "/student-reg",
     "Course Enrollment": "/course-enm",
-    "Attendance Tracking": "/attendance",
+    "Attendance": "/attendance",
     "Course Management": "/course-management",
     "Volunteers": "/volunteer-reg",
     "Dashboard": "/dashboard",
@@ -30,7 +30,7 @@ const Sidebar = ({ onToggleSidebar, isCollapsed }) => {
     { name: "Dashboard", icon: <TbReportAnalytics className="sidebar-icon" /> },
     { name: "Student Registration", icon: <PiStudentBold className="sidebar-icon" /> },
     { name: "Course Enrollment", icon: <FaProjectDiagram className="sidebar-icon" /> },
-    { name: "Attendance Tracking", icon: <FaRegCalendarAlt className="sidebar-icon" /> },
+    { name: "Attendance", icon: <FaRegCalendarAlt className="sidebar-icon" /> },
     { name: "Course Management", icon: <TbReportAnalytics className="sidebar-icon" /> },
     { name: "Volunteers", icon: <TiGroupOutline className="sidebar-icon" /> },
     { name: "Profile", icon: <ImProfile className="sidebar-icon" /> },

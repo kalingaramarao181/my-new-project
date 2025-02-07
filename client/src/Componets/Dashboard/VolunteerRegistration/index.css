@@ -1,11 +1,7 @@
-/* Volunteer Registration Container */
 .volunteer-registration-container {
-  margin: 20px auto;
-  padding: 30px;
   min-width: 100%;
 
 }
-/* Title */
 .volunteer-registration-title {
   font-size: 28px;
   font-weight: bold;
@@ -14,30 +10,30 @@
   color: #333;
 }
 
-/* Form */
 .volunteer-registration-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
-/* Input Groups */
-.volunteer-registration-form-group {
+.volunteer-registration-form-group, .volunteer-registration-form-group1 {
   display: flex;
   flex-direction: column;
 }
 
-.volunteer-registration-form-group label {
+.volunteer-registration-form-group label,
+.volunteer-registration-form-group1 label {
   font-weight: bold;
+  font-size: 0.8rem;
   margin-bottom: 5px;
   color: #555;
 }
-
+.volunteer-registration-form-group1 select,
 .volunteer-registration-form-group input,
 .volunteer-registration-form-group select,
 .volunteer-registration-form-group textarea {
-  padding: 10px;
-  font-size: 14px;
+  padding: 8px;
+  font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
@@ -109,4 +105,47 @@
   border-radius: 5px;
   text-align: center;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .volunteer-registration-row {
+    flex-direction: column;
+  }
+
+  
+
+  .volunteer-registration-form {
+    gap: 10px;
+  }
+
+  .volunteer-registration-title {
+    font-size: 24px;
+  }
+}
+
+/* For Mobile Screens (from 480px and below) */
+@media (max-width: 480px) {
+  .volunteer-registration-title {
+    font-size: 20px;
+  }
+
+  .volunteer-registration-form-group label,
+  .volunteer-registration-form-group1 label {
+    font-size: 12px;
+  }
+
+  .volunteer-registration-form-group input,
+  .volunteer-registration-form-group select,
+  .volunteer-registration-form-group textarea {
+    font-size: 12px;
+  }
+
+  .volunteer-registration-submit-btn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .volunteer-registration-terms label {
+    font-size: 12px;
+  }
 }

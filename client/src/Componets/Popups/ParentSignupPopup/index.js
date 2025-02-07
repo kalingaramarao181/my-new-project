@@ -108,7 +108,7 @@ const ParentSignupPopup = ({
       contentStyle={{ zIndex: 1100, borderRadius: "12px", padding: "20px" }}
       overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
-      <div className="signup-popup-container">
+      <div className="parent-signup-popup-container">
         <button
           className="signup-popup-close-btn"
           onClick={closePopupParentSignup}
@@ -116,9 +116,9 @@ const ParentSignupPopup = ({
           &times;
         </button>
         <h1 className="signup-popup-title">Parent Registration</h1>
-        <form className="signup-popup-form" onSubmit={handleSubmit}>
-          <div className="signup-popup-row">
-            <div className="signup-popup-form-group">
+        <form className="studentregister-form" onSubmit={handleSubmit}>
+          <div className="studentregister-row">
+            <div className="studentregister-form-group1">
               <label>
                 Title <span className="required">*</span>
               </label>
@@ -126,16 +126,17 @@ const ParentSignupPopup = ({
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
+                className="studentregister-title-dropdown"
               >
-                <option value="">Select Title</option>
+                <option value="">Title</option>
                 <option value="Male">Mr.</option>
                 <option value="Female">Ms.</option>
               </select>
               {errors.title && <p className="error-message">{errors.title}</p>}
             </div>
-            <div className="signup-popup-form-group">
+            <div className="studentregister-form-group">
               <label>
-                First Name <span className="required">*</span>
+                First Name<span className="required">*</span>
               </label>
               <input
                 type="text"
@@ -143,14 +144,15 @@ const ParentSignupPopup = ({
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="Enter your first name"
+                required
               />
               {errors.firstName && (
                 <p className="error-message">{errors.firstName}</p>
               )}
             </div>
-            <div className="signup-popup-form-group">
+            <div className="studentregister-form-group">
               <label>
-                Last Name <span className="required">*</span>
+                Last Name<span className="required">*</span>
               </label>
               <input
                 type="text"
@@ -158,77 +160,56 @@ const ParentSignupPopup = ({
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Enter your last name"
+                required
               />
               {errors.lastName && (
                 <p className="error-message">{errors.lastName}</p>
               )}
             </div>
-          </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Address 1 <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="address1"
-              value={formData.address1}
-              onChange={handleChange}
-              placeholder="Enter address line 1"
-            />
-            {errors.address1 && (
-              <p className="error-message">{errors.address1}</p>
-            )}
-          </div>
-          <div className="signup-popup-form-group">
-            <label>Address 2</label>
-            <input
-              type="text"
-              name="address2"
-              value={formData.address2}
-              onChange={handleChange}
-              placeholder="Enter address line 2"
-            />
-          </div>
-          <div className="signup-popup-row">
-            <div className="signup-popup-form-group">
+            <div className="studentregister-form-group">
               <label>
-                City <span className="required">*</span>
+                DOB<span className="required">*</span>
               </label>
               <input
                 type="text"
-                name="city"
-                value={formData.city}
+                name="dob"
+                value={formData.dob}
                 onChange={handleChange}
-                placeholder="Enter your city"
+                placeholder="MM-DD-YYYY"
+                required
               />
-              {errors.city && <p className="error-message">{errors.city}</p>}
+              {errors.dob && <p className="error-message">{errors.dob}</p>}
             </div>
-            <div className="signup-popup-form-group">
+          </div>
+          <div className="studentregister-row">
+            <div className="studentregister-form-group">
               <label>
-                State <span className="required">*</span>
+                Address 1<span className="required">*</span>
               </label>
               <input
                 type="text"
-                name="state"
-                value={formData.state}
+                name="address1"
+                value={formData.address1}
                 onChange={handleChange}
-                placeholder="Enter your state"
+                placeholder="Enter address line 1"
+                required
               />
-              {errors.state && <p className="error-message">{errors.state}</p>}
+              {errors.address1 && (
+                <p className="error-message">{errors.address1}</p>
+              )}
             </div>
-            <div className="signup-popup-form-group">
-              <label>
-                ZIP <span className="required">*</span>
-              </label>
+            <div className="studentregister-form-group">
+              <label>Address 2</label>
               <input
                 type="text"
-                name="zip"
-                value={formData.zip}
+                name="address2"
+                value={formData.address2}
                 onChange={handleChange}
-                placeholder="Enter ZIP code"
+                placeholder="Enter address line 2"
               />
-              {errors.zip && <p className="error-message">{errors.zip}</p>}
             </div>
+          </div>
+          <div className="studentregister-row">
             <div className="signup-popup-form-group">
               <label>
                 Country <span className="required">*</span>
@@ -249,24 +230,85 @@ const ParentSignupPopup = ({
                 <p className="error-message">{errors.country}</p>
               )}
             </div>
-          </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Email <span className="required">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
-          <div className="signup-popup-row">
-            <div className="signup-popup-form-group">
+            <div className="studentregister-form-group">
               <label>
-                Password <span className="required">*</span>
+                {formData.country === "IN" ? "PIN" : "ZIP"}
+                <span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="zip"
+                value={formData.zip}
+                onChange={handleChange}
+                placeholder="Enter ZIP code"
+                required
+              />
+            </div>
+            <div className="studentregister-form-group">
+              <label>
+                State<span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="Enter your state"
+                required
+              />
+              {errors.state && <p className="error-message">{errors.state}</p>}
+            </div>
+            <div className="studentregister-form-group">
+              <label>
+                City<span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                placeholder="Enter your city"
+                required
+              />
+              {errors.city && <p className="error-message">{errors.city}</p>}
+            </div>
+          </div>
+          <div className="studentregister-row">
+            <div className="studentregister-form-group">
+              <label>
+                Email(
+                <span className="tooltip">This is your sosaal Login ID</span>)
+                <span className="required">*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
+              {errors.email && <p className="error-message">{errors.email}</p>}
+            </div>
+            <div className="studentregister-form-group">
+              <label>
+                Contact Number<span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                placeholder="Enter your contact number"
+                required
+              />
+              {errors.contactNumber && (
+                <p className="error-message">{errors.contactNumber}</p>
+              )}
+            </div>
+            <div className="studentregister-form-group">
+              <label>
+                Password<span className="required">*</span>
               </label>
               <input
                 type="password"
@@ -274,14 +316,15 @@ const ParentSignupPopup = ({
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter a password"
+                required
               />
               {errors.password && (
                 <p className="error-message">{errors.password}</p>
               )}
             </div>
-            <div className="signup-popup-form-group">
+            <div className="studentregister-form-group">
               <label>
-                Confirm Password <span className="required">*</span>
+                Confirm Password<span className="required">*</span>
               </label>
               <input
                 type="password"
@@ -289,33 +332,20 @@ const ParentSignupPopup = ({
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="Confirm your password"
+                required
               />
               {errors.confirmPassword && (
                 <p className="error-message">{errors.confirmPassword}</p>
               )}
             </div>
           </div>
-          <div className="signup-popup-form-group">
-            <label>
-              Contact Number <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              placeholder="Enter your contact number"
-            />
-            {errors.contactNumber && (
-              <p className="error-message">{errors.contactNumber}</p>
-            )}
-          </div>
-          <div className="signup-popup-terms">
+          <div className="studentregister-terms">
             <input
               type="checkbox"
               name="agreeToTerms"
               checked={formData.agreeToTerms}
               onChange={handleChange}
+              required
             />
             <label>
               I agree to the{" "}
@@ -325,16 +355,16 @@ const ParentSignupPopup = ({
               >
                 Terms and Conditions
               </span>{" "}
-              of registration
-              <span className="required">*</span>
+              of registration <span className="required">*</span>
             </label>
           </div>
           {errors.agreeToTerms && (
             <p className="error-message">{errors.agreeToTerms}</p>
           )}
-          <button className="signup-popup-submit-btn" type="submit">
+          <button className="studentregister-submit-btn" type="submit">
             Submit
           </button>
+          <p className="error-message">{errors.general}</p>
         </form>
         {showPopup && (
           <div className="signup-popup-success">

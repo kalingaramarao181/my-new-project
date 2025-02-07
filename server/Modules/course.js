@@ -85,18 +85,18 @@ router.get('/course/:courseId', (req, res) => {
         LEFT JOIN COURSE_ENROLLMENT ce ON m.MEMBER_ID = ce.MEMBER_ID
         LEFT JOIN COURSE c ON ce.COURSE_ID = c.COURSE_ID
         LEFT JOIN MEMBER t ON c.TEACHER_ID = t.MEMBER_ID
-        WHERE m.CREATED_BY = ? AND ce.STATUS = 'ENROLLED' AND c.ACTIVE = 1
+        WHERE m.CREATED_BY = ?
         ORDER BY m.MEMBER_ID, c.COURSE_ID;
     `;
 
     db.query(query, [parentId], (error, results) => {
         if (error) {
-            console.error("Error fetching enrolled courses:", error);
-            return res.status(500).json({ error: "Failed to fetch enrolled courses" });
+            console.error("Error fetching students and courses:", error);
+            return res.status(500).json({ error: "Failed to fetch students and courses" });
         }
 
         if (results.length === 0) {
-            return res.status(404).json({ message: `No enrolled courses found for parent ID ${parentId}` });
+            return res.status(404).json({ message: `No students found for parent ID ${parentId}` });
         }
 
         const studentMap = {};
@@ -125,12 +125,11 @@ router.get('/course/:courseId', (req, res) => {
                 });
             }
         });
+
         const finalResponse = {
             parentId: parentId,
             students: Object.values(studentMap)
         };
-
-        
 
         res.status(200).json(finalResponse);
     });

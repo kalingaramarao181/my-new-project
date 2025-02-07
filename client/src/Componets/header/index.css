@@ -50,7 +50,7 @@ body {
   background-color: white;
   border-radius: 50%;
   position: fixed;
-  top: 10px;
+  top: 4px;
   left: 10px;
   transition: opacity 0.3s, transform 0.3s;
   z-index: 1001;
@@ -131,7 +131,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 20px;
+  padding: 20px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;

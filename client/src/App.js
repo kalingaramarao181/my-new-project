@@ -11,7 +11,6 @@ import StudentRegisteration from './Componets/Dashboard/StudentRegisteration';
 import VolunteerRegistration from './Componets/Dashboard/VolunteerRegistration';
 import CourseEnrollment from './Componets/Dashboard/CourceEnrollment';
 import CourseManagement from './Componets/Dashboard/CourseManagement';
-import Payment from './Componets/Payment';
 import Secure from './Componets/Secure';
 import CoursePayment from './Componets/Payment';
 import Profile from './Componets/Dashboard/Profile';
@@ -27,8 +26,6 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path='/course-payment/:courseId' element={<CoursePayment />} />
         <Route path="/payment" element={<CoursePayment />} />
-
-        {/* Protected Routes */}
         <Route path="/dashboard" element={<Secure />}>
           <Route index element={<Dashboard />} />
         </Route>
