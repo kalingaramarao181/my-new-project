@@ -7,7 +7,7 @@ import { signupUser } from "../../api";
 import { formValidation } from "../../formValidation";
 import { countries } from "../../countries";
 import Cookies from "js-cookie";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const StudentRegisteration = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -176,64 +176,68 @@ const StudentRegisteration = () => {
                   )}
                 </div>
               </div>
-              <div className="studentregister-form-group">
-                <label>
-                  Student ID<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="studentID"
-                  value={formData.studentID}
-                  onChange={handleChange}
-                  placeholder="Enter your student ID"
-                  required
-                />
-                {errors.studentID && (
-                  <p className="error-message">{errors.studentID}</p>
-                )}
-              </div>
-              <div className="studentregister-form-group">
-                <label>
-                  Address 1<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="address1"
-                  value={formData.address1}
-                  onChange={handleChange}
-                  placeholder="Enter address line 1"
-                  required
-                />
-                {errors.address1 && (
-                  <p className="error-message">{errors.address1}</p>
-                )}
-              </div>
-              <div className="studentregister-form-group">
-                <label>Address 2</label>
-                <input
-                  type="text"
-                  name="address2"
-                  value={formData.address2}
-                  onChange={handleChange}
-                  placeholder="Enter address line 2"
-                />
-              </div>
               <div className="studentregister-row">
                 <div className="studentregister-form-group">
                   <label>
-                    City<span className="required">*</span>
+                    Address 1<span className="required">*</span>
                   </label>
                   <input
                     type="text"
-                    name="city"
-                    value={formData.city}
+                    name="address1"
+                    value={formData.address1}
                     onChange={handleChange}
-                    placeholder="Enter your city"
+                    placeholder="Enter address line 1"
                     required
                   />
-                  {errors.city && (
-                    <p className="error-message">{errors.city}</p>
+                  {errors.address1 && (
+                    <p className="error-message">{errors.address1}</p>
                   )}
+                </div>
+                <div className="studentregister-form-group">
+                  <label>Address 2</label>
+                  <input
+                    type="text"
+                    name="address2"
+                    value={formData.address2}
+                    onChange={handleChange}
+                    placeholder="Enter address line 2"
+                  />
+                </div>
+              </div>
+              <div className="studentregister-row">
+                <div className="signup-popup-form-group">
+                  <label>
+                    Country <span className="required">*</span>
+                  </label>
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Country</option>
+                    {countries.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.country && (
+                    <p className="error-message">{errors.country}</p>
+                  )}
+                </div>
+                <div className="studentregister-form-group">
+                  <label>
+                    ZIP<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="zip"
+                    value={formData.zip}
+                    onChange={handleChange}
+                    placeholder="Enter ZIP code"
+                    required
+                  />
+                  {errors.zip && <p className="error-message">{errors.zip}</p>}
                 </div>
                 <div className="studentregister-form-group">
                   <label>
@@ -253,36 +257,18 @@ const StudentRegisteration = () => {
                 </div>
                 <div className="studentregister-form-group">
                   <label>
-                    ZIP<span className="required">*</span>
+                    City<span className="required">*</span>
                   </label>
                   <input
                     type="text"
-                    name="zip"
-                    value={formData.zip}
+                    name="city"
+                    value={formData.city}
                     onChange={handleChange}
-                    placeholder="Enter ZIP code"
+                    placeholder="Enter your city"
                     required
                   />
-                  {errors.zip && <p className="error-message">{errors.zip}</p>}
-                </div>
-                <div className="signup-popup-form-group">
-                  <label>
-                    Country <span className="required">*</span>
-                  </label>
-                  <select
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Country</option>
-                    {countries.map((country) => (
-                      <option key={country.code} value={country.code}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.country && (
-                    <p className="error-message">{errors.country}</p>
+                  {errors.city && (
+                    <p className="error-message">{errors.city}</p>
                   )}
                 </div>
               </div>
