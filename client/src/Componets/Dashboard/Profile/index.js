@@ -73,6 +73,14 @@ const Profile = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const getRole = (roleId) => {
+    if (roleId === 1) return "Superadmin";
+    if (roleId === 2) return "Admin";
+    if (roleId === 3) return "Parent";
+    if (roleId === 4) return "Student";
+    if (roleId === 5) return "Volunteer";
+    return "Guest";
+  }
   const maskPassword = (password) => {
     if (!password) return "";
     return "*".repeat(password.length > 5 ? 5 : password.length);
@@ -97,6 +105,8 @@ const Profile = () => {
                 {userData.F_NAME} {userData.L_NAME}
               </h1>
               <p className="user-id">User ID: {userData.USER_ID}</p>
+              <p className="user-id">{getRole(userData.ROLE_ID)}</p>
+
             </div>
 
             <div className="user-profile-details user-card">

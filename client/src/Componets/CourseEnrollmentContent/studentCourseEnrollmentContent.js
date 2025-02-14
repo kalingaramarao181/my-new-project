@@ -36,15 +36,15 @@ const StudentCourseEnrollmentContent = () => {
     };
 
     return (
-        <div className="Course-container">
+        <div className="course-container">
             <h1>Course Enrollment</h1>
 
-            <div className="Course-form-group">
+            <div className="course-form-group">
                 <label htmlFor="course">Available Courses:</label>
                 <select
                     id="course"
                     onChange={(e) => handleAddCourse(e.target.value)}
-                    className="Course-dropdown"
+                    className="course-dropdown"
                 >
                     <option value="">Select a course</option>
                     {courses.map((course, index) => (
@@ -56,14 +56,14 @@ const StudentCourseEnrollmentContent = () => {
             </div>
 
             {selectedCourses.length > 0 && (
-                <div className="Course-selected-courses">
+                <div className="course-selected-courses">
                     <h3>Selected Courses:</h3>
                     <ul>
                         {selectedCourses.map((course, index) => (
-                            <li key={index} className="Course-course-item">
+                            <li key={index} className="course-course-item">
                                 {course}
                                 <button
-                                    className="Course-remove-button"
+                                    className="course-remove-button"
                                     onClick={() => handleRemoveCourse(course)}
                                 >
                                     Remove
@@ -75,7 +75,7 @@ const StudentCourseEnrollmentContent = () => {
             )}
 
             <button
-                className="Course-submit-button"
+                className="course-submit-button"
                 onClick={handleSubmit}
                 disabled={selectedCourses.length === 0}
             >
