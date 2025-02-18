@@ -10,6 +10,8 @@ const resourceRouters = require('./Modules/resource')
 const userRouters = require('./Modules/users')
 const courseRouters = require('./Modules/course')
 const paymentRouters = require('./Modules/payment')
+const authControllers = require('./Modules/authController')
+
 
 const app = express();
 
@@ -23,6 +25,7 @@ app.use('/api', resourceRouters);
 app.use('/api', userRouters);
 app.use('/api', courseRouters);
 app.use('/api', paymentRouters);
+app.use('/api', authControllers);
 
 
 const port = process.env.PORT || 3000;

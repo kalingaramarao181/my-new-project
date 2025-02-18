@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../config";
 import ParentSignupPopup from "../ParentSignupPopup";
+import PasswordUpdate from "../PasswordUpdate";
 
 const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
   const [isPopupOpenStudentSignup, setIsPopupOpenStudentSignup] = useState(false);
   const [isPopupOpenVolunteerSignup, setIsPopupOpenVolunteerSignup] = useState(false);
   const [isPopupOpenParentSignup, setIsPopupOpenParentSignup] = useState(false);
+  const [isOpenUpdatedPopup, setIsOpenUpdatedPopup] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -94,7 +96,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
           </form>
           {message && <p className={`login-message ${message.includes("successful") ? "success" : "error"}`}>{message}</p>}
           <p className="login-forgot-password">
-            <span onClick={() => openSignUpForm(role)}>SignUp</span> / <span>Forgot Password?</span>
+            <span onClick={() => openSignUpForm(role)}>SignUp</span> / <span onClick={() => setIsOpenUpdatedPopup(true)}>Forgot Password?</span>
           </p>
           <button className="login-close-popup" onClick={closePopup}>
             Close
@@ -113,6 +115,12 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
         isPopupOpenParentSignup={isPopupOpenParentSignup} 
         closePopupParentSignup={() => setIsPopupOpenParentSignup(false)} 
       />
+      <PasswordUpdate
+      isOpenUpdatedPopup={isOpenUpdatedPopup}
+      closeUpdatadPopup={() => setIsOpenUpdatedPopup(false)}
+
+      />
+      
     </Popup>
   );
 };
