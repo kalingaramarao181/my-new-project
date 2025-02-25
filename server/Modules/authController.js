@@ -3,31 +3,15 @@ const { sendEmail } = require("../Config/mailer");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../Config/connection');
+const {checkUserExists} = require('./utils');
 const router = express.Router();
 require("dotenv").config();
+
 
 // Generate OTP
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
-
-// Check if user exists by joining MEMBER and USER tables
-const checkUserExists = (email) => {
-    return new Promise((resolve, reject) => {
-        const checkUserSql = `
-            SELECT u.USER_ID, u.MEMEBER_ID 
-            FROM USER u
-            JOIN MEMBER m ON u.MEMEBER_ID = m.MEMBER_ID
-            WHERE m.EMAIL = ?
-        `;
-        db.query(checkUserSql, [email], (err, data) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(data.length > 0 ? data[0] : null);
-        });
-    });
-};
 
 // Send OTP route
 router.post('/send-otp', async (req, res) => {
@@ -81,7 +65,7 @@ router.post('/reset-password', async (req, res) => {
         const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        const updateQuery = "UPDATE USER SET PWD = ? WHERE MEMEBER_ID = ?";
+        const updateQuery = "UPDATE USER SET PWD = ? WHERE MEMBER_ID = ?";
         db.query(updateQuery, [hashedPassword, decoded.memberId], (err) => {
             if (err) return res.status(500).json({ message: "Database error" });
             res.json({ message: "Password updated successfully" });

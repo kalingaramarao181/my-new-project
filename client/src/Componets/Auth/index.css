@@ -112,34 +112,6 @@ body.login-page::before {
     z-index: 1000;
 }
 
-.login-popup-content {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.login-popup-content h2 {
-    color: #1E293B;
-    margin-bottom: 20px;
-}
-
-.login-popup-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.login-popup-content input {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
 .login-popup-login-button {
     background-color: #1E293B;
     color: white;

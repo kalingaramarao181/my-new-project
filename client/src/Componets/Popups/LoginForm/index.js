@@ -61,6 +61,10 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
     }
   };
 
+  const handleTabClick = () => {
+    setIsOpenUpdatedPopup(true);
+  }
+
   return (
     <Popup
       open={isPopupOpen}
@@ -71,7 +75,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
       overlayStyle={{ zIndex: 1100, backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <div className="login-popup">
-        <div className="login-popup-content">
+        {!isOpenUpdatedPopup ? <div className="login-popup-content">
           <h2>Welcome to {role}</h2>
           <form onSubmit={handleLoginSubmit}>
             <label className="login-label">Email</label>
@@ -101,7 +105,7 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
           <button className="login-close-popup" onClick={closePopup}>
             Close
           </button>
-        </div>
+        </div> : <PasswordUpdate handleTabClick={handleTabClick}/>}
       </div>
       <StudentSignupPopup
         isPopupOpenStudentSignup={isPopupOpenStudentSignup}
@@ -114,11 +118,6 @@ const LoginForm = ({ isPopupOpen, closePopup, role }) => {
       <ParentSignupPopup 
         isPopupOpenParentSignup={isPopupOpenParentSignup} 
         closePopupParentSignup={() => setIsPopupOpenParentSignup(false)} 
-      />
-      <PasswordUpdate
-      isOpenUpdatedPopup={isOpenUpdatedPopup}
-      closeUpdatadPopup={() => setIsOpenUpdatedPopup(false)}
-
       />
       
     </Popup>

@@ -1,11 +1,5 @@
-/* Global Styles */
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  /* Container for the Authentication Box */
-  .auth-container {
+/* Container for the Authentication Box */
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,10 +59,6 @@ body {
     outline: none;
     box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
   }
-  .auth-form-container{
-    background-color: white;
-    padding: 10px;
-  }
   
   .otp-input:focus {
     border-color: #4e54c8;
@@ -111,7 +101,7 @@ body {
   .auth-btn {
     width: 100%;
     padding: 0.8rem;
-    background-color: #4e54c8;
+    background-color: #0e1374;
     color: #fff;
     border: none;
     border-radius: 4px;
